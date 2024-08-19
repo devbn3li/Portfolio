@@ -20,7 +20,7 @@ const Nav = () => {
       }`}
     >
       <h1 className="font-bold text-xl md:text-3xl text-opacity-70 hover:text-opacity-100 transition-all duration-300">
-        Mohamed Ali
+        M.Ali
       </h1>
       <ul className="flex gap-6 md:gap-10">
         <li className="relative group">
