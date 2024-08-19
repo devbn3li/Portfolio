@@ -1,10 +1,12 @@
 import Nav from "../components/Nav";
+import Hero from "../components/Hero";
 
 export default function Home() {
   return (
-    <div className="bg-black">
-      <div className="w-full">
-        <Nav />
+    <div className="bg-[#09090b] font-poppins">
+      <Nav />
+      <div className="pt-16">
+        <Hero />
       </div>
     </div>
   );

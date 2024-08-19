@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 const Nav = () => {
+  const [scrolling, setScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolling(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="bg-black text-white text-lg md:text-2xl py-5 px-10 md:px-20 flex justify-between items-center shadow-lg">
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 bg-black text-white text-lg md:text-2xl py-5 px-10 md:px-20 flex justify-between items-center shadow-lg transition-all duration-300 ease-in-out ${
+        scrolling ? "bg-opacity-70" : "bg-opacity-0"
+      }`}
+    >
       <h1 className="font-bold text-xl md:text-3xl text-opacity-70 hover:text-opacity-100 transition-all duration-300">
         Mohamed Ali
       </h1>
