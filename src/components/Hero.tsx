@@ -1,5 +1,6 @@
 import React from "react";
 import Tile from "./ui/Tile";
+import Link from "next/link";
 
 const Hero = () => {
   const tiles = new Array(220).fill(1, 0, 220);
@@ -26,7 +27,10 @@ const Hero = () => {
             Passionate about transforming designs into seamless web experiences! With 2+ years of hands-on experience, I specialize in crafting beautiful, responsive interfaces using React.js and Tailwind CSS. Think of me as your Digital Creator 🎨 and Coding Enthusiast 🚀 - ready to build something amazing or guide you through the process!
           </p>
           <button className="mt-8 px-6 py-3 bg-[rgb(100_108_255_/_var(--tw-text-opacity))] text-black font-semibold rounded hover:bg-[rgb(85,64,210)] transition-all duration-300">
-            Contact me
+            <Link
+            href="#contact">
+              Contact me
+            </Link>
           </button>
         </div>
       </section>
