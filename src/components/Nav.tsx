@@ -18,7 +18,7 @@ const Nav = () => {
       className={`fixed top-0 left-0 w-full z-50 bg-black text-white text-lg md:text-2xl py-5 px-10 md:px-20 flex justify-between items-center shadow-lg transition-all duration-300 ease-in-out ${scrolling ? "bg-opacity-70" : "bg-opacity-0"
         }`}
     >
-      <h1 className="font-bold bg-[#111111] py-2 px-3 cursor-pointer rounded-md text-xl md:text-3xl text-opacity-70 hover:text-opacity-100 transition-all duration-300">
+      <h1 className="font-bold bg-[#111111] py-1 px-2 cursor-pointer rounded-md text-xl md:text-3xl text-opacity-70 hover:text-opacity-100 transition-all duration-300">
         <Link
           href="/">
           M<span className="text-[rgb(100_108_255_/_var(--tw-text-opacity))] font-black text-3xl">.</span>
