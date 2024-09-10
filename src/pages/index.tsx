@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Nav from "../components/Nav";
 import Hero from "../components/Hero";
+import About from '@/components/About';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Nav />
       <div className="pt-16">
         <Hero />
+        <About />
       </div>
     </div>
   );

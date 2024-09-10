@@ -26,12 +26,12 @@ const Hero = () => {
           <p className="mt-6 text-lg md:text-xl text-opacity-80">
             Passionate about transforming designs into seamless web experiences! With 2+ years of hands-on experience, I specialize in crafting beautiful, responsive interfaces using React.js and Tailwind CSS. Think of me as your Digital Creator 🎨 and Coding Enthusiast 🚀 - ready to build something amazing or guide you through the process!
           </p>
-          <button className="pointer-events-auto mt-8 px-6 py-3 bg-[rgb(100_108_255_/_var(--tw-text-opacity))] text-black font-semibold rounded hover:bg-[rgb(85,64,210)] transition-all duration-300">
-            <Link
+          <Link
             href="#contact">
+            <button className="pointer-events-auto mt-8 px-6 py-3 bg-[rgb(100_108_255_/_var(--tw-text-opacity))] text-black font-semibold rounded hover:bg-[rgb(85,64,210)] transition-all duration-300">
               Contact me
-            </Link>
-          </button>
+            </button>
+          </Link>
         </div>
       </section>
     </div>
