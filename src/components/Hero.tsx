@@ -18,7 +18,7 @@ const Hero = () => {
       <section className="pointer-events-none absolute inset-0 flex items-center justify-center text-white z-10">
         <div className="max-w-5xl px-5">
           <h1 className="text-4xl md:text-8xl font-black">
-            Hey, I&rsquo;m Ahmed<span className="text-[rgb(100_108_255_/_var(--tw-text-opacity))] font-black text-7xl">.</span>
+            Hey, I&rsquo;m Mohamed<span className="text-[rgb(100_108_255_/_var(--tw-text-opacity))] font-black text-7xl">.</span>
           </h1>
           <h2 className="text-2xl md:text-4xl text-[rgb(100_108_255_/_var(--tw-text-opacity))] mt-4">
             I&apos;m a <span className="font-bold">Frontend Engineer</span>
