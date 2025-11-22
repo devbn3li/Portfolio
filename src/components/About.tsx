@@ -1,4 +1,5 @@
 import { FaArrowRight } from "react-icons/fa";
+import Link from "next/link";
 
 const About = () => {
   return (
@@ -16,7 +17,7 @@ const About = () => {
           </p>
         </div>
         <div className="mt-6">
-          <h3 className=" flex items-center text-xl text-[rgb(99,106,250)] gap-4">Reach me <FaArrowRight /></h3>
+          <Link href="#contact" className=" flex items-center text-xl text-[rgb(99,106,250)] gap-1 cursor-pointer group">Reach me <FaArrowRight className="group-hover:ml-2 duration-300" /></Link>
         </div>
       </div>
     </section>
