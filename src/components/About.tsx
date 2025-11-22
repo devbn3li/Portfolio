@@ -15,7 +15,7 @@ const About = () => {
             I am currently a Frontend Engineer at Sustaingrc and a Computer Science student at University of the People
           </p>
         </div>
-        <div className="mt-6`">
+        <div className="mt-6">
           <h3 className=" flex items-center text-xl text-[rgb(99,106,250)] gap-4">Reach me <FaArrowRight /></h3>
         </div>
       </div>
