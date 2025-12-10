@@ -1,6 +1,7 @@
 import '../public/styles/globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import CalendlyWidget from '../components/CalendlyWidget';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -20,7 +21,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} antialiased min-h-screen bg-bg font-sans`}>{children}</body>
+      <head>
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+      </head>
+      <body className={`${inter.variable} antialiased min-h-screen bg-bg font-sans`}>
+        {children}
+        <CalendlyWidget />
+      </body>
     </html>
   )
 }
