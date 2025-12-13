@@ -122,8 +122,12 @@ export default function ShootingStars() {
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      {/* Static twinkling stars - CSS only */}
-      <div className="stars-container" />
+      {/* Parallax star layers - space travel effect */}
+      <div className="stars-container">
+        <div className="stars-layer-1" />
+        <div className="stars-layer-2" />
+        <div className="stars-layer-3" />
+      </div>
 
       {/* Canvas for shooting stars */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
