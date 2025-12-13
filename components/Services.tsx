@@ -96,26 +96,18 @@ const Services = () => {
             viewport={{ once: true, margin: '-50px' }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {services.map((service, index) => (
+            {services.map((service) => (
               <motion.div
                 key={service.title}
                 variants={itemVariants}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group relative bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-2xl p-6 cursor-pointer overflow-hidden transition-all duration-300"
+                whileHover={{ y: -8 }}
+                className="group relative bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-2xl p-6 overflow-hidden transition-all duration-300"
               >
                 {/* Background glow on hover */}
                 <motion.div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
-                    background: `radial-gradient(circle at center, ${service.color}15 0%, transparent 70%)`,
-                  }}
-                />
-
-                {/* Top accent line */}
-                <motion.div
-                  className="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: `linear-gradient(90deg, transparent, ${service.color}, transparent)`,
+                    background: `radial-gradient(circle at center, ${service.color}10 0%, transparent 70%)`,
                   }}
                 />
 
@@ -145,16 +137,11 @@ const Services = () => {
                   </p>
                 </div>
 
-                {/* Number indicator */}
-                <div className="absolute bottom-4 right-4 text-6xl font-black text-white/5 group-hover:text-white/10 transition-colors duration-300">
-                  {String(index + 1).padStart(2, '0')}
-                </div>
-
-                {/* Hover border effect */}
-                <motion.div
+                {/* Hover border glow */}
+                <div
                   className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{
-                    border: `1px solid ${service.color}40`,
+                    boxShadow: `0 0 30px ${service.color}20`,
                   }}
                 />
               </motion.div>
