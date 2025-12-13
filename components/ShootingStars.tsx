@@ -22,7 +22,7 @@ export default function ShootingStars() {
   useEffect(() => {
     setMounted(true); // eslint-disable-line react-hooks/set-state-in-effect
     // Check if mobile
-    setIsMobile(window.innerWidth < 768); // eslint-disable-line react-hooks/set-state-in-effect
+    setIsMobile(window.innerWidth < 768);
   }, []);
 
   // Canvas-based shooting stars animation - disabled on mobile for performance
