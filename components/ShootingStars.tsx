@@ -17,14 +17,17 @@ export default function ShootingStars() {
   const shootingStarsRef = useRef<ShootingStar[]>([]);
   const lastSpawnRef = useRef(0);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true); // eslint-disable-line react-hooks/set-state-in-effect
+    // Check if mobile
+    setIsMobile(window.innerWidth < 768); // eslint-disable-line react-hooks/set-state-in-effect
   }, []);
 
-  // Canvas-based shooting stars animation
+  // Canvas-based shooting stars animation - disabled on mobile for performance
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || isMobile) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -55,8 +58,8 @@ export default function ShootingStars() {
     const animate = (timestamp: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Spawn new shooting star every 6-10 seconds
-      if (timestamp - lastSpawnRef.current > 8000) {
+      // Spawn new shooting star every 8-12 seconds
+      if (timestamp - lastSpawnRef.current > 10000) {
         if (shootingStarsRef.current.length === 0) {
           spawnShootingStar();
           lastSpawnRef.current = timestamp;
@@ -109,14 +112,14 @@ export default function ShootingStars() {
       requestAnimationFrame(animate);
     };
 
-    setTimeout(spawnShootingStar, 2000);
+    setTimeout(spawnShootingStar, 3000);
     const animationId = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       cancelAnimationFrame(animationId);
     };
-  }, [mounted]);
+  }, [mounted, isMobile]);
 
   if (!mounted) return null;
 
@@ -129,8 +132,10 @@ export default function ShootingStars() {
         <div className="stars-layer-3" />
       </div>
 
-      {/* Canvas for shooting stars */}
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      {/* Canvas for shooting stars - only on desktop */}
+      {!isMobile && (
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      )}
     </div>
   );
 }

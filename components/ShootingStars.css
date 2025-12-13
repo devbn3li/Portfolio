@@ -34,6 +34,7 @@
   background-size: 50% 50%;
   animation: move-stars-fast 20s linear infinite;
   opacity: 0.9;
+  will-change: transform;
 }
 
 /* Layer 2 - Medium distance stars */
@@ -66,6 +67,7 @@
   background-size: 50% 50%;
   animation: move-stars-medium 35s linear infinite;
   opacity: 0.7;
+  will-change: transform;
 }
 
 /* Layer 3 - Distant stars (slowest) */
@@ -100,31 +102,57 @@
   background-size: 50% 50%;
   animation: move-stars-slow 60s linear infinite;
   opacity: 0.5;
+  will-change: transform;
 }
 
+/* GPU accelerated transforms */
 @keyframes move-stars-fast {
   0% {
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate(-50%, -50%);
+    transform: translate3d(-50%, -50%, 0);
   }
 }
 
 @keyframes move-stars-medium {
   0% {
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate(-50%, -50%);
+    transform: translate3d(-50%, -50%, 0);
   }
 }
 
 @keyframes move-stars-slow {
   0% {
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate(-50%, -50%);
+    transform: translate3d(-50%, -50%, 0);
+  }
+}
+
+/* Mobile optimizations - slow down animations only */
+@media (max-width: 768px) {
+  .stars-layer-1 {
+    animation-duration: 40s;
+  }
+  
+  .stars-layer-2 {
+    animation-duration: 70s;
+  }
+  
+  .stars-layer-3 {
+    animation-duration: 100s;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .stars-layer-1,
+  .stars-layer-2,
+  .stars-layer-3 {
+    animation: none;
   }
 }
