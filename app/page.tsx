@@ -7,7 +7,7 @@ import Contact from '../components/Contact';
 
 export default function Home() {
   return (
-    <div className="bg-[#09090b] font-poppins">
+    <div className="bg-[#09090b] font-inter">
       <Nav />
       <div className="pt-16">
         <Hero />
