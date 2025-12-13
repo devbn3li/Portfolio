@@ -4,10 +4,12 @@ import About from '../components/About';
 import Skills from '../components/Skills';
 import Projects from '../components/Projects';
 import Contact from '../components/Contact';
+import ShootingStars from '../components/ShootingStars';
 
 export default function Home() {
   return (
-    <div className="bg-[#09090b] font-inter">
+    <div className="bg-[#09090b] font-inter relative">
+      <ShootingStars />
       <Nav />
       <div className="pt-16">
         <Hero />

@@ -32,3 +32,38 @@ body {
     box-shadow: 0 0 0 15px rgba(100, 108, 255, 0);
   }
 }
+
+/* Shooting Stars Animation */
+@keyframes shooting-star {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(300px, 300px);
+    opacity: 0;
+  }
+}
+
+/* Twinkling Stars Animation */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.animate-shooting-star {
+  animation: shooting-star linear infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle ease-in-out infinite;
+}

@@ -49,13 +49,6 @@ const Hero = () => {
 
   return (
     <div className="relative min-h-[90vh] mt-5">
-      {/* Tiles Container */}
-      <div className="absolute h-dvh w-full flex flex-wrap justify-center overflow-y-clip">
-        {tiles.map((tile, index) => (
-          <Tile key={`tile-${index}-${tile}`} />
-        ))}
-      </div>
-
       {/* Hero Section */}
       <motion.section
         className="pointer-events-none absolute inset-0 flex items-center justify-center text-white z-10"

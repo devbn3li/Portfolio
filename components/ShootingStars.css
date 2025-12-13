@@ -1,0 +1,79 @@
+.stars-container {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, white, transparent),
+    radial-gradient(2px 2px at 40px 70px, white, transparent),
+    radial-gradient(1px 1px at 90px 40px, white, transparent),
+    radial-gradient(2px 2px at 160px 120px, white, transparent),
+    radial-gradient(1px 1px at 230px 80px, white, transparent),
+    radial-gradient(2px 2px at 300px 200px, white, transparent),
+    radial-gradient(1px 1px at 380px 60px, white, transparent),
+    radial-gradient(2px 2px at 450px 150px, white, transparent),
+    radial-gradient(1px 1px at 520px 100px, white, transparent),
+    radial-gradient(2px 2px at 600px 250px, white, transparent),
+    radial-gradient(1px 1px at 680px 50px, white, transparent),
+    radial-gradient(2px 2px at 750px 180px, white, transparent),
+    radial-gradient(1px 1px at 820px 90px, white, transparent),
+    radial-gradient(2px 2px at 900px 300px, white, transparent),
+    radial-gradient(1px 1px at 980px 140px, white, transparent),
+    radial-gradient(2px 2px at 100px 400px, white, transparent),
+    radial-gradient(1px 1px at 200px 350px, white, transparent),
+    radial-gradient(2px 2px at 320px 450px, white, transparent),
+    radial-gradient(1px 1px at 420px 380px, white, transparent),
+    radial-gradient(2px 2px at 550px 420px, white, transparent),
+    radial-gradient(1px 1px at 650px 500px, white, transparent),
+    radial-gradient(2px 2px at 780px 380px, white, transparent),
+    radial-gradient(1px 1px at 880px 450px, white, transparent),
+    radial-gradient(2px 2px at 950px 520px, white, transparent),
+    radial-gradient(1px 1px at 50px 550px, white, transparent),
+    radial-gradient(2px 2px at 150px 620px, white, transparent),
+    radial-gradient(1px 1px at 280px 580px, white, transparent),
+    radial-gradient(2px 2px at 400px 650px, white, transparent),
+    radial-gradient(1px 1px at 500px 600px, white, transparent),
+    radial-gradient(2px 2px at 620px 700px, white, transparent),
+    radial-gradient(1px 1px at 720px 650px, white, transparent),
+    radial-gradient(2px 2px at 850px 720px, white, transparent),
+    radial-gradient(1px 1px at 950px 680px, white, transparent),
+    radial-gradient(2px 2px at 70px 750px, white, transparent),
+    radial-gradient(1px 1px at 180px 800px, white, transparent),
+    radial-gradient(2px 2px at 300px 780px, white, transparent),
+    radial-gradient(1px 1px at 430px 850px, white, transparent),
+    radial-gradient(2px 2px at 560px 800px, white, transparent),
+    radial-gradient(1px 1px at 680px 870px, white, transparent),
+    radial-gradient(2px 2px at 800px 820px, white, transparent),
+    radial-gradient(1px 1px at 920px 900px, white, transparent),
+    radial-gradient(2px 2px at 1050px 50px, white, transparent),
+    radial-gradient(1px 1px at 1120px 150px, white, transparent),
+    radial-gradient(2px 2px at 1200px 100px, white, transparent),
+    radial-gradient(1px 1px at 1280px 200px, white, transparent),
+    radial-gradient(2px 2px at 1350px 80px, white, transparent),
+    radial-gradient(1px 1px at 1420px 250px, white, transparent),
+    radial-gradient(2px 2px at 1100px 350px, white, transparent),
+    radial-gradient(1px 1px at 1180px 400px, white, transparent),
+    radial-gradient(2px 2px at 1260px 320px, white, transparent),
+    radial-gradient(1px 1px at 1340px 450px, white, transparent),
+    radial-gradient(2px 2px at 1420px 380px, white, transparent),
+    radial-gradient(1px 1px at 1080px 550px, white, transparent),
+    radial-gradient(2px 2px at 1160px 600px, white, transparent),
+    radial-gradient(1px 1px at 1250px 520px, white, transparent),
+    radial-gradient(2px 2px at 1330px 650px, white, transparent),
+    radial-gradient(1px 1px at 1400px 580px, white, transparent),
+    radial-gradient(2px 2px at 1100px 720px, white, transparent),
+    radial-gradient(1px 1px at 1200px 780px, white, transparent),
+    radial-gradient(2px 2px at 1300px 700px, white, transparent);
+  background-size: 100% 100%;
+  animation: twinkle-stars 4s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle-stars {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
