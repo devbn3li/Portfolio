@@ -2,17 +2,18 @@
 
 import { motion } from 'framer-motion';
 import { FiExternalLink, FiGithub } from 'react-icons/fi';
+import Image from 'next/image';
 import AnimatedSection from './ui/AnimatedSection';
 
 const projects = [
   {
     id: 1,
-    title: 'SustainGRC Portal',
-    description: 'Enterprise ESG reporting and governance platform with real-time analytics, multi-framework compliance, and AI-powered insights.',
+    title: 'Moviezone',
+    description: 'Moviezone is a movie streaming platform built with Next.js and TypeScript. It features a modern and responsive design, with a focus on user experience and performance.',
     tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'REST API'],
-    image: '/images/projects/sustaingrc.jpg',
-    liveUrl: '#',
-    githubUrl: '#',
+    image: '/images/projects/moviezone.png',
+    liveUrl: 'https://moviezone.me',
+    githubUrl: 'https://github.com/devbn3li/movies-frontend',
     featured: true,
   },
   {
@@ -68,7 +69,7 @@ const Projects = () => {
         ease: [0.21, 0.47, 0.32, 0.98],
       },
     },
-  } as const ;
+  } as const;
 
   return (
     <AnimatedSection>
@@ -118,7 +119,13 @@ const Projects = () => {
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <span className="text-6xl opacity-20 font-black text-white">{project.title.charAt(0)}</span>
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      width={500}
+                      height={500}
+                      className="w-full h-full object-cover"
+                    />
                   </motion.div>
                 </div>
 
@@ -131,6 +138,7 @@ const Projects = () => {
                     <div className="flex gap-3">
                       <motion.a
                         href={project.githubUrl}
+                        target="_blank"
                         whileHover={{ scale: 1.2, color: 'rgb(100 108 255)' }}
                         className="text-white/50 hover:text-white transition-colors"
                       >
@@ -138,6 +146,7 @@ const Projects = () => {
                       </motion.a>
                       <motion.a
                         href={project.liveUrl}
+                        target='_blank'
                         whileHover={{ scale: 1.2, color: 'rgb(100 108 255)' }}
                         className="text-white/50 hover:text-white transition-colors"
                       >
