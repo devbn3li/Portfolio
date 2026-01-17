@@ -21,9 +21,9 @@ const projects = [
     title: 'Amanoon',
     description: 'Modern admin dashboard for e-commerce with real-time sales tracking, inventory management, and beautiful data visualizations.',
     tags: ['React.js', 'Redux', 'Chart.js', 'Node.js'],
-    image: '/images/projects/ecommerce.jpg',
+    image: '/images/projects/amanoon.png',
     liveUrl: 'https://amanoon.vercel.app/',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/devbn3li/market-place-frontend',
     featured: true,
   },
   {
