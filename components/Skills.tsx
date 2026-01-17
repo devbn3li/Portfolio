@@ -64,31 +64,6 @@ const Skills = () => {
     },
   } as const;
 
-  // Floating animation for icons
-  const floatingVariants = {
-    animate: {
-      y: [-3, 3, -3],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut" as const,
-      },
-    },
-  };
-
-  // Icon glow pulse animation
-  const glowPulseVariants = {
-    animate: {
-      opacity: [0.5, 1, 0.5],
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: "easeInOut" as const,
-      },
-    },
-  };
-
   return (
     <AnimatedSection>
       <section id="skills" className="py-20">
@@ -119,7 +94,7 @@ const Skills = () => {
             viewport={{ once: true, margin: '-50px' }}
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
           >
-            {skills.map((skill, index) => (
+            {skills.map((skill) => (
               <motion.div
                 key={skill.name}
                 variants={itemVariants}
@@ -130,121 +105,34 @@ const Skills = () => {
                 }}
                 className="relative group bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-xl p-6 cursor-pointer overflow-hidden transition-colors duration-300"
               >
-                {/* Animated gradient background */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                  initial={{ backgroundPosition: '0% 50%' }}
-                  animate={{
-                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  style={{
-                    background: `linear-gradient(135deg, ${skill.color}10 0%, transparent 50%, ${skill.color}10 100%)`,
-                    backgroundSize: '200% 200%',
-                  }}
-                />
-
-                {/* Glow effect */}
-                <motion.div
+                {/* Background glow on hover */}
+                <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
                     background: `radial-gradient(circle at center, ${skill.color}20 0%, transparent 70%)`,
                   }}
                 />
 
-                {/* Animated border glow */}
-                <motion.div
-                  className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100"
-                  initial={{ rotate: 0 }}
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  style={{
-                    background: `conic-gradient(from 0deg, transparent, ${skill.color}40, transparent, ${skill.color}40, transparent)`,
-                    padding: '1px',
-                    mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                    maskComposite: 'xor',
-                    WebkitMaskComposite: 'xor',
-                  }}
-                />
-
-                {/* Sparkle particles */}
-                <motion.div
-                  className="absolute top-2 right-2 w-1 h-1 rounded-full opacity-0 group-hover:opacity-100"
-                  animate={{
-                    scale: [0, 1, 0],
-                    opacity: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    delay: index * 0.1,
-                  }}
-                  style={{ backgroundColor: skill.color }}
-                />
-                <motion.div
-                  className="absolute bottom-3 left-3 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100"
-                  animate={{
-                    scale: [0, 1, 0],
-                    opacity: [0, 0.8, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: index * 0.15,
-                  }}
-                  style={{ backgroundColor: skill.color }}
-                />
-
                 <div className="relative z-10 flex flex-col items-center gap-3">
-                  {/* Floating icon with glow */}
                   <motion.div
-                    variants={floatingVariants}
-                    animate="animate"
-                    className="relative"
-                    style={{ animationDelay: `${index * 0.2}s` }}
+                    whileHover={{
+                      rotate: [0, -10, 10, -10, 0],
+                      scale: 1.2,
+                    }}
+                    transition={{ duration: 0.5 }}
                   >
-                    {/* Icon background glow */}
-                    <motion.div
-                      variants={glowPulseVariants}
-                      animate="animate"
-                      className="absolute inset-0 blur-lg rounded-full"
+                    <skill.icon
+                      className="text-4xl drop-shadow-lg"
                       style={{
-                        backgroundColor: skill.color,
-                        opacity: 0.3,
-                        transform: 'scale(1.5)',
+                        color: skill.color,
+                        filter: `drop-shadow(0 0 10px ${skill.color}50)`,
                       }}
                     />
-                    <motion.div
-                      whileHover={{
-                        rotate: [0, -10, 10, -10, 0],
-                        scale: 1.2,
-                      }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <skill.icon
-                        className="text-4xl relative z-10 drop-shadow-lg"
-                        style={{
-                          color: skill.color,
-                          filter: `drop-shadow(0 0 10px ${skill.color}50)`,
-                        }}
-                      />
-                    </motion.div>
                   </motion.div>
 
-                  <motion.span
-                    className="text-white font-medium text-sm"
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  <span className="text-white font-medium text-sm">
                     {skill.name}
-                  </motion.span>
+                  </span>
                 </div>
               </motion.div>
             ))}
@@ -256,3 +144,4 @@ const Skills = () => {
 };
 
 export default Skills;
+

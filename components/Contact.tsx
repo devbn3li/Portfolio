@@ -199,6 +199,7 @@ const Contact = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Follow me on ${social.name}`}
                       whileHover={{
                         scale: 1.2,
                         backgroundColor: 'rgba(100, 108, 255, 0.2)',
@@ -206,7 +207,7 @@ const Contact = () => {
                       whileTap={{ scale: 0.9 }}
                       className="p-3 bg-neutral-900/50 border border-neutral-800 rounded-lg transition-colors"
                     >
-                      <social.icon className="text-2xl text-white/70 hover:text-white" />
+                      <social.icon className="text-2xl text-white/70 hover:text-white" aria-hidden="true" />
                     </motion.a>
                   ))}
                 </div>

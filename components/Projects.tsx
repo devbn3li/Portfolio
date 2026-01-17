@@ -121,9 +121,10 @@ const Projects = () => {
                   >
                     <Image
                       src={project.image}
-                      alt={project.title}
+                      alt={`Screenshot of ${project.title} project`}
                       width={500}
-                      height={500}
+                      height={300}
+                      loading="lazy"
                       className="w-full h-full object-cover"
                     />
                   </motion.div>
@@ -139,18 +140,22 @@ const Projects = () => {
                       <motion.a
                         href={project.githubUrl}
                         target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`View ${project.title} source code on GitHub`}
                         whileHover={{ scale: 1.2, color: 'rgb(100 108 255)' }}
                         className="text-white/50 hover:text-white transition-colors"
                       >
-                        <FiGithub className="text-xl" />
+                        <FiGithub className="text-xl" aria-hidden="true" />
                       </motion.a>
                       <motion.a
                         href={project.liveUrl}
-                        target='_blank'
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Visit ${project.title} live website`}
                         whileHover={{ scale: 1.2, color: 'rgb(100 108 255)' }}
                         className="text-white/50 hover:text-white transition-colors"
                       >
-                        <FiExternalLink className="text-xl" />
+                        <FiExternalLink className="text-xl" aria-hidden="true" />
                       </motion.a>
                     </div>
                   </div>

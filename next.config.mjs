@@ -18,7 +18,7 @@ const nextConfig = {
   // Experimental features for better performance
   experimental: {
     // Optimize package imports
-    optimizePackageImports: ['framer-motion', 'react-icons'],
+    optimizePackageImports: ['framer-motion', 'react-icons', '@headlessui/react', '@heroicons/react', '@tabler/icons-react'],
   },
   
   // Headers for caching

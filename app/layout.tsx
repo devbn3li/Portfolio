@@ -46,6 +46,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Mohamed Ali',
+    jobTitle: 'Frontend Engineer',
+    url: 'https://devbn3li.netlify.app/',
+    sameAs: [
+      'https://github.com/devbn3li',
+      'https://linkedin.com/in/devbn3li',
+      'https://twitter.com/devbn3lii',
+    ],
+    knowsAbout: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Frontend Development'],
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'Egypt',
+      addressLocality: 'Cairo',
+    },
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -53,6 +72,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://assets.calendly.com" />
         <link rel="dns-prefetch" href="https://assets.calendly.com" />
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className={`${inter.variable} antialiased min-h-screen bg-bg font-sans`}>
         {children}

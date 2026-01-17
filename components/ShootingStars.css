@@ -2,6 +2,7 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  contain: strict;
 }
 
 /* Layer 1 - Closest stars (fastest) */
@@ -11,30 +12,18 @@
   height: 200%;
   background-image: 
     radial-gradient(2px 2px at 5% 10%, white, transparent),
-    radial-gradient(2px 2px at 15% 25%, white, transparent),
-    radial-gradient(2px 2px at 25% 5%, white, transparent),
-    radial-gradient(2px 2px at 35% 35%, white, transparent),
+    radial-gradient(2px 2px at 25% 35%, white, transparent),
     radial-gradient(2px 2px at 45% 15%, white, transparent),
-    radial-gradient(2px 2px at 55% 40%, white, transparent),
-    radial-gradient(2px 2px at 65% 20%, white, transparent),
-    radial-gradient(2px 2px at 75% 45%, white, transparent),
-    radial-gradient(2px 2px at 85% 8%, white, transparent),
-    radial-gradient(2px 2px at 95% 30%, white, transparent),
-    radial-gradient(2px 2px at 10% 55%, white, transparent),
-    radial-gradient(2px 2px at 20% 70%, white, transparent),
-    radial-gradient(2px 2px at 30% 50%, white, transparent),
-    radial-gradient(2px 2px at 40% 75%, white, transparent),
-    radial-gradient(2px 2px at 50% 60%, white, transparent),
-    radial-gradient(2px 2px at 60% 80%, white, transparent),
-    radial-gradient(2px 2px at 70% 65%, white, transparent),
-    radial-gradient(2px 2px at 80% 85%, white, transparent),
-    radial-gradient(2px 2px at 95% 58%, white, transparent),
-    radial-gradient(2px 2px at 99% 60%, white, transparent),
-    radial-gradient(2px 2px at 90% 50%, white, transparent);
+    radial-gradient(2px 2px at 65% 55%, white, transparent),
+    radial-gradient(2px 2px at 85% 30%, white, transparent),
+    radial-gradient(2px 2px at 35% 75%, white, transparent),
+    radial-gradient(2px 2px at 75% 85%, white, transparent),
+    radial-gradient(2px 2px at 95% 60%, white, transparent);
   background-size: 50% 50%;
-  animation: move-stars-fast 20s linear infinite;
+  animation: move-stars-fast 25s linear infinite;
   opacity: 0.9;
   will-change: transform;
+  contain: layout style;
 }
 
 /* Layer 2 - Medium distance stars */
@@ -43,31 +32,19 @@
   width: 200%;
   height: 200%;
   background-image: 
-    radial-gradient(1.5px 1.5px at 8% 12%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 18% 28%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 28% 8%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 38% 38%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1.5px 1.5px at 8% 22%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1.5px 1.5px at 28% 48%, rgba(255,255,255,0.8), transparent),
     radial-gradient(1.5px 1.5px at 48% 18%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 58% 52%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 68% 22%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 78% 48%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 88% 32%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 12% 62%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 22% 78%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 32% 55%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1.5px 1.5px at 68% 62%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1.5px 1.5px at 88% 35%, rgba(255,255,255,0.8), transparent),
     radial-gradient(1.5px 1.5px at 42% 82%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 52% 68%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 62% 88%, rgba(255,255,255,0.8), transparent),
     radial-gradient(1.5px 1.5px at 72% 72%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 82% 92%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 85% 97%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 60% 72%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 86% 82%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 92% 65%, rgba(255,255,255,0.8), transparent);
+    radial-gradient(1.5px 1.5px at 92% 88%, rgba(255,255,255,0.8), transparent);
   background-size: 50% 50%;
-  animation: move-stars-medium 35s linear infinite;
+  animation: move-stars-medium 40s linear infinite;
   opacity: 0.7;
   will-change: transform;
+  contain: layout style;
 }
 
 /* Layer 3 - Distant stars (slowest) */
@@ -76,33 +53,19 @@
   width: 200%;
   height: 200%;
   background-image: 
-    radial-gradient(1px 1px at 3% 15%, rgba(255,255,255,0.6), transparent),
     radial-gradient(1px 1px at 13% 32%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 23% 7%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 33% 42%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 43% 22%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 53% 55%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 63% 12%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 73% 45%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 83% 28%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 93% 58%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 7% 68%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 17% 82%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 27% 52%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 37% 88%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 47% 72%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 57% 95%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 67% 78%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 77% 62%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 87% 85%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 77% 95%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 95% 35%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 88% 85%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 97% 48%, rgba(255,255,255,0.6), transparent);
+    radial-gradient(1px 1px at 33% 62%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 53% 22%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 73% 52%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 93% 38%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 27% 78%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 67% 88%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 87% 68%, rgba(255,255,255,0.6), transparent);
   background-size: 50% 50%;
-  animation: move-stars-slow 60s linear infinite;
+  animation: move-stars-slow 70s linear infinite;
   opacity: 0.5;
   will-change: transform;
+  contain: layout style;
 }
 
 /* GPU accelerated transforms */
@@ -133,18 +96,18 @@
   }
 }
 
-/* Mobile optimizations - slow down animations only */
+/* Mobile optimizations */
 @media (max-width: 768px) {
   .stars-layer-1 {
-    animation-duration: 40s;
+    animation-duration: 50s;
   }
   
   .stars-layer-2 {
-    animation-duration: 70s;
+    animation-duration: 80s;
   }
   
   .stars-layer-3 {
-    animation-duration: 100s;
+    animation-duration: 120s;
   }
 }
 
@@ -156,3 +119,4 @@
     animation: none;
   }
 }
+
