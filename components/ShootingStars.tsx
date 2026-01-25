@@ -1,141 +1,92 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
-import "./ShootingStars.css";
-
-interface ShootingStar {
-  id: number;
-  x: number;
-  y: number;
-  angle: number;
-  speed: number;
-  size: number;
-  tailLength: number;
-}
-
-export default function ShootingStars() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const shootingStarsRef = useRef<ShootingStar[]>([]);
-  const lastSpawnRef = useRef(0);
-  const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setMounted(true); // eslint-disable-line react-hooks/set-state-in-effect
-    // Check if mobile
-    setIsMobile(window.innerWidth < 768);
-  }, []);
-
-  // Canvas-based shooting stars animation - disabled on mobile for performance
-  useEffect(() => {
-    if (!mounted || isMobile) return;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    const spawnShootingStar = () => {
-      const star: ShootingStar = {
-        id: Date.now(),
-        x: Math.random() * canvas.width * 0.8,
-        y: -20,
-        angle: Math.PI / 4 + (Math.random() * 0.3 - 0.15),
-        speed: 8 + Math.random() * 4,
-        size: 2 + Math.random() * 2,
-        tailLength: 80 + Math.random() * 60,
-      };
-      shootingStarsRef.current.push(star);
-    };
-
-    const animate = (timestamp: number) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Spawn new shooting star every 8-12 seconds
-      if (timestamp - lastSpawnRef.current > 10000) {
-        if (shootingStarsRef.current.length === 0) {
-          spawnShootingStar();
-          lastSpawnRef.current = timestamp;
-        }
-      }
-
-      // Update and draw shooting stars
-      shootingStarsRef.current = shootingStarsRef.current.filter((star) => {
-        star.x += Math.cos(star.angle) * star.speed;
-        star.y += Math.sin(star.angle) * star.speed;
-
-        if (star.x > canvas.width + 100 || star.y > canvas.height + 100) {
-          return false;
-        }
-
-        // Draw the tail
-        const tailX = star.x - Math.cos(star.angle) * star.tailLength;
-        const tailY = star.y - Math.sin(star.angle) * star.tailLength;
-
-        const gradient = ctx.createLinearGradient(tailX, tailY, star.x, star.y);
-        gradient.addColorStop(0, "rgba(255, 255, 255, 0)");
-        gradient.addColorStop(0.4, "rgba(255, 255, 255, 0.2)");
-        gradient.addColorStop(0.8, "rgba(255, 255, 255, 0.6)");
-        gradient.addColorStop(1, "rgba(255, 255, 255, 1)");
-
-        ctx.beginPath();
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = star.size;
-        ctx.lineCap = "round";
-        ctx.moveTo(tailX, tailY);
-        ctx.lineTo(star.x, star.y);
-        ctx.stroke();
-
-        // Draw the head glow
-        ctx.beginPath();
-        const headGradient = ctx.createRadialGradient(
-          star.x, star.y, 0,
-          star.x, star.y, star.size * 4
-        );
-        headGradient.addColorStop(0, "rgba(255, 255, 255, 1)");
-        headGradient.addColorStop(0.3, "rgba(255, 255, 255, 0.8)");
-        headGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
-        ctx.fillStyle = headGradient;
-        ctx.arc(star.x, star.y, star.size * 4, 0, Math.PI * 2);
-        ctx.fill();
-
-        return true;
-      });
-
-      requestAnimationFrame(animate);
-    };
-
-    setTimeout(spawnShootingStar, 3000);
-    const animationId = requestAnimationFrame(animate);
-
-    return () => {
-      window.removeEventListener("resize", resizeCanvas);
-      cancelAnimationFrame(animationId);
-    };
-  }, [mounted, isMobile]);
-
-  if (!mounted) return null;
-
+export default function SpaceBackground() {
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      {/* Parallax star layers - space travel effect */}
-      <div className="stars-container">
-        <div className="stars-layer-1" />
-        <div className="stars-layer-2" />
-        <div className="stars-layer-3" />
-      </div>
+    <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: -1 }}>
+      {/* Deep space gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#09090b] to-[#0d0d12]" />
 
-      {/* Canvas for shooting stars - only on desktop */}
-      {!isMobile && (
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
-      )}
+      {/* Subtle radial glow - top left accent */}
+      <div
+        className="absolute -top-1/4 -left-1/4 w-[600px] h-[600px] blur-3xl"
+        style={{ background: 'radial-gradient(circle, rgba(88, 28, 135, 0.15) 0%, transparent 70%)' }}
+      />
+
+      {/* Subtle radial glow - bottom right accent */}
+      <div
+        className="absolute -bottom-1/4 -right-1/4 w-[600px] h-[600px] blur-3xl"
+        style={{ background: 'radial-gradient(circle, rgba(30, 58, 138, 0.15) 0%, transparent 70%)' }}
+      />
+
+      {/* Center glow accent */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] blur-3xl"
+        style={{ background: 'radial-gradient(circle, rgba(100, 108, 255, 0.05) 0%, transparent 60%)' }}
+      />
+
+      {/* Static stars layer using CSS */}
+      <div
+        className="absolute inset-0 opacity-60"
+        style={{
+          backgroundImage: `
+            radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 20% 50%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1.5px 1.5px at 30% 10%, rgba(255,255,255,0.9), transparent),
+            radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1px 1px at 50% 30%, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1.5px 1.5px at 60% 80%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 70% 15%, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 80% 45%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1.5px 1.5px at 90% 65%, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1.5px 1.5px at 35% 55%, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 45% 25%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 55% 95%, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1px 1px at 65% 5%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1.5px 1.5px at 75% 75%, rgba(255,255,255,0.9), transparent),
+            radial-gradient(1px 1px at 85% 35%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 95% 15%, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1px 1px at 5% 60%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1.5px 1.5px at 12% 42%, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 22% 88%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 32% 28%, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1.5px 1.5px at 42% 62%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1px 1px at 52% 8%, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 62% 48%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1.5px 1.5px at 72% 92%, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1px 1px at 82% 22%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1px 1px at 92% 52%, rgba(255,255,255,0.9), transparent),
+            radial-gradient(1px 1px at 8% 78%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1.5px 1.5px at 18% 12%, rgba(255,255,255,0.7), transparent)
+          `,
+          backgroundSize: '100% 100%'
+        }}
+      />
+
+      {/* Subtle grid pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '100px 100px'
+        }}
+      />
+
+      {/* Noise texture for depth */}
+      <div
+        className="absolute inset-0 opacity-[0.015]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`
+        }}
+      />
+
+      {/* Vignette effect */}
+      <div
+        className="absolute inset-0"
+        style={{ background: 'radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.4) 100%)' }}
+      />
     </div>
   );
 }

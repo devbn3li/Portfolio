@@ -1,71 +1,35 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import { FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 import AnimatedSection from './ui/AnimatedSection';
 
 const About = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  } as const;
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.21, 0.47, 0.32, 0.98] as const,
-      },
-    },
-  } as const;
-
   return (
     <AnimatedSection>
       <section id="about" className="py-20 mt-20">
         <div className="max-w-5xl mx-auto px-5">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-          >
-            <motion.h2
-              variants={itemVariants}
+          <div>
+            <h2
               className="text-4xl text-white md:text-5xl font-black"
             >
-              About<span className="text-[rgb(100_108_255_/_var(--tw-text-opacity))] font-black text-7xl">.</span>
-            </motion.h2>
+              About<span className="text-[rgb(100_108_255)] font-black text-7xl">.</span>
+            </h2>
             <div className="mt-6 text-white text-lg md:text-xl">
-              <motion.p variants={itemVariants}>
+              <p>
                 Hey, I&apos;m Mohamed! 22 years old, Egyptian Software Engineer specialize in the frontend. I have a passion for web development and love to create websites and web applications that are fast, responsive, and accessible. I have experience working with modern web technologies like Next.js, React.js, TypeScript, and Tailwind CSS. I am always eager to learn new things and improve my skills. I am currently looking for new opportunities to work on exciting projects and collaborate with talented people.
-              </motion.p>
-              <motion.p variants={itemVariants} className="mt-10">
+              </p>
+              <p className="mt-10">
                 I am currently a Frontend Engineer at Sustaingrc and a Computer Science student at University of the People
-              </motion.p>
+              </p>
             </div>
-            <motion.div variants={itemVariants} className="mt-6">
+            <div className="mt-6">
               <Link
                 href="#contact"
-                className="flex items-center text-xl text-[rgb(99,106,250)] gap-1 cursor-pointer group"
+                className="inline-flex items-center text-xl text-[rgb(99,106,250)] gap-1 cursor-pointer group hover:translate-x-1 transition-transform"
               >
-                <motion.span
-                  whileHover={{ x: 5 }}
-                  className="flex items-center gap-1"
-                >
-                  Reach me <FaArrowRight className="group-hover:ml-2 duration-300" />
-                </motion.span>
+                Reach me <FaArrowRight className="group-hover:ml-2 duration-300" />
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
     </AnimatedSection>

@@ -11,11 +11,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'Poppins Fallback', 'sans-serif'],
-        inter: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        poppins: ["Poppins", "Poppins Fallback", "sans-serif"],
+        inter: ["var(--font-inter)", "Inter", "sans-serif"],
+      },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
     },
   },
   plugins: [],
-}
-
+};

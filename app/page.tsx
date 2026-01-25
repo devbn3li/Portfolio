@@ -1,8 +1,9 @@
-import dynamic from 'next/dynamic';
 import Nav from "../components/Nav";
 import Hero from "../components/Hero";
+import SpaceBackground from "../components/ShootingStars";
 
 // Lazy load components that are below the fold
+import dynamic from 'next/dynamic';
 const About = dynamic(() => import('../components/About'), {
   loading: () => <div className="min-h-[400px]" />,
 });
@@ -18,16 +19,13 @@ const Projects = dynamic(() => import('../components/Projects'), {
 const Contact = dynamic(() => import('../components/Contact'), {
   loading: () => <div className="min-h-[400px]" />,
 });
-const ShootingStars = dynamic(() => import('../components/ShootingStars'), {
-  loading: () => null,
-});
 
 export default function Home() {
   return (
-    <div className="bg-[#09090b] font-inter relative">
-      <ShootingStars />
+    <div className="bg-transparent font-inter relative">
+      <SpaceBackground />
       <Nav />
-      <div className="pt-16">
+      <div className="pt-16 relative z-10">
         <Hero />
         <About />
         <Services />
@@ -37,7 +35,7 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="py-8 text-center text-white/50 border-t border-neutral-800">
+      <footer className="py-8 text-center text-white/50 border-t border-neutral-800 relative z-10">
         <p>© {new Date().getFullYear()} Mohamed Ali. All rights reserved.</p>
       </footer>
     </div>

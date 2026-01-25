@@ -1,7 +1,6 @@
 import '../public/styles/globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import CalendlyWidget from '../components/CalendlyWidget';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -78,9 +77,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} antialiased min-h-screen bg-bg font-sans`}>
+      <body className={`${inter.variable} antialiased min-h-screen bg-[#09090b] font-sans`}>
         {children}
-        <CalendlyWidget />
       </body>
     </html>
   )

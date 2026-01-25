@@ -1,6 +1,3 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import {
   SiReact,
   SiNextdotjs,
@@ -41,69 +38,23 @@ const skills = [
 ];
 
 const Skills = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-      },
-    },
-  } as const;
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.21, 0.47, 0.32, 0.98] as const,
-      },
-    },
-  } as const;
-
   return (
     <AnimatedSection>
       <section id="skills" className="py-20">
         <div className="max-w-5xl mx-auto px-5">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl text-white md:text-5xl font-black mb-4"
-          >
-            Skills<span className="text-[rgb(100_108_255_/_var(--tw-text-opacity))] font-black text-7xl">.</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-white/70 text-lg mb-12"
-          >
+          <h2 className="text-4xl text-white md:text-5xl font-black mb-4">
+            Skills<span className="text-[rgb(100_108_255)] font-black text-7xl">.</span>
+          </h2>
+          <p className="text-white/70 text-lg mb-12">
             Technologies I work with to bring ideas to life
-          </motion.p>
+          </p>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-50px' }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
-          >
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {skills.map((skill) => (
-              <motion.div
+              <div
                 key={skill.name}
-                variants={itemVariants}
-                whileHover={{
-                  scale: 1.08,
-                  boxShadow: `0 0 40px ${skill.color}40`,
-                  borderColor: skill.color,
-                }}
-                className="relative group bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-xl p-6 cursor-pointer overflow-hidden transition-colors duration-300"
+                className="relative group bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-xl p-6 cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 hover:border-[color:var(--skill-color)]"
+                style={{ '--skill-color': skill.color } as React.CSSProperties}
               >
                 {/* Background glow on hover */}
                 <div
@@ -114,13 +65,7 @@ const Skills = () => {
                 />
 
                 <div className="relative z-10 flex flex-col items-center gap-3">
-                  <motion.div
-                    whileHover={{
-                      rotate: [0, -10, 10, -10, 0],
-                      scale: 1.2,
-                    }}
-                    transition={{ duration: 0.5 }}
-                  >
+                  <div className="transition-transform duration-300 group-hover:scale-110">
                     <skill.icon
                       className="text-4xl drop-shadow-lg"
                       style={{
@@ -128,15 +73,15 @@ const Skills = () => {
                         filter: `drop-shadow(0 0 10px ${skill.color}50)`,
                       }}
                     />
-                  </motion.div>
+                  </div>
 
                   <span className="text-white font-medium text-sm">
                     {skill.name}
                   </span>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
     </AnimatedSection>

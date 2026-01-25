@@ -9,7 +9,7 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #000000;
+  background-color: #09090b;
 }
 
 ::selection {
@@ -31,37 +31,33 @@ body {
   }
 }
 
-/* Shooting Stars Animation */
-@keyframes shooting-star {
-  0% {
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-  70% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(300px, 300px);
+/* Hero animations - GPU accelerated */
+@keyframes fade-in-up {
+  from {
     opacity: 0;
+    transform: translate3d(0, 20px, 0);
   }
-}
-
-/* Twinkling Stars Animation */
-@keyframes twinkle {
-  0%, 100% {
-    opacity: 0.2;
-    transform: scale(1);
-  }
-  50% {
+  to {
     opacity: 1;
-    transform: scale(1.2);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-.animate-shooting-star {
-  animation: shooting-star linear infinite;
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
 }
 
-.animate-twinkle {
-  animation: twinkle ease-in-out infinite;
+.animation-delay-100 {
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.animation-delay-300 {
+  animation-delay: 0.3s;
+  opacity: 0;
 }

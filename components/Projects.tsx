@@ -1,6 +1,3 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import { FiExternalLink, FiGithub } from 'react-icons/fi';
 import Image from 'next/image';
 import AnimatedSection from './ui/AnimatedSection';
@@ -49,76 +46,28 @@ const projects = [
 ];
 
 const Projects = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      },
-    },
-  } as const;
-
   return (
     <AnimatedSection>
       <section id="projects" className="py-20">
         <div className="max-w-5xl mx-auto px-5">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl text-white md:text-5xl font-black mb-4"
-          >
-            Projects<span className="text-[rgb(100_108_255_/_var(--tw-text-opacity))] font-black text-7xl">.</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-white/70 text-lg mb-12"
-          >
+          <h2 className="text-4xl text-white md:text-5xl font-black mb-4">
+            Projects<span className="text-[rgb(100_108_255)] font-black text-7xl">.</span>
+          </h2>
+          <p className="text-white/70 text-lg mb-12">
             Some of my recent work
-          </motion.p>
+          </p>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-50px' }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project) => (
-              <motion.div
+              <div
                 key={project.id}
-                variants={itemVariants}
-                whileHover={{ y: -10 }}
-                className={`group relative bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-2xl overflow-hidden ${project.featured ? 'md:col-span-2' : ''
+                className={`group relative bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-2xl overflow-hidden transition-transform duration-300 hover:-translate-y-2 ${project.featured ? 'md:col-span-2' : ''
                   }`}
               >
                 {/* Project Image */}
                 <div className="relative h-48 md:h-64 bg-gradient-to-br from-[rgb(100_108_255_/_0.2)] to-neutral-900 overflow-hidden">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent z-10"
-                  />
-                  <motion.div
-                    className="absolute inset-0 flex items-center justify-center"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.4 }}
-                  >
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent z-10" />
+                  <div className="absolute inset-0 flex items-center justify-center transition-transform duration-400 group-hover:scale-105">
                     <Image
                       src={project.image}
                       alt={`Screenshot of ${project.title} project`}
@@ -127,7 +76,7 @@ const Projects = () => {
                       loading="lazy"
                       className="w-full h-full object-cover"
                     />
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Project Content */}
@@ -137,26 +86,24 @@ const Projects = () => {
                       {project.title}
                     </h3>
                     <div className="flex gap-3">
-                      <motion.a
+                      <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`View ${project.title} source code on GitHub`}
-                        whileHover={{ scale: 1.2, color: 'rgb(100 108 255)' }}
-                        className="text-white/50 hover:text-white transition-colors"
+                        className="text-white/50 hover:text-[rgb(100_108_255)] hover:scale-110 transition-all"
                       >
                         <FiGithub className="text-xl" aria-hidden="true" />
-                      </motion.a>
-                      <motion.a
+                      </a>
+                      <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Visit ${project.title} live website`}
-                        whileHover={{ scale: 1.2, color: 'rgb(100 108 255)' }}
-                        className="text-white/50 hover:text-white transition-colors"
+                        className="text-white/50 hover:text-[rgb(100_108_255)] hover:scale-110 transition-all"
                       >
                         <FiExternalLink className="text-xl" aria-hidden="true" />
-                      </motion.a>
+                      </a>
                     </div>
                   </div>
                   <p className="text-white/60 text-sm mb-4 line-clamp-2">
@@ -175,15 +122,15 @@ const Projects = () => {
                 </div>
 
                 {/* Hover glow effect */}
-                <motion.div
+                <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{
                     background: 'radial-gradient(circle at center, rgba(100, 108, 255, 0.1) 0%, transparent 70%)',
                   }}
                 />
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
     </AnimatedSection>

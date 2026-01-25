@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { FiMail, FiMapPin, FiSend } from 'react-icons/fi';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import AnimatedSection from './ui/AnimatedSection';
@@ -34,62 +33,24 @@ const Contact = () => {
     alert('Message sent successfully!');
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      },
-    },
-  } as const;
-
   return (
     <AnimatedSection>
       <section id="contact" className="py-20">
         <div className="max-w-5xl mx-auto px-5">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl text-white md:text-5xl font-black mb-4"
-          >
-            Contact<span className="text-[rgb(100_108_255_/_var(--tw-text-opacity))] font-black text-7xl">.</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-white/70 text-lg mb-12"
-          >
+          <h2 className="text-4xl text-white md:text-5xl font-black mb-4">
+            Contact<span className="text-[rgb(100_108_255)] font-black text-7xl">.</span>
+          </h2>
+          <p className="text-white/70 text-lg mb-12">
             Let&apos;s work together! Feel free to reach out.
-          </motion.p>
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <motion.form
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+            <form
               onSubmit={handleSubmit}
               className="space-y-6"
             >
-              <motion.div variants={itemVariants}>
+              <div>
                 <label htmlFor="name" className="block text-white/80 mb-2 text-sm">
                   Name
                 </label>
@@ -103,9 +64,9 @@ const Contact = () => {
                   className="w-full px-4 py-3 bg-neutral-900/50 border border-neutral-800 rounded-lg text-white placeholder-white/30 focus:outline-none focus:border-[rgb(100_108_255)] transition-colors"
                   placeholder="Your name"
                 />
-              </motion.div>
+              </div>
 
-              <motion.div variants={itemVariants}>
+              <div>
                 <label htmlFor="email" className="block text-white/80 mb-2 text-sm">
                   Email
                 </label>
@@ -119,9 +80,9 @@ const Contact = () => {
                   className="w-full px-4 py-3 bg-neutral-900/50 border border-neutral-800 rounded-lg text-white placeholder-white/30 focus:outline-none focus:border-[rgb(100_108_255)] transition-colors"
                   placeholder="your@email.com"
                 />
-              </motion.div>
+              </div>
 
-              <motion.div variants={itemVariants}>
+              <div>
                 <label htmlFor="message" className="block text-white/80 mb-2 text-sm">
                   Message
                 </label>
@@ -135,39 +96,26 @@ const Contact = () => {
                   className="w-full px-4 py-3 bg-neutral-900/50 border border-neutral-800 rounded-lg text-white placeholder-white/30 focus:outline-none focus:border-[rgb(100_108_255)] transition-colors resize-none"
                   placeholder="Your message..."
                 />
-              </motion.div>
+              </div>
 
-              <motion.button
-                variants={itemVariants}
-                whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(100, 108, 255, 0.4)' }}
-                whileTap={{ scale: 0.98 }}
+              <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-6 py-4 bg-[rgb(100_108_255)] text-white font-semibold rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-full px-6 py-4 bg-[rgb(100_108_255)] text-white font-semibold rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(100,108,255,0.4)] active:scale-[0.98]"
               >
                 {isSubmitting ? (
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                    className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-                  />
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 ) : (
                   <>
                     <FiSend /> Send Message
                   </>
                 )}
-              </motion.button>
-            </motion.form>
+              </button>
+            </form>
 
             {/* Contact Info */}
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <motion.div variants={itemVariants} className="flex items-start gap-4">
+            <div className="space-y-8">
+              <div className="flex items-start gap-4">
                 <div className="p-3 bg-[rgb(100_108_255_/_0.1)] rounded-lg">
                   <FiMail className="text-xl text-[rgb(100_108_255)]" />
                 </div>
@@ -177,9 +125,9 @@ const Contact = () => {
                     muhammed.ali.hissein@gmail.com
                   </a>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div variants={itemVariants} className="flex items-start gap-4">
+              <div className="flex items-start gap-4">
                 <div className="p-3 bg-[rgb(100_108_255_/_0.1)] rounded-lg">
                   <FiMapPin className="text-xl text-[rgb(100_108_255)]" />
                 </div>
@@ -187,42 +135,34 @@ const Contact = () => {
                   <h4 className="text-white font-semibold mb-1">Location</h4>
                   <p className="text-white/60">Cairo, Egypt</p>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Social Links */}
-              <motion.div variants={itemVariants}>
+              <div>
                 <h4 className="text-white font-semibold mb-4">Connect with me</h4>
                 <div className="flex gap-4">
                   {socialLinks.map((social) => (
-                    <motion.a
+                    <a
                       key={social.name}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Follow me on ${social.name}`}
-                      whileHover={{
-                        scale: 1.2,
-                        backgroundColor: 'rgba(100, 108, 255, 0.2)',
-                      }}
-                      whileTap={{ scale: 0.9 }}
-                      className="p-3 bg-neutral-900/50 border border-neutral-800 rounded-lg transition-colors"
+                      className="p-3 bg-neutral-900/50 border border-neutral-800 rounded-lg transition-all hover:scale-110 hover:bg-[rgba(100,108,255,0.2)] active:scale-90"
                     >
                       <social.icon className="text-2xl text-white/70 hover:text-white" aria-hidden="true" />
-                    </motion.a>
+                    </a>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
               {/* Decorative element */}
-              <motion.div
-                variants={itemVariants}
-                className="relative mt-8 p-6 bg-gradient-to-br from-[rgb(100_108_255_/_0.1)] to-transparent rounded-2xl border border-neutral-800"
-              >
+              <div className="relative mt-8 p-6 bg-gradient-to-br from-[rgb(100_108_255_/_0.1)] to-transparent rounded-2xl border border-neutral-800">
                 <p className="text-white/80 italic">
                   &quot;I&apos;m always excited to connect with fellow developers and discuss new opportunities!&quot;
                 </p>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

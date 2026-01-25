@@ -1,6 +1,3 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import { FiCode, FiSmartphone, FiLayout, FiZap, FiRefreshCw, FiGlobe } from 'react-icons/fi';
 import AnimatedSection from './ui/AnimatedSection';
 
@@ -44,67 +41,25 @@ const services = [
 ];
 
 const Services = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      },
-    },
-  } as const;
-
   return (
     <AnimatedSection>
       <section id="services" className="py-20">
         <div className="max-w-5xl mx-auto px-5">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl text-white md:text-5xl font-black mb-4"
-          >
-            Services<span className="text-[rgb(100_108_255_/_var(--tw-text-opacity))] font-black text-7xl">.</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-white/70 text-lg mb-12"
-          >
+          <h2 className="text-4xl text-white md:text-5xl font-black mb-4">
+            Services<span className="text-[rgb(100_108_255)] font-black text-7xl">.</span>
+          </h2>
+          <p className="text-white/70 text-lg mb-12">
             What I can do for you
-          </motion.p>
+          </p>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-50px' }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service) => (
-              <motion.div
+              <div
                 key={service.title}
-                variants={itemVariants}
-                whileHover={{ y: -8 }}
-                className="group relative bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-2xl p-6 overflow-hidden transition-all duration-300"
+                className="group relative bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-2xl p-6 overflow-hidden transition-all duration-300 hover:-translate-y-2"
               >
                 {/* Background glow on hover */}
-                <motion.div
+                <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
                     background: `radial-gradient(circle at center, ${service.color}10 0%, transparent 70%)`,
@@ -112,20 +67,18 @@ const Services = () => {
                 />
 
                 {/* Icon */}
-                <motion.div
-                  className="relative z-10 w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300"
+                <div
+                  className="relative z-10 w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110"
                   style={{
                     background: `${service.color}15`,
                     border: `1px solid ${service.color}30`,
                   }}
-                  whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
                 >
                   <service.icon
                     className="text-2xl"
                     style={{ color: service.color }}
                   />
-                </motion.div>
+                </div>
 
                 {/* Content */}
                 <div className="relative z-10">
@@ -144,9 +97,9 @@ const Services = () => {
                     boxShadow: `0 0 30px ${service.color}20`,
                   }}
                 />
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
     </AnimatedSection>
