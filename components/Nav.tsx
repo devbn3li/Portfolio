@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Nav = () => {
   const [scrolling, setScrolling] = useState(false);
@@ -48,7 +49,7 @@ const Nav = () => {
         {/* Logo */}
         <h1 className="font-bold bg-[#111111] py-1 px-2 cursor-pointer rounded-md text-xl md:text-3xl text-opacity-70 hover:text-opacity-100 transition-all duration-300 z-50">
           <Link href="/">
-            M<span className="text-[rgb(100_108_255)] font-black text-3xl">.</span>
+            <Image src="/logo.png" alt="M Logo" width={40} height={40} />
           </Link>
         </h1>
 
@@ -106,7 +107,7 @@ const Nav = () => {
             <li
               key={link.href}
               className="border-b border-neutral-800 pb-4 transition-all duration-300"
-              style={{ 
+              style={{
                 transitionDelay: mobileMenuOpen ? `${index * 50}ms` : '0ms',
                 opacity: mobileMenuOpen ? 1 : 0,
                 transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(-20px)'
@@ -127,7 +128,7 @@ const Nav = () => {
         {/* Mobile CV Button */}
         <div
           className="mt-8 transition-all duration-300"
-          style={{ 
+          style={{
             transitionDelay: mobileMenuOpen ? '250ms' : '0ms',
             opacity: mobileMenuOpen ? 1 : 0,
             transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(-20px)'
