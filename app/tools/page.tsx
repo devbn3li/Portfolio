@@ -34,7 +34,7 @@ export default function ToolsPage() {
   return (
     <div className="min-h-screen bg-bg">
       <Nav />
-      <main className="mx-auto max-w-4xl px-5 pb-20 pt-28">
+      <main className="mx-auto max-w-5xl px-5 pb-20 pt-28">
         <PageHeader
           title="Tools"
           description="Free developer tools I've built to make frontend development easier."

@@ -5,15 +5,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const sectionLinks = [
-  { href: '#about', label: 'About' },
-  { href: '#services', label: 'Services' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#contact', label: 'Contact' },
-];
-
-const pageLinks = [
+const navLinks = [
   { href: '/blog', label: 'Blog' },
   { href: '/projects', label: 'Projects' },
   { href: '/tools', label: 'Tools' },
@@ -23,7 +15,6 @@ const Nav = () => {
   const [scrolling, setScrolling] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,8 +35,6 @@ const Nav = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const navLinks = isHomePage ? sectionLinks : pageLinks;
-
   const handleLinkClick = () => {
     setMobileMenuOpen(false);
   };
@@ -65,24 +54,12 @@ const Nav = () => {
 
         {/* Desktop Navigation Links */}
         <ul className="absolute left-1/2 hidden -translate-x-1/2 gap-6 md:flex md:gap-8">
-          {isHomePage &&
-            sectionLinks.map((link) => (
-              <li key={link.href} className="group relative">
-                <Link
-                  href={link.href}
-                  className="text-white text-opacity-70 transition-all duration-300 hover:text-opacity-100"
-                >
-                  {link.label}
-                </Link>
-                <span className="absolute bottom-0 left-0 block h-0.5 w-0 bg-brand transition-all duration-300 group-hover:w-full" />
-              </li>
-            ))}
-
-          {pageLinks.map((link) => (
+          {navLinks.map((link) => (
             <li key={link.href} className="group relative">
               <Link
                 href={link.href}
-                className={`transition-all duration-300 ${pathname === link.href || pathname.startsWith(link.href + '/')
+                className={`transition-all duration-300 ${pathname === link.href ||
+                    pathname.startsWith(link.href + '/')
                     ? 'text-brand'
                     : 'text-white text-opacity-70 hover:text-opacity-100'
                   }`}
@@ -90,7 +67,8 @@ const Nav = () => {
                 {link.label}
               </Link>
               <span
-                className={`absolute bottom-0 left-0 block h-0.5 bg-brand transition-all duration-300 ${pathname === link.href || pathname.startsWith(link.href + '/')
+                className={`absolute bottom-0 left-0 block h-0.5 bg-brand transition-all duration-300 ${pathname === link.href ||
+                    pathname.startsWith(link.href + '/')
                     ? 'w-full'
                     : 'w-0 group-hover:w-full'
                   }`}
@@ -131,7 +109,7 @@ const Nav = () => {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-lg pt-24 px-6 md:hidden transition-all duration-300 ${mobileMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'
+        className={`fixed inset-0 z-40 bg-black/95 px-6 pt-24 backdrop-blur-lg transition-all duration-300 md:hidden ${mobileMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'
           }`}
       >
         <ul className="flex flex-col gap-6">
@@ -160,48 +138,13 @@ const Nav = () => {
               </Link>
             </li>
           ))}
-
-          {/* Show page links in mobile when on home page */}
-          {isHomePage && (
-            <>
-              <li className="pt-2">
-                <span className="text-xs font-semibold uppercase tracking-wider text-white/30">
-                  Pages
-                </span>
-              </li>
-              {pageLinks.map((link, index) => (
-                <li
-                  key={link.href}
-                  className="border-b border-neutral-800 pb-4 transition-all duration-300"
-                  style={{
-                    transitionDelay: mobileMenuOpen
-                      ? `${(sectionLinks.length + index + 1) * 50}ms`
-                      : '0ms',
-                    opacity: mobileMenuOpen ? 1 : 0,
-                    transform: mobileMenuOpen
-                      ? 'translateX(0)'
-                      : 'translateX(-20px)',
-                  }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={handleLinkClick}
-                    className="flex items-center gap-3 text-2xl text-white/80 transition-colors hover:text-brand"
-                  >
-                    <span className="h-2 w-2 rounded-full bg-brand" />
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </>
-          )}
         </ul>
 
         {/* Mobile CV Button */}
         <div
           className="mt-8 transition-all duration-300"
           style={{
-            transitionDelay: mobileMenuOpen ? '350ms' : '0ms',
+            transitionDelay: mobileMenuOpen ? '200ms' : '0ms',
             opacity: mobileMenuOpen ? 1 : 0,
             transform: mobileMenuOpen
               ? 'translateX(0)'

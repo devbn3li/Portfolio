@@ -50,7 +50,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <div className="min-h-screen bg-bg">
       <Nav />
-      <main className="mx-auto max-w-3xl px-5 pb-20 pt-28">
+      <main className="mx-auto max-w-5xl px-5 pb-20 pt-28">
         {/* Back link */}
         <Link
           href="/blog"

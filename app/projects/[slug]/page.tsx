@@ -49,7 +49,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <div className="min-h-screen bg-bg">
       <Nav />
-      <main className="mx-auto max-w-4xl px-5 pb-20 pt-28">
+      <main className="mx-auto max-w-5xl px-5 pb-20 pt-28">
         {/* Back link */}
         <Link
           href="/projects"
