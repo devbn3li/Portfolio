@@ -9,6 +9,7 @@ const experiences = [
   {
     title: 'Frontend Developer',
     company: 'SustainGRC',
+    companyLink: 'https://www.sustaingrc.com',
     location: 'Remote | London',
     period: '03/2025 – Present',
     points: [
@@ -21,6 +22,7 @@ const experiences = [
   {
     title: 'Frontend Engineer',
     company: 'Actus Go',
+    companyLink: 'https://actusgo.com',
     location: 'Remote | Jordan',
     period: '08/2024 – 03/2025',
     points: [
@@ -31,6 +33,7 @@ const experiences = [
   {
     title: 'Intern Frontend Developer',
     company: 'SustainGRC',
+    companyLink: 'https://www.sustaingrc.com',
     location: 'Remote | London',
     period: '01/2024 – 06/2024',
     points: [
@@ -197,7 +200,13 @@ const CVPage = () => {
                   <h3 className="text-xl font-semibold text-white">{exp.title}</h3>
                   <span className="text-[rgb(100_108_255)] text-sm">{exp.period}</span>
                 </div>
-                <p className="text-white/50 mb-3">{exp.company} • {exp.location}</p>
+                <div className="text-white/50 mb-3">
+                  {exp.companyLink ? (
+                    <Link href={exp.companyLink} target="_blank" rel="noopener noreferrer">{exp.company}</Link>
+                  ) : (
+                    <span>{exp.company}</span>
+                  )} • {exp.location}
+                </div>
                 <ul className="space-y-2">
                   {exp.points.map((point, i) => (
                     <li key={i} className="text-white/70 text-sm flex gap-2">

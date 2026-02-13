@@ -1,6 +1,7 @@
 import Nav from "../components/Nav";
 import Hero from "../components/Hero";
 import SpaceBackground from "../components/ShootingStars";
+import Footer from "../components/Footer";
 
 // Lazy load components that are below the fold
 import dynamic from 'next/dynamic';
@@ -22,10 +23,10 @@ const Contact = dynamic(() => import('../components/Contact'), {
 
 export default function Home() {
   return (
-    <div className="bg-transparent font-inter relative">
+    <div className="relative bg-transparent font-inter">
       <SpaceBackground />
       <Nav />
-      <div className="pt-16 relative z-10">
+      <div className="relative z-10 pt-16">
         <Hero />
         <About />
         <Services />
@@ -33,11 +34,7 @@ export default function Home() {
         <Projects />
         <Contact />
       </div>
-
-      {/* Footer */}
-      <footer className="py-8 text-center text-white/50 border-t border-neutral-800 relative z-10">
-        <p>© {new Date().getFullYear()} Mohamed Ali. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
