@@ -38,3 +38,8 @@ next-env.d.ts
 .env
 
 pnpm-lock.yaml
+
+# wrangler / opennextjs-cloudflare
+/.open-next/
+/.wrangler/
+.dev.vars*
