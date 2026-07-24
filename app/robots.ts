@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://devbn3li.vercel.app/sitemap.xml',
+    sitemap: 'https://devbn3li.app/sitemap.xml',
   };
 }

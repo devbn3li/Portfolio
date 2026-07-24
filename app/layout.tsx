@@ -31,40 +31,41 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://devbn3li.vercel.app'),
+  metadataBase: new URL('https://devbn3li.app'),
   title: {
     default: 'Mohamed Ali | Frontend Engineer',
     template: '%s | Mohamed Ali',
   },
   description:
-    'Frontend Engineer specializing in React.js, Next.js, and TypeScript. Building fast, scalable web applications and intuitive user interfaces.',
+    'Frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript. 2+ years shipping production UI.',
   keywords: [
+    'Frontend Engineer',
     'Frontend Developer',
-    'React.js',
-    'Next.js',
+    'React developer',
+    'Next.js developer',
     'TypeScript',
     'Web Developer',
+    'Cairo',
     'Egypt',
+    'Freelance',
     'Mohamed Ali',
-    'Portfolio',
-    'Blog',
   ],
-  authors: [{ name: 'Mohamed Ali', url: 'https://devbn3li.vercel.app' }],
+  authors: [{ name: 'Mohamed Ali', url: 'https://devbn3li.app' }],
   creator: 'Mohamed Ali',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://devbn3li.vercel.app',
+    url: 'https://devbn3li.app',
     title: 'Mohamed Ali | Frontend Engineer',
     description:
-      'Frontend Engineer specializing in React.js, Next.js, and TypeScript. Building fast, scalable web applications.',
-    siteName: 'Mohamed Ali Portfolio',
+      'Frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.',
+    siteName: 'Mohamed Ali',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Mohamed Ali - Frontend Engineer',
+        alt: 'Mohamed Ali, Frontend Engineer',
       },
     ],
   },
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Mohamed Ali | Frontend Engineer',
     description:
-      'Frontend Engineer specializing in React.js, Next.js, and TypeScript.',
+      'Frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.',
     images: ['/og-image.png'],
     creator: '@devbn3lii',
   },
@@ -105,23 +106,40 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Mohamed Ali',
+    alternateName: 'Mohamed Ali Hussein',
     jobTitle: 'Frontend Engineer',
-    url: 'https://devbn3li.vercel.app',
+    url: 'https://devbn3li.app',
+    email: 'mailto:muhammed.ali.hissein@gmail.com',
+    image: 'https://devbn3li.app/og-image.png',
     sameAs: [
       'https://github.com/devbn3li',
       'https://linkedin.com/in/devbn3li',
       'https://twitter.com/devbn3lii',
     ],
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Sustaingrc',
+    },
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'University of the People',
+    },
     knowsAbout: [
       'React.js',
       'Next.js',
       'TypeScript',
+      'JavaScript',
       'Tailwind CSS',
+      'React Native',
+      'Redux',
+      'Node.js',
       'Frontend Development',
+      'Web Performance',
+      'Accessibility',
     ],
     address: {
       '@type': 'PostalAddress',
-      addressCountry: 'Egypt',
+      addressCountry: 'EG',
       addressLocality: 'Cairo',
     },
   };
@@ -129,12 +147,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://assets.calendly.com" />
-        <link rel="dns-prefetch" href="https://assets.calendly.com" />
-        <link
-          href="https://assets.calendly.com/assets/external/widget.css"
-          rel="stylesheet"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

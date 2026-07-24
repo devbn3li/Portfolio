@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import GlobalChrome from '../components/redesign/GlobalChrome';
 import Nav from '../components/redesign/Nav';
 import Hero from '../components/redesign/Hero';
@@ -7,6 +8,10 @@ import Proof from '../components/redesign/Proof';
 import Work from '../components/redesign/Work';
 import Contact from '../components/redesign/Contact';
 import Footer from '../components/redesign/Footer';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function Home() {
   return (

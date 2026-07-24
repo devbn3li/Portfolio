@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://devbn3li.vercel.app';
+  const baseUrl = 'https://devbn3li.app';
 
   const routes = ['', '/cv'].map((route) => ({
     url: `${baseUrl}${route}`,
