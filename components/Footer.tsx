@@ -3,9 +3,6 @@ import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const footerLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Tools', href: '/tools' },
   { label: 'CV', href: '/cv' },
 ];
 
