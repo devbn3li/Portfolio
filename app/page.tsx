@@ -1,39 +1,26 @@
-import Nav from "../components/Nav";
-import Hero from "../components/Hero";
-import SpaceBackground from "../components/ShootingStars";
-import Footer from "../components/Footer";
-
-// Lazy load components that are below the fold
-import dynamic from 'next/dynamic';
-const About = dynamic(() => import('../components/About'), {
-  loading: () => <div className="min-h-[400px]" />,
-});
-const Services = dynamic(() => import('../components/Services'), {
-  loading: () => <div className="min-h-[400px]" />,
-});
-const Skills = dynamic(() => import('../components/Skills'), {
-  loading: () => <div className="min-h-[400px]" />,
-});
-const Projects = dynamic(() => import('../components/Projects'), {
-  loading: () => <div className="min-h-[400px]" />,
-});
-const Contact = dynamic(() => import('../components/Contact'), {
-  loading: () => <div className="min-h-[400px]" />,
-});
+import GlobalChrome from '../components/redesign/GlobalChrome';
+import Nav from '../components/redesign/Nav';
+import Hero from '../components/redesign/Hero';
+import About from '../components/redesign/About';
+import Services from '../components/redesign/Services';
+import Proof from '../components/redesign/Proof';
+import Work from '../components/redesign/Work';
+import Contact from '../components/redesign/Contact';
+import Footer from '../components/redesign/Footer';
 
 export default function Home() {
   return (
-    <div className="relative bg-transparent font-inter">
-      <SpaceBackground />
+    <div className="relative min-h-screen overflow-x-hidden bg-ink font-grotesk text-[17px] leading-[1.6] text-paper">
+      <GlobalChrome />
       <Nav />
-      <div className="relative z-10 pt-16">
+      <main>
         <Hero />
         <About />
         <Services />
-        <Skills />
-        <Projects />
+        <Proof />
+        <Work />
         <Contact />
-      </div>
+      </main>
       <Footer />
     </div>
   );

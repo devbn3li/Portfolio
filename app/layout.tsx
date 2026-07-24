@@ -1,12 +1,33 @@
 import '../public/styles/globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Archivo, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
   display: 'swap',
   preload: true,
+});
+
+const archivo = Archivo({
+  variable: '--font-archivo',
+  subsets: ['latin'],
+  weight: ['700', '800', '900'],
+  display: 'swap',
+});
+
+const grotesk = Space_Grotesk({
+  variable: '--font-grotesk',
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-mono',
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -71,7 +92,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#09090b',
+  themeColor: '#0a0a0e',
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({
@@ -119,7 +141,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} antialiased min-h-screen bg-bg font-sans`}
+        className={`${inter.variable} ${archivo.variable} ${grotesk.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-bg font-sans`}
       >
         {children}
       </body>
