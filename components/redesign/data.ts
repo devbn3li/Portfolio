@@ -9,6 +9,7 @@ export const SITE = {
   availableBadge: true,
   email: 'muhammed.ali.hissein@gmail.com',
   cvUrl: '/cv',
+  cvPdf: '/Mohamed-Ali-Hussein-CV.pdf',
   location: 'Cairo, EG (GMT+2)',
   social: {
     github: 'https://github.com/devbn3li',
@@ -45,12 +46,13 @@ export const MARQUEE = [
   'AZURE',
 ];
 
+// Absolute (`/#…`) so the nav works from any route, not just the homepage.
 export const NAV_LINKS = [
-  { href: '#about', label: 'ABOUT' },
-  { href: '#services', label: 'SERVICES' },
-  { href: '#proof', label: 'PROOF' },
-  { href: '#work', label: 'WORK' },
-  { href: '#contact', label: 'CONTACT' },
+  { href: '/#about', label: 'ABOUT' },
+  { href: '/#services', label: 'SERVICES' },
+  { href: '/#proof', label: 'PROOF' },
+  { href: '/#work', label: 'WORK' },
+  { href: '/#contact', label: 'CONTACT' },
 ];
 
 export const SERVICES = [

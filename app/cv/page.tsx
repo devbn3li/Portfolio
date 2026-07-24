@@ -1,11 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { FiDownload, FiMail, FiPhone } from 'react-icons/fi';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { motion, type Variants } from 'framer-motion';
 import Link from 'next/link';
-import Nav from '@/components/Nav';
-import Footer from '@/components/Footer';
+import GlobalChrome from '@/components/redesign/GlobalChrome';
+import Nav from '@/components/redesign/Nav';
+import Footer from '@/components/redesign/Footer';
 
 const experiences = [
   {
@@ -61,7 +60,8 @@ const education = [
     degree: 'Software Engineering Program',
     school: 'ALX Africa (Powered by Holberton School)',
     period: '02/2023 – 06/2024',
-    description: 'Completed a 15-month intensive program, mastering frontend engineering and CS fundamentals.',
+    description:
+      'Completed a 15-month intensive program, mastering frontend engineering and CS fundamentals.',
   },
 ];
 
@@ -74,135 +74,184 @@ const skills = {
 const projects = [
   {
     title: 'Moviezone',
-    tech: 'MERN Stack',
-    description: 'A fully functional application for Movies and TVShows using: Next.js, Tailwind, TypeScript, Node.js, MongoDB',
+    tech: 'MERN STACK',
+    description:
+      'A fully functional application for Movies and TVShows using: Next.js, Tailwind, TypeScript, Node.js, MongoDB',
   },
 ];
 
-const CVPage = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  } as const;
+const contactLinks = [
+  { label: 'muhammed.ali.hissein@gmail.com', href: 'mailto:muhammed.ali.hissein@gmail.com' },
+  { label: '+20 102 408 6643', href: 'tel:+201024086643' },
+  { label: 'GITHUB ↗', href: 'https://github.com/devbn3li', external: true },
+  { label: 'LINKEDIN ↗', href: 'https://linkedin.com/in/devbn3li', external: true },
+];
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.21, 0.47, 0.32, 0.98] as const,
-      },
-    },
-  } as const;
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+};
 
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+function SectionHeading({ index, title }: { index: string; title: string }) {
   return (
-    <div className="min-h-screen bg-bg">
-      <Nav />
-      <main className="mx-auto max-w-5xl px-5 pb-20 pt-28">
+    <>
+      <div className="font-mono text-[13px] tracking-[0.14em] text-accent">
+        {index} / {title.toUpperCase()}
+      </div>
+      <h2 className="mb-6 mt-3 font-archivo text-[clamp(24px,3vw,34px)] font-extrabold tracking-[-0.01em]">
+        {title}
+      </h2>
+    </>
+  );
+}
 
+function Pill({ children, accent }: { children: React.ReactNode; accent?: boolean }) {
+  return (
+    <span
+      className={
+        accent
+          ? 'rounded-full bg-accent/[0.12] px-4 py-2 font-mono text-[12px] tracking-[0.06em] text-accent-soft'
+          : 'rounded-full border border-white/10 px-4 py-2 text-[13px] text-paper-muted'
+      }
+    >
+      {children}
+    </span>
+  );
+}
+
+const CVPage = () => {
+  return (
+    <div
+      id="top"
+      className="relative min-h-screen overflow-x-hidden bg-ink font-grotesk text-[17px] leading-[1.6] text-paper"
+    >
+      <GlobalChrome />
+      <Nav />
+
+      <main className="relative z-[2] mx-auto max-w-[920px] px-6 pb-24 pt-32 md:px-10 md:pt-36">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-4xl mx-auto bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-2xl p-8 md:p-12"
+          className="rounded-[20px] border border-white/[0.08] bg-surface p-7 md:p-12"
         >
           {/* Header */}
-          <motion.div variants={itemVariants} className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10 pb-8 border-b border-neutral-800">
+          <motion.div
+            variants={itemVariants}
+            className="mb-10 flex flex-col justify-between gap-6 border-b border-white/[0.08] pb-8 md:flex-row md:items-center"
+          >
             <div>
-              <h1 className="text-4xl md:text-5xl font-black text-white mb-2">
+              <div className="mb-3 font-mono text-[13px] tracking-[0.14em] text-accent">
+                CV · MOHAMED ALI
+              </div>
+              <h1 className="m-0 font-archivo text-[clamp(34px,5vw,56px)] font-extrabold leading-[1.02] tracking-[-0.02em]">
                 Mohamed Ali Hussein
               </h1>
-              <p className="text-xl text-[rgb(100_108_255)] font-semibold">Frontend Engineer</p>
+              <p className="mt-2 font-mono text-[13px] tracking-[0.14em] text-paper-muted">
+                FRONTEND ENGINEER · CAIRO, EG
+              </p>
             </div>
-            <motion.a
+            <a
               href="/Mohamed-Ali-Hussein-CV.pdf"
               download="Mohamed-Ali-Hussein-CV.pdf"
-              whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(100, 108, 255, 0.5)' }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 bg-[rgb(100_108_255)] text-white font-semibold rounded-lg flex items-center gap-2 cursor-pointer"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-accent px-7 py-[14px] font-semibold text-white no-underline transition-[transform,background-color] duration-200 hover:-translate-y-[3px] hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
             >
-              <FiDownload />
-              Download CV
-            </motion.a>
+              Download CV <span aria-hidden>↓</span>
+            </a>
           </motion.div>
 
-          {/* Contact Info */}
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-6 mb-10 text-white/70">
-            <a href="mailto:muhammed.ali.hissein@gmail.com" className="flex items-center gap-2 hover:text-[rgb(100_108_255)] transition-colors">
-              <FiMail /> muhammed.ali.hissein@gmail.com
-            </a>
-            <a href="tel:+201024086643" className="flex items-center gap-2 hover:text-[rgb(100_108_255)] transition-colors">
-              <FiPhone /> +201024086643
-            </a>
-            <a href="https://github.com/devbn3li" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[rgb(100_108_255)] transition-colors">
-              <FaGithub /> GitHub
-            </a>
-            <a href="https://linkedin.com/in/devbn3li" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[rgb(100_108_255)] transition-colors">
-              <FaLinkedin /> LinkedIn
-            </a>
+          {/* Contact */}
+          <motion.div
+            variants={itemVariants}
+            className="mb-12 flex flex-wrap gap-x-7 gap-y-3 font-mono text-[13px] tracking-[0.04em] text-paper-muted"
+          >
+            {contactLinks.map((c) => (
+              <a
+                key={c.label}
+                href={c.href}
+                {...(c.external
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+                className="no-underline transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+              >
+                {c.label}
+              </a>
+            ))}
           </motion.div>
 
           {/* Summary */}
-          <motion.div variants={itemVariants} className="mb-10">
-            <h2 className="text-2xl font-bold text-white mb-4">Summary</h2>
-            <p className="text-white/70 leading-relaxed">
-              Frontend Engineer with 2+ years of experience developing scalable web applications. Skilled in MERN Stack development, WebSocket real-time systems. Proven track record in optimizing UI/UX, improving performance, and delivering high-quality software solutions for international clients.
+          <motion.section variants={itemVariants} className="mb-14">
+            <SectionHeading index="01" title="Summary" />
+            <p className="m-0 max-w-[680px] text-paper-muted">
+              Frontend Engineer with 2+ years of experience developing scalable
+              web applications. Skilled in MERN Stack development, WebSocket
+              real-time systems. Proven track record in optimizing UI/UX,
+              improving performance, and delivering high-quality software
+              solutions for international clients.
             </p>
-          </motion.div>
+          </motion.section>
 
           {/* Experience */}
-          <motion.div variants={itemVariants} className="mb-10">
-            <h2 className="text-2xl font-bold text-white mb-6">Professional Experience</h2>
-            <div className="space-y-8">
-              {experiences.map((exp, index) => (
+          <motion.section variants={itemVariants} className="mb-14">
+            <SectionHeading index="02" title="Experience" />
+            <div className="flex flex-col gap-9">
+              {experiences.map((exp) => (
                 <motion.div
-                  key={index}
+                  key={exp.title + exp.period}
                   variants={itemVariants}
-                  className="relative pl-6 border-l-2 border-[rgb(100_108_255_/_0.3)]"
+                  className="relative border-l border-white/10 pl-6"
                 >
-                  {/* Timeline dot - pulsing if current */}
-                  {exp.period.includes('Present') ? (
-                    <div className="absolute left-[-9px] top-0">
-                      <motion.div
-                        className="w-4 h-4 bg-[rgb(100_108_255)] rounded-full"
-                        animate={{
-                          boxShadow: [
-                            '0 0 0 0 rgba(100, 108, 255, 0.7)',
-                            '0 0 0 10px rgba(100, 108, 255, 0)',
-                          ],
-                        }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          ease: 'easeOut',
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    <div className="absolute left-[-9px] top-0 w-4 h-4 bg-[rgb(100_108_255)] rounded-full" />
-                  )}
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                    <h3 className="text-xl font-semibold text-white">{exp.title}</h3>
-                    <span className="text-[rgb(100_108_255)] text-sm">{exp.period}</span>
+                  <span
+                    className={`absolute -left-[7px] top-1 h-3.5 w-3.5 rounded-full bg-accent ${
+                      exp.period.includes('Present') ? 'rd-pulse' : ''
+                    }`}
+                    style={
+                      exp.period.includes('Present')
+                        ? { animation: 'rd-pulse 2s infinite' }
+                        : undefined
+                    }
+                  />
+                  <div className="flex flex-col justify-between gap-1 md:flex-row md:items-baseline">
+                    <h3 className="m-0 font-archivo text-[20px] font-bold">
+                      {exp.title}
+                    </h3>
+                    <span className="font-mono text-xs tracking-[0.08em] text-accent">
+                      {exp.period}
+                    </span>
                   </div>
-                  <div className="text-white/50 mb-3">
+                  <div className="mb-3 mt-1 text-[15px] text-paper-dim">
                     {exp.companyLink ? (
-                      <Link href={exp.companyLink} target="_blank" rel="noopener noreferrer">{exp.company}</Link>
+                      <Link
+                        href={exp.companyLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-paper-muted no-underline hover:text-accent"
+                      >
+                        {exp.company}
+                      </Link>
                     ) : (
-                      <span>{exp.company}</span>
-                    )} • {exp.location}
+                      <span className="text-paper-muted">{exp.company}</span>
+                    )}{' '}
+                    · {exp.location}
                   </div>
-                  <ul className="space-y-2">
+                  <ul className="m-0 flex list-none flex-col gap-2 p-0">
                     {exp.points.map((point, i) => (
-                      <li key={i} className="text-white/70 text-sm flex gap-2">
-                        <span className="text-[rgb(100_108_255)]">•</span>
+                      <li
+                        key={i}
+                        className="flex gap-2 text-[15px] text-paper-muted"
+                      >
+                        <span className="mt-[2px] text-accent" aria-hidden>
+                          ·
+                        </span>
                         {point}
                       </li>
                     ))}
@@ -210,100 +259,107 @@ const CVPage = () => {
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </motion.section>
 
           {/* Education */}
-          <motion.div variants={itemVariants} className="mb-10">
-            <h2 className="text-2xl font-bold text-white mb-6">Education</h2>
-            <div className="space-y-6">
-              {education.map((edu, index) => (
+          <motion.section variants={itemVariants} className="mb-14">
+            <SectionHeading index="03" title="Education" />
+            <div className="flex flex-col gap-6">
+              {education.map((edu) => (
                 <motion.div
-                  key={index}
+                  key={edu.degree}
                   variants={itemVariants}
-                  className="relative pl-6 border-l-2 border-[rgb(100_108_255_/_0.3)]"
+                  className="relative border-l border-white/10 pl-6"
                 >
-                  <div className="absolute left-[-9px] top-0 w-4 h-4 bg-[rgb(100_108_255)] rounded-full" />
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                    <h3 className="text-xl font-semibold text-white">{edu.degree}</h3>
-                    <span className="text-[rgb(100_108_255)] text-sm">{edu.period}</span>
+                  <span className="absolute -left-[7px] top-1 h-3.5 w-3.5 rounded-full bg-accent" />
+                  <div className="flex flex-col justify-between gap-1 md:flex-row md:items-baseline">
+                    <h3 className="m-0 font-archivo text-[20px] font-bold">
+                      {edu.degree}
+                    </h3>
+                    <span className="font-mono text-xs tracking-[0.08em] text-accent">
+                      {edu.period}
+                    </span>
                   </div>
-                  <p className="text-white/50 mb-2">{edu.school}</p>
-                  {edu.description && <p className="text-white/70 text-sm">{edu.description}</p>}
+                  <p className="mb-1 mt-1 text-[15px] text-paper-muted">
+                    {edu.school}
+                  </p>
+                  {edu.description && (
+                    <p className="m-0 text-[14px] text-paper-dim">
+                      {edu.description}
+                    </p>
+                  )}
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </motion.section>
 
           {/* Skills */}
-          <motion.div variants={itemVariants} className="mb-10">
-            <h2 className="text-2xl font-bold text-white mb-6">Skills</h2>
-            <div className="space-y-6">
+          <motion.section variants={itemVariants} className="mb-14">
+            <SectionHeading index="04" title="Skills" />
+            <div className="flex flex-col gap-6">
               <div>
-                <h3 className="text-lg font-semibold text-white/80 mb-3">Web Technologies</h3>
+                <div className="mb-3 font-mono text-[11px] tracking-[0.12em] text-paper-dim">
+                  WEB TECHNOLOGIES
+                </div>
                 <div className="flex flex-wrap gap-2">
-                  {skills.webTechnologies.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-4 py-2 bg-[rgb(100_108_255_/_0.1)] text-[rgb(100_108_255)] rounded-lg text-sm border border-[rgb(100_108_255_/_0.2)]"
-                    >
-                      {skill}
-                    </span>
+                  {skills.webTechnologies.map((s) => (
+                    <Pill key={s} accent>
+                      {s}
+                    </Pill>
                   ))}
                 </div>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white/80 mb-3">Technical Tools</h3>
+                <div className="mb-3 font-mono text-[11px] tracking-[0.12em] text-paper-dim">
+                  TECHNICAL TOOLS
+                </div>
                 <div className="flex flex-wrap gap-2">
-                  {skills.technicalTools.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-4 py-2 bg-neutral-800/50 text-white/70 rounded-lg text-sm border border-neutral-700"
-                    >
-                      {skill}
-                    </span>
+                  {skills.technicalTools.map((s) => (
+                    <Pill key={s}>{s}</Pill>
                   ))}
                 </div>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white/80 mb-3">Programming Languages</h3>
+                <div className="mb-3 font-mono text-[11px] tracking-[0.12em] text-paper-dim">
+                  PROGRAMMING LANGUAGES
+                </div>
                 <div className="flex flex-wrap gap-2">
-                  {skills.programmingLanguages.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-4 py-2 bg-neutral-800/50 text-white/70 rounded-lg text-sm border border-neutral-700"
-                    >
-                      {skill}
-                    </span>
+                  {skills.programmingLanguages.map((s) => (
+                    <Pill key={s}>{s}</Pill>
                   ))}
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.section>
 
           {/* Projects */}
-          <motion.div variants={itemVariants}>
-            <h2 className="text-2xl font-bold text-white mb-6">Projects</h2>
-            <div className="space-y-4">
-              {projects.map((project, index) => (
+          <motion.section variants={itemVariants}>
+            <SectionHeading index="05" title="Projects" />
+            <div className="flex flex-col gap-4">
+              {projects.map((project) => (
                 <motion.div
-                  key={index}
+                  key={project.title}
                   variants={itemVariants}
-                  className="p-4 bg-neutral-800/30 rounded-xl border border-neutral-700"
+                  className="rounded-[14px] border border-white/[0.08] bg-ink p-5"
                 >
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-semibold text-white">{project.title}</h3>
-                    <span className="px-2 py-1 bg-[rgb(100_108_255_/_0.1)] text-[rgb(100_108_255)] rounded text-xs">
+                  <div className="mb-2 flex items-center gap-3">
+                    <h3 className="m-0 font-archivo text-[18px] font-bold">
+                      {project.title}
+                    </h3>
+                    <span className="rounded-full bg-accent/[0.12] px-3 py-1 font-mono text-[11px] tracking-[0.08em] text-accent-soft">
                       {project.tech}
                     </span>
                   </div>
-                  <p className="text-white/70 text-sm">{project.description}</p>
+                  <p className="m-0 text-[15px] text-paper-muted">
+                    {project.description}
+                  </p>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </motion.section>
         </motion.div>
-
       </main>
+
       <Footer />
     </div>
   );
