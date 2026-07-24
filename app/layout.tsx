@@ -60,21 +60,13 @@ export const metadata: Metadata = {
     description:
       'Frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.',
     siteName: 'Mohamed Ali',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Mohamed Ali, Frontend Engineer',
-      },
-    ],
+    // og:image comes from app/opengraph-image.tsx (file convention).
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Mohamed Ali | Frontend Engineer',
     description:
       'Frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.',
-    images: ['/og-image.png'],
     creator: '@devbn3lii',
   },
   robots: {
@@ -102,15 +94,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const jsonLd = {
+  const person = {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': 'https://devbn3li.app/#person',
     name: 'Mohamed Ali',
     alternateName: 'Mohamed Ali Hussein',
     jobTitle: 'Frontend Engineer',
     url: 'https://devbn3li.app',
     email: 'mailto:muhammed.ali.hissein@gmail.com',
-    image: 'https://devbn3li.app/og-image.png',
+    image: 'https://devbn3li.app/images/me/me.jpg',
     sameAs: [
       'https://github.com/devbn3li',
       'https://linkedin.com/in/devbn3li',
@@ -144,12 +137,24 @@ export default function RootLayout({
     },
   };
 
+  const website = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://devbn3li.app/#website',
+    url: 'https://devbn3li.app',
+    name: 'Mohamed Ali',
+    description:
+      'Frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.',
+    publisher: { '@id': 'https://devbn3li.app/#person' },
+    inLanguage: 'en-US',
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([person, website]) }}
         />
       </head>
       <body
