@@ -80,7 +80,7 @@ export default function Contact() {
       <Reveal delay={200} className="mt-10">
         <a
           href={`mailto:${SITE.email}`}
-          className="inline-block rounded-full border border-white/20 px-9 py-[18px] font-mono text-[clamp(14px,2.2vw,22px)] text-paper no-underline transition-[transform,border-color,background-color] duration-[250ms] hover:-translate-y-[3px] hover:border-accent hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="inline-block max-w-full break-words rounded-full border border-white/20 px-5 py-4 font-mono text-[clamp(13px,2.2vw,22px)] text-paper no-underline transition-[transform,border-color,background-color] duration-[250ms] hover:-translate-y-[3px] hover:border-accent hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:px-9 sm:py-[18px]"
         >
           {SITE.email} <span aria-hidden>↗</span>
         </a>

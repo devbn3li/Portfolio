@@ -31,7 +31,7 @@ function FeatureRow({ item, reversed }: { item: WorkItem; reversed?: boolean }) 
           <Tag key={t}>{t}</Tag>
         ))}
       </div>
-      <div className="flex gap-6 font-medium">
+      <div className="flex flex-wrap gap-x-6 gap-y-2 font-medium">
         {item.liveUrl && (
           <a
             href={item.liveUrl}

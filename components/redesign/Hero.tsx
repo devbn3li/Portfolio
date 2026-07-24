@@ -16,14 +16,17 @@ export default function Hero() {
       <div className="mx-auto w-full max-w-[1240px] px-6 pt-[120px] md:px-10 md:pt-[140px]">
         {SITE.availableBadge && (
           <div
-            className="rd-fade-up inline-flex items-center gap-[10px] rounded-full border border-white/[0.14] px-4 py-2 font-mono text-xs tracking-[0.1em] text-paper-muted"
+            className="rd-fade-up inline-flex max-w-full items-center gap-[10px] rounded-full border border-white/[0.14] px-4 py-2 font-mono text-[11px] tracking-[0.1em] text-paper-muted sm:text-xs"
             style={{ animation: `rd-fade-up .8s .1s ${REVEAL_EASE} both` }}
           >
             <span
-              className="rd-pulse h-2 w-2 rounded-full bg-success"
+              className="rd-pulse h-2 w-2 shrink-0 rounded-full bg-success"
               style={{ animation: 'rd-pulse 2s infinite' }}
             />
-            OPEN FOR OPPORTUNITIES · {SITE.location}
+            <span className="min-w-0">
+              OPEN FOR OPPORTUNITIES
+              <span className="hidden sm:inline"> · {SITE.location}</span>
+            </span>
           </div>
         )}
 
@@ -69,16 +72,16 @@ export default function Hero() {
           style={{ animation: `rd-fade-up .8s .85s ${REVEAL_EASE} both` }}
         >
           <p className="m-0 max-w-[460px] text-paper-muted">{paragraph}</p>
-          <div className="flex gap-[14px]">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-[14px]">
             <a
               href={cta.href}
-              className="rounded-full bg-accent px-[30px] py-[15px] font-semibold text-white no-underline transition-[transform,background-color] duration-200 hover:-translate-y-[3px] hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+              className="w-full rounded-full bg-accent px-[30px] py-[15px] text-center font-semibold text-white no-underline transition-[transform,background-color] duration-200 hover:-translate-y-[3px] hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:w-auto"
             >
               {cta.label}
             </a>
             <a
               href="#proof"
-              className="rounded-full border border-white/20 px-[30px] py-[15px] font-medium text-paper no-underline transition-[transform,border-color] duration-200 hover:-translate-y-[3px] hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="w-full rounded-full border border-white/20 px-[30px] py-[15px] text-center font-medium text-paper no-underline transition-[transform,border-color] duration-200 hover:-translate-y-[3px] hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:w-auto"
             >
               Try the live demos <span aria-hidden>↓</span>
             </a>
