@@ -45,10 +45,10 @@ export default function PhysicsDemo() {
             move(r.left + Math.random() * r.width, r.top + Math.random() * r.height);
           }
         }}
-        className="relative min-h-[240px] flex-1 cursor-crosshair overflow-hidden rounded-xl border border-white/[0.06] bg-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        className="relative min-h-[240px] flex-1 cursor-crosshair overflow-hidden rounded-xl border border-mist/[0.06] bg-petrol"
         style={{
           backgroundImage:
-            'radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px)',
+            'radial-gradient(rgb(var(--mist) / .07) 1px, transparent 1px)',
           backgroundSize: '22px 22px',
         }}
       >
@@ -57,7 +57,7 @@ export default function PhysicsDemo() {
             ...DOT,
             left: `${pos.x}%`,
             top: `${pos.y}%`,
-            border: '1px solid rgba(111,91,245,.45)',
+            border: '1px solid rgb(var(--peach) / .45)',
             transition:
               'left 1.1s cubic-bezier(.3,1.5,.5,1), top 1.1s cubic-bezier(.3,1.5,.5,1)',
           }}
@@ -67,17 +67,17 @@ export default function PhysicsDemo() {
             ...DOT,
             left: `${pos.x}%`,
             top: `${pos.y}%`,
-            background: '#6f5bf5',
-            boxShadow: '0 6px 24px rgba(111,91,245,.5)',
+            background: 'rgb(var(--peach))',
+            boxShadow: '0 6px 24px rgb(var(--peach) / .5)',
             transition:
               'left .7s cubic-bezier(.3,1.6,.5,1), top .7s cubic-bezier(.3,1.6,.5,1)',
           }}
         />
-        <div className="pointer-events-none absolute inset-x-0 bottom-3 text-center font-mono text-[11px] tracking-[0.12em] text-paper-dim">
+        <div className="pointer-events-none absolute inset-x-0 bottom-3 text-center text-[11px] tracking-[0.12em] text-mist/70">
           CLICK ANYWHERE. WATCH THE OVERSHOOT
         </div>
       </div>
-      <p className="m-0 text-[13px] text-paper-muted">
+      <p className="m-0 text-[13px] text-mist">
         One transition, one custom cubic-bezier. Motion that feels physical
         doesn&apos;t need a library.
       </p>

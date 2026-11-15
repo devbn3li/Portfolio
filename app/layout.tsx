@@ -1,72 +1,47 @@
 import '../public/styles/globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Inter, Archivo, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { Alexandria } from 'next/font/google';
+import { color } from '@/lib/brand';
 
-const inter = Inter({
-  variable: '--font-inter',
+// One family for the whole site, Latin and Arabic. Two weights only.
+// `subsets` only controls preloading: the Arabic files are still declared and
+// load on demand if Arabic text is ever added.
+const alexandria = Alexandria({
+  variable: '--font-alexandria',
   subsets: ['latin'],
-  display: 'swap',
-  preload: true,
-});
-
-const archivo = Archivo({
-  variable: '--font-archivo',
-  subsets: ['latin'],
-  weight: ['700', '800', '900'],
+  weight: ['400', '800'],
   display: 'swap',
 });
 
-const grotesk = Space_Grotesk({
-  variable: '--font-grotesk',
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: '--font-mono',
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  display: 'swap',
-});
+const SITE_URL = 'https://devbn3li.app';
+const TITLE = 'Mohamed Ali (devbn3li) | Frontend Engineer';
+const DESCRIPTION =
+  'Mohamed Ali, known online as devbn3li, is a frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript. 2+ years shipping production UI.';
+const SHORT_DESCRIPTION =
+  'Mohamed Ali (devbn3li) is a frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://devbn3li.app'),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Mohamed Ali | Frontend Engineer',
-    template: '%s | Mohamed Ali',
+    default: TITLE,
+    template: '%s | Mohamed Ali (devbn3li)',
   },
-  description:
-    'Frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript. 2+ years shipping production UI.',
-  keywords: [
-    'Frontend Engineer',
-    'Frontend Developer',
-    'React developer',
-    'Next.js developer',
-    'TypeScript',
-    'Web Developer',
-    'Cairo',
-    'Egypt',
-    'Freelance',
-    'Mohamed Ali',
-  ],
-  authors: [{ name: 'Mohamed Ali', url: 'https://devbn3li.app' }],
+  description: DESCRIPTION,
+  authors: [{ name: 'Mohamed Ali', url: SITE_URL }],
   creator: 'Mohamed Ali',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://devbn3li.app',
-    title: 'Mohamed Ali | Frontend Engineer',
-    description:
-      'Frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.',
-    siteName: 'Mohamed Ali',
-    // og:image comes from app/opengraph-image.tsx (file convention).
+    url: SITE_URL,
+    title: TITLE,
+    description: SHORT_DESCRIPTION,
+    siteName: 'Mohamed Ali (devbn3li)',
+    // og:image and its alt come from app/opengraph-image.tsx (file convention).
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mohamed Ali | Frontend Engineer',
-    description:
-      'Frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.',
+    title: TITLE,
+    description: SHORT_DESCRIPTION,
     creator: '@devbn3lii',
   },
   robots: {
@@ -85,7 +60,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0a0a0e',
+  themeColor: color.petrol,
   colorScheme: 'dark',
 };
 
@@ -97,13 +72,13 @@ export default function RootLayout({
   const person = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': 'https://devbn3li.app/#person',
+    '@id': `${SITE_URL}/#person`,
     name: 'Mohamed Ali',
-    alternateName: 'Mohamed Ali Hussein',
+    alternateName: ['devbn3li', 'Mohamed Ali Hussein'],
     jobTitle: 'Frontend Engineer',
-    url: 'https://devbn3li.app',
+    url: SITE_URL,
     email: 'mailto:muhammed.ali.hissein@gmail.com',
-    image: 'https://devbn3li.app/images/me/me.jpg',
+    image: `${SITE_URL}/images/me/me.jpg`,
     sameAs: [
       'https://github.com/devbn3li',
       'https://linkedin.com/in/devbn3li',
@@ -132,20 +107,20 @@ export default function RootLayout({
     ],
     address: {
       '@type': 'PostalAddress',
-      addressCountry: 'EG',
       addressLocality: 'Cairo',
+      addressCountry: 'EG',
     },
   };
 
   const website = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://devbn3li.app/#website',
-    url: 'https://devbn3li.app',
+    '@id': `${SITE_URL}/#website`,
+    url: SITE_URL,
     name: 'Mohamed Ali',
-    description:
-      'Frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.',
-    publisher: { '@id': 'https://devbn3li.app/#person' },
+    alternateName: 'devbn3li',
+    description: SHORT_DESCRIPTION,
+    publisher: { '@id': `${SITE_URL}/#person` },
     inLanguage: 'en-US',
   };
 
@@ -158,7 +133,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${archivo.variable} ${grotesk.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-bg font-sans`}
+        className={`${alexandria.variable} min-h-screen bg-petrol font-sans antialiased`}
       >
         {children}
       </body>

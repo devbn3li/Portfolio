@@ -12,7 +12,7 @@ export default function Proof() {
       aria-labelledby="proof-heading"
       className="relative z-[2] mx-auto w-full max-w-[1240px] px-6 pt-20 md:px-10 md:pt-[140px]"
     >
-      <Reveal className="font-mono text-[13px] tracking-[0.14em] text-accent">
+      <Reveal className="text-[13px] tracking-[0.14em] text-peach">
         03 / PROOF OF SKILL
       </Reveal>
 
@@ -22,11 +22,11 @@ export default function Proof() {
       >
         <h2
           id="proof-heading"
-          className="m-0 font-archivo text-[clamp(30px,3.6vw,48px)] font-extrabold tracking-[-0.01em]"
+          className="m-0 text-[clamp(30px,3.6vw,48px)] font-extrabold tracking-[-0.02em]"
         >
           Don&apos;t take my word for it.
         </h2>
-        <p className="m-0 max-w-[380px] text-[15px] text-paper-muted">
+        <p className="m-0 max-w-[380px] text-[15px] text-mist">
           Every widget below is live and running on this page: plain React
           state, no libraries. Go ahead, poke them.
         </p>
@@ -48,13 +48,13 @@ export default function Proof() {
       </div>
 
       <Reveal delay={100} className="mt-7 flex flex-wrap items-center gap-2">
-        <span className="mr-2 font-mono text-[11px] tracking-[0.12em] text-paper-dim">
+        <span className="mr-2 text-[11px] tracking-[0.12em] text-mist/70">
           FULL KIT <span aria-hidden>→</span>
         </span>
         {FULL_KIT.map((tool) => (
           <span
             key={tool}
-            className="rounded-full border border-white/10 px-[14px] py-[6px] text-[13px] text-paper-muted"
+            className="rounded-full border border-mist/10 px-[14px] py-[6px] text-[13px] text-mist"
           >
             {tool}
           </span>

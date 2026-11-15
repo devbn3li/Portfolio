@@ -16,7 +16,7 @@ export default function Hero() {
       <div className="mx-auto w-full max-w-[1240px] px-6 pt-[120px] md:px-10 md:pt-[140px]">
         {SITE.availableBadge && (
           <div
-            className="rd-fade-up inline-flex max-w-full items-center gap-[10px] rounded-full border border-white/[0.14] px-4 py-2 font-mono text-[11px] tracking-[0.1em] text-paper-muted sm:text-xs"
+            className="rd-fade-up inline-flex max-w-full items-center gap-[10px] rounded-full border border-mist/[0.14] px-4 py-2 text-[11px] tracking-[0.1em] text-mist sm:text-xs"
             style={{ animation: `rd-fade-up .8s .1s ${REVEAL_EASE} both` }}
           >
             <span
@@ -31,13 +31,13 @@ export default function Hero() {
         )}
 
         <div
-          className="rd-fade-up mb-2 mt-9 font-mono text-[13px] tracking-[0.14em] text-accent"
+          className="rd-fade-up mb-2 mt-9 text-[13px] tracking-[0.14em] text-peach"
           style={{ animation: `rd-fade-up .8s .25s ${REVEAL_EASE} both` }}
         >
           MOHAMED ALI · FRONTEND ENGINEER
         </div>
 
-        <h1 className="m-0 font-archivo text-[clamp(40px,7vw,104px)] font-extrabold uppercase leading-[0.96] tracking-[-0.02em]">
+        <h1 className="m-0 text-[clamp(40px,7vw,104px)] font-extrabold uppercase leading-[1.1] tracking-[-0.02em]">
           <span className="block overflow-hidden">
             <span
               className="rd-hero-up inline-block"
@@ -48,9 +48,13 @@ export default function Hero() {
           </span>
           <span className="block overflow-hidden">
             <span
-              className="rd-hero-up inline-block text-transparent"
+              className="rd-hero-up inline-block text-petrol"
               style={{
-                WebkitTextStroke: '2px rgba(236,235,228,.85)',
+                // Stroke painted under a petrol fill: only the outer half of
+                // the 4px stroke shows, which hides the overlapping inner
+                // contours a variable font would otherwise reveal.
+                WebkitTextStroke: '4px rgb(var(--peach) / .85)',
+                paintOrder: 'stroke fill',
                 animation: `rd-hero-up .9s .5s ${REVEAL_EASE} both`,
               }}
             >
@@ -59,10 +63,10 @@ export default function Hero() {
           </span>
           <span className="block overflow-hidden">
             <span
-              className="rd-hero-up inline-block text-accent"
+              className="rd-hero-up inline-block text-peach"
               style={{ animation: `rd-hero-up .9s .65s ${REVEAL_EASE} both` }}
             >
-              alive<span className="text-paper">.</span>
+              alive.
             </span>
           </span>
         </h1>
@@ -71,17 +75,17 @@ export default function Hero() {
           className="rd-fade-up mt-10 flex flex-wrap items-end justify-between gap-7"
           style={{ animation: `rd-fade-up .8s .85s ${REVEAL_EASE} both` }}
         >
-          <p className="m-0 max-w-[460px] text-paper-muted">{paragraph}</p>
+          <p className="m-0 max-w-[460px] text-mist">{paragraph}</p>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-[14px]">
             <a
               href={cta.href}
-              className="w-full rounded-full bg-accent px-[30px] py-[15px] text-center font-semibold text-white no-underline transition-[transform,background-color] duration-200 hover:-translate-y-[3px] hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:w-auto"
+              className="w-full rounded-full bg-peach px-[30px] py-[15px] text-center font-extrabold text-petrol no-underline transition-[transform,background-color] duration-200 hover:-translate-y-[3px] hover:bg-peach/90 sm:w-auto"
             >
               {cta.label}
             </a>
             <a
               href="#proof"
-              className="w-full rounded-full border border-white/20 px-[30px] py-[15px] text-center font-medium text-paper no-underline transition-[transform,border-color] duration-200 hover:-translate-y-[3px] hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:w-auto"
+              className="w-full rounded-full border border-peach px-[30px] py-[15px] text-center font-extrabold text-peach no-underline transition-[transform,background-color] duration-200 hover:-translate-y-[3px] hover:bg-peach/10 sm:w-auto"
             >
               Try the live demos <span aria-hidden>↓</span>
             </a>
@@ -90,9 +94,9 @@ export default function Hero() {
       </div>
 
       {/* Tech marquee */}
-      <div className="mt-[72px] overflow-hidden border-y border-white/[0.08] py-4">
+      <div className="mt-[72px] overflow-hidden border-y border-mist/[0.08] py-4">
         <div
-          className="rd-marquee flex w-max font-mono text-sm tracking-[0.18em] text-paper-dim"
+          className="rd-marquee flex w-max text-sm tracking-[0.18em] text-mist/70"
           style={{ animation: 'rd-marquee 30s linear infinite' }}
         >
           <span className="whitespace-nowrap pr-12">{marqueeRun}</span>

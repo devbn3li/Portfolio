@@ -11,10 +11,10 @@ const STEPS: { key: Order; label: string }[] = [
   { key: 'success', label: 'SUCCESS' },
 ];
 
-const BUTTON: Record<Order, { label: string; bg: string; color: string }> = {
-  idle: { label: 'Deploy to production', bg: '#6f5bf5', color: '#fff' },
-  loading: { label: 'Deploying…', bg: '#232330', color: '#fff' },
-  success: { label: 'Live ✓', bg: '#3ddc97', color: '#0a0a0e' },
+const BUTTON: Record<Order, { label: string; cls: string }> = {
+  idle: { label: 'Deploy to production', cls: 'bg-peach text-petrol' },
+  loading: { label: 'Deploying…', cls: 'bg-abyss text-mist' },
+  success: { label: 'Live ✓', cls: 'bg-success text-petrol' },
 };
 
 // Demo 3 — State machine. idle -> loading(1400ms) -> success(1800ms) -> idle.
@@ -40,23 +40,18 @@ export default function StateMachineDemo() {
 
   return (
     <DemoCard title="STATE MACHINE" tag="UX STATES">
-      <div className="flex min-h-[240px] flex-1 flex-col items-center justify-center gap-[22px] rounded-xl border border-white/[0.06] bg-ink">
-        <div className="flex gap-2 font-mono text-[10px] tracking-[0.1em]">
+      <div className="flex min-h-[240px] flex-1 flex-col items-center justify-center gap-[22px] rounded-xl border border-mist/[0.06] bg-petrol">
+        <div className="flex gap-2 text-[10px] tracking-[0.1em]">
           {STEPS.map((step) => {
             const on = step.key === order;
             return (
               <span
                 key={step.key}
-                className="rounded-full border px-[10px] py-1 transition-all duration-300"
-                style={
+                className={`rounded-full border px-[10px] py-1 transition-all duration-300 ${
                   on
-                    ? {
-                        color: '#0a0a0e',
-                        background: '#6f5bf5',
-                        borderColor: '#6f5bf5',
-                      }
-                    : { color: '#55545e', borderColor: 'rgba(255,255,255,.12)' }
-                }
+                    ? 'border-peach bg-peach text-petrol'
+                    : 'border-mist/[0.12] text-mist/70'
+                }`}
               >
                 {step.label}
               </span>
@@ -69,10 +64,8 @@ export default function StateMachineDemo() {
           onClick={run}
           disabled={order !== 'idle'}
           aria-busy={order === 'loading'}
-          className="inline-flex items-center gap-[10px] rounded-full border-0 font-grotesk text-[15px] font-semibold transition-transform duration-150 hover:scale-[1.04] disabled:hover:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          className={`inline-flex items-center gap-[10px] rounded-full border-0 text-[15px] font-extrabold transition-transform duration-150 hover:scale-[1.04] disabled:hover:scale-100 ${btn.cls}`}
           style={{
-            background: btn.bg,
-            color: btn.color,
             padding: '15px 32px',
             cursor: order === 'idle' ? 'pointer' : 'default',
           }}
@@ -80,10 +73,8 @@ export default function StateMachineDemo() {
           {order === 'loading' && (
             <span
               aria-hidden
-              className="inline-block h-[14px] w-[14px] rounded-full"
+              className="rd-spin inline-block h-[14px] w-[14px] rounded-full border-2 border-mist/30 border-t-mist"
               style={{
-                border: '2px solid rgba(255,255,255,.3)',
-                borderTopColor: '#fff',
                 animation: 'rd-spin .7s linear infinite',
               }}
             />
@@ -91,12 +82,15 @@ export default function StateMachineDemo() {
           {btn.label}
         </button>
 
-        <div className="h-[3px] w-[180px] overflow-hidden rounded-full bg-white/[0.08]">
+        <div className="h-[3px] w-[180px] overflow-hidden rounded-full bg-mist/[0.08]">
           <div
             style={{
               height: '100%',
               borderRadius: 999,
-              background: order === 'success' ? '#3ddc97' : '#6f5bf5',
+              background:
+                order === 'success'
+                  ? 'rgb(var(--success))'
+                  : 'rgb(var(--peach))',
               width: order === 'idle' ? '0%' : '100%',
               transition:
                 order === 'loading'
@@ -106,11 +100,11 @@ export default function StateMachineDemo() {
           />
         </div>
 
-        <div className="font-mono text-[11px] tracking-[0.12em] text-paper-dim">
+        <div className="text-[11px] tracking-[0.12em] text-mist/70">
           PRESS IT. EVERY STATE IS DESIGNED
         </div>
       </div>
-      <p className="m-0 text-[13px] text-paper-muted">
+      <p className="m-0 text-[13px] text-mist">
         Loading, success, disabled, back to idle. Good UI is a state machine
         with no dead ends.
       </p>

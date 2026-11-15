@@ -1,61 +1,66 @@
+const plugin = require('tailwindcss/plugin');
+const tokens = require('./brand/tokens.json');
+
+// brand/tokens.json is the single source of truth for colour. Each token is
+// exposed as an RGB-channel CSS variable (so Tailwind opacity modifiers work)
+// and as a Tailwind colour of the same name: bg-petrol, text-peach, ring-sky…
+//
+// Usage rules:
+// - peach and sky only on petrol or abyss.
+// - On shell: text is petrol, accent is lagoon. Lagoon on shell is 4.2:1, so
+//   use it for large text and non-text accents only. Peach may fill, never text.
+// - Dim text is mist at 70% or more (AA on both petrol and abyss).
+const palette = { ...tokens.color, ...tokens.status };
+
+const channels = (hex) => {
+  const n = parseInt(hex.slice(1), 16);
+  return `${n >> 16} ${(n >> 8) & 255} ${n & 255}`;
+};
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-
-    // Or if using `src` directory:
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    // Replaces (not extends) the default palette so only brand tokens exist.
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      ...Object.fromEntries(
+        Object.keys(palette).map((name) => [
+          name,
+          `rgb(var(--${name}) / <alpha-value>)`,
+        ])
+      ),
+    },
+    fontFamily: {
+      sans: ['var(--font-alexandria)', 'system-ui', 'sans-serif'],
+      // System stack, nothing downloaded. Code output in the demos only.
+      mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+    },
+    // Two weights only.
+    fontWeight: {
+      normal: '400',
+      extrabold: '800',
+    },
     extend: {
-      colors: {
-        brand: {
-          DEFAULT: '#646cff',
-          50: '#eef0ff',
-          100: '#e0e3ff',
-          200: '#c7cbff',
-          300: '#a5aaff',
-          400: '#8186ff',
-          500: '#646cff',
-          600: '#4a4af5',
-          700: '#3d3ad8',
-          800: '#3231ae',
-          900: '#2c2e89',
-          950: '#1b1b50',
-        },
-        bg: '#09090b',
-
-        // Portfolio redesign tokens (devbn3li.app)
-        ink: '#0a0a0e',
-        surface: '#111118',
-        'surface-alt': '#0d0d13',
-        'surface-hover': '#131320',
-        paper: '#ecebe4',
-        'paper-muted': '#9a99a3',
-        'paper-dim': '#55545e',
-        accent: {
-          DEFAULT: '#6f5bf5',
-          hover: '#8271ff',
-          soft: '#8f8bff',
-        },
-        success: '#3ddc97',
-      },
-      fontFamily: {
-        poppins: ["Poppins", "Poppins Fallback", "sans-serif"],
-        inter: ["var(--font-inter)", "Inter", "sans-serif"],
-        archivo: ["var(--font-archivo)", "system-ui", "sans-serif"],
-        grotesk: ["var(--font-grotesk)", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
-      },
       transitionTimingFunction: {
         reveal: 'cubic-bezier(.22, 1, .36, 1)',
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-      },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addBase }) => {
+      addBase({
+        ':root': Object.fromEntries(
+          Object.entries(palette).map(([name, hex]) => [
+            `--${name}`,
+            channels(hex),
+          ])
+        ),
+      });
+    }),
+  ],
 };

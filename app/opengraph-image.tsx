@@ -1,11 +1,14 @@
 import { ImageResponse } from 'next/og';
+import { color } from '@/lib/brand';
 
-// OG image built from the redesign hero: three-line Archivo headline with the
-// outlined middle line, mono eyebrow, accent period. Generated at build time.
-export const alt =
-  'Mohamed Ali, Frontend Engineer. Interfaces that feel alive.';
+// OG image in the brand identity: petrol field, the mark, then the name with
+// the handle and the role in peach. Generated at build time.
+export const alt = 'Mohamed Ali (devbn3li), Frontend engineer';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
+
+const NAME = 'Mohamed Ali (devbn3li)';
+const ROLE = 'Frontend engineer';
 
 // Fetches a subsetted TTF from Google Fonts (build-time only).
 async function loadGoogleFont(family: string, weight: number, text: string) {
@@ -23,14 +26,10 @@ async function loadGoogleFont(family: string, weight: number, text: string) {
   throw new Error(`Failed to load font: ${family}`);
 }
 
-const HEADLINE = 'INTERFACES THAT FEEL ALIVE.';
-const EYEBROW =
-  'MOHAMED ALI · FRONTEND ENGINEER REACT NEXT.JS TYPESCRIPT devbn3li.app';
-
 export default async function Image() {
-  const [archivo, mono] = await Promise.all([
-    loadGoogleFont('Archivo', 800, HEADLINE),
-    loadGoogleFont('JetBrains Mono', 500, EYEBROW),
+  const [heavy, regular] = await Promise.all([
+    loadGoogleFont('Alexandria', 800, NAME),
+    loadGoogleFont('Alexandria', 400, ROLE),
   ]);
 
   return new ImageResponse(
@@ -41,68 +40,52 @@ export default async function Image() {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'flex-end',
-          padding: '64px 72px',
-          background:
-            'radial-gradient(circle at 85% 10%, rgba(111,91,245,.22), transparent 55%), #0a0a0e',
-          color: '#ecebe4',
+          justifyContent: 'space-between',
+          padding: '72px 80px',
+          background: color.petrol,
+          color: color.peach,
+          fontFamily: 'Alexandria',
         }}
       >
-        <div
-          style={{
-            fontFamily: 'JetBrains Mono',
-            fontSize: 26,
-            letterSpacing: '0.14em',
-            color: '#6f5bf5',
-            marginBottom: 28,
-          }}
-        >
-          MOHAMED ALI · FRONTEND ENGINEER
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            fontFamily: 'Archivo',
-            fontSize: 118,
-            lineHeight: 0.98,
-            letterSpacing: '-0.02em',
-          }}
-        >
-          <div style={{ color: '#ecebe4' }}>INTERFACES</div>
+        {/* Same paths as brand/mark-on-dark.svg */}
+        <svg width="168" height="168" viewBox="0 0 160 160" fill="none">
+          <path
+            d="M34 114 V50 L64 94 L94 50 L124 114"
+            stroke={color.peach}
+            strokeWidth="15"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M84 92 H106"
+            stroke={color.sky}
+            strokeWidth="13"
+            strokeLinecap="round"
+          />
+        </svg>
+
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div
             style={{
-              color: 'rgba(236,235,228,.14)',
-              WebkitTextStroke: '2px rgba(236,235,228,.85)',
+              fontSize: 84,
+              fontWeight: 800,
+              lineHeight: 1.1,
+              letterSpacing: '-0.03em',
             }}
           >
-            THAT FEEL
+            {NAME}
           </div>
-          <div style={{ display: 'flex', color: '#6f5bf5' }}>
-            ALIVE<span style={{ color: '#ecebe4' }}>.</span>
+          <div style={{ marginTop: 20, fontSize: 40, fontWeight: 400 }}>
+            {ROLE}
           </div>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginTop: 40,
-            fontFamily: 'JetBrains Mono',
-            fontSize: 22,
-            letterSpacing: '0.1em',
-            color: '#55545e',
-          }}
-        >
-          <span>REACT · NEXT.JS · TYPESCRIPT</span>
-          <span>devbn3li.app</span>
         </div>
       </div>
     ),
     {
       ...size,
       fonts: [
-        { name: 'Archivo', data: archivo, weight: 800, style: 'normal' },
-        { name: 'JetBrains Mono', data: mono, weight: 500, style: 'normal' },
+        { name: 'Alexandria', data: heavy, weight: 800, style: 'normal' },
+        { name: 'Alexandria', data: regular, weight: 400, style: 'normal' },
       ],
     }
   );

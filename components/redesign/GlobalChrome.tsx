@@ -70,12 +70,12 @@ export default function GlobalChrome() {
         className="pointer-events-none fixed left-0 top-0 z-[1] hidden h-[600px] w-[600px] rounded-full md:block"
         style={{
           background:
-            'radial-gradient(circle, rgba(111,91,245,.13), transparent 65%)',
+            'radial-gradient(circle, rgb(var(--peach) / .08), transparent 65%)',
         }}
       />
       {/* Scroll progress */}
       <div aria-hidden className="fixed inset-x-0 top-0 z-[80] h-0.5">
-        <div ref={barRef} className="h-full w-0 bg-accent" />
+        <div ref={barRef} className="h-full w-0 bg-peach" />
       </div>
     </>
   );

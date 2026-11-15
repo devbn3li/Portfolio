@@ -26,8 +26,8 @@ export default function WorkImage({
     );
   }
   return (
-    <div className="grid h-full w-full place-items-center bg-surface-alt">
-      <span className="font-mono text-[11px] tracking-[0.12em] text-paper-dim">
+    <div className="grid h-full w-full place-items-center bg-abyss">
+      <span className="text-[11px] tracking-[0.12em] text-mist/70">
         {title.toUpperCase()}
       </span>
     </div>

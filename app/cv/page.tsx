@@ -104,10 +104,10 @@ const itemVariants: Variants = {
 function SectionHeading({ index, title }: { index: string; title: string }) {
   return (
     <>
-      <div className="font-mono text-[13px] tracking-[0.14em] text-accent">
+      <div className="text-[13px] tracking-[0.14em] text-peach">
         {index} / {title.toUpperCase()}
       </div>
-      <h2 className="mb-6 mt-3 font-archivo text-[clamp(24px,3vw,34px)] font-extrabold tracking-[-0.01em]">
+      <h2 className="mb-6 mt-3 text-[clamp(24px,3vw,34px)] font-extrabold tracking-[-0.02em]">
         {title}
       </h2>
     </>
@@ -119,8 +119,8 @@ function Pill({ children, accent }: { children: React.ReactNode; accent?: boolea
     <span
       className={
         accent
-          ? 'rounded-full bg-accent/[0.12] px-4 py-2 font-mono text-[12px] tracking-[0.06em] text-accent-soft'
-          : 'rounded-full border border-white/10 px-4 py-2 text-[13px] text-paper-muted'
+          ? 'rounded-full bg-peach/[0.12] px-4 py-2 text-[12px] tracking-[0.06em] text-peach'
+          : 'rounded-full border border-mist/10 px-4 py-2 text-[13px] text-mist'
       }
     >
       {children}
@@ -132,7 +132,7 @@ const CVPage = () => {
   return (
     <div
       id="top"
-      className="relative min-h-screen overflow-x-hidden bg-ink font-grotesk text-[17px] leading-[1.6] text-paper"
+      className="relative min-h-screen overflow-x-hidden bg-petrol text-[17px] leading-[1.6] text-mist"
     >
       <GlobalChrome />
       <Nav />
@@ -142,28 +142,28 @@ const CVPage = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="rounded-[20px] border border-white/[0.08] bg-surface p-7 md:p-12"
+          className="rounded-[20px] border border-mist/[0.08] bg-abyss p-7 md:p-12"
         >
           {/* Header */}
           <motion.div
             variants={itemVariants}
-            className="mb-10 flex flex-col justify-between gap-6 border-b border-white/[0.08] pb-8 md:flex-row md:items-center"
+            className="mb-10 flex flex-col justify-between gap-6 border-b border-mist/[0.08] pb-8 md:flex-row md:items-center"
           >
             <div>
-              <div className="mb-3 font-mono text-[13px] tracking-[0.14em] text-accent">
+              <div className="mb-3 text-[13px] tracking-[0.14em] text-peach">
                 CV · MOHAMED ALI
               </div>
-              <h1 className="m-0 font-archivo text-[clamp(34px,5vw,56px)] font-extrabold leading-[1.02] tracking-[-0.02em]">
+              <h1 className="m-0 text-[clamp(34px,5vw,56px)] font-extrabold leading-[1.1] tracking-[-0.02em]">
                 Mohamed Ali Hussein
               </h1>
-              <p className="mt-2 font-mono text-[13px] tracking-[0.14em] text-paper-muted">
+              <p className="mt-2 text-[13px] tracking-[0.14em] text-mist">
                 FRONTEND ENGINEER · CAIRO, EG
               </p>
             </div>
             <a
               href="/Mohamed-Ali-Hussein-CV.pdf"
               download="Mohamed-Ali-Hussein-CV.pdf"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-accent px-7 py-[14px] font-semibold text-white no-underline transition-[transform,background-color] duration-200 hover:-translate-y-[3px] hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-peach px-7 py-[14px] font-extrabold text-petrol no-underline transition-[transform,background-color] duration-200 hover:-translate-y-[3px] hover:bg-peach/90"
             >
               Download CV <span aria-hidden>↓</span>
             </a>
@@ -172,7 +172,7 @@ const CVPage = () => {
           {/* Contact */}
           <motion.div
             variants={itemVariants}
-            className="mb-12 flex flex-wrap gap-x-7 gap-y-3 font-mono text-[13px] tracking-[0.04em] text-paper-muted"
+            className="mb-12 flex flex-wrap gap-x-7 gap-y-3 text-[13px] tracking-[0.04em] text-mist"
           >
             {contactLinks.map((c) => (
               <a
@@ -181,7 +181,7 @@ const CVPage = () => {
                 {...(c.external
                   ? { target: '_blank', rel: 'noopener noreferrer' }
                   : {})}
-                className="no-underline transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+                className="no-underline transition-colors hover:text-sky"
               >
                 {c.label}
               </a>
@@ -191,7 +191,7 @@ const CVPage = () => {
           {/* Summary */}
           <motion.section variants={itemVariants} className="mb-14">
             <SectionHeading index="01" title="Summary" />
-            <p className="m-0 max-w-[680px] text-paper-muted">
+            <p className="m-0 max-w-[680px] text-mist">
               Frontend Engineer with 2+ years of experience developing scalable
               web applications. Skilled in MERN Stack development, WebSocket
               real-time systems. Proven track record in optimizing UI/UX,
@@ -208,10 +208,10 @@ const CVPage = () => {
                 <motion.div
                   key={exp.title + exp.period}
                   variants={itemVariants}
-                  className="relative border-l border-white/10 pl-6"
+                  className="relative border-l border-mist/10 pl-6"
                 >
                   <span
-                    className={`absolute -left-[7px] top-1 h-3.5 w-3.5 rounded-full bg-accent ${
+                    className={`absolute -left-[7px] top-1 h-3.5 w-3.5 rounded-full bg-peach ${
                       exp.period.includes('Present') ? 'rd-pulse' : ''
                     }`}
                     style={
@@ -221,25 +221,25 @@ const CVPage = () => {
                     }
                   />
                   <div className="flex flex-col justify-between gap-1 md:flex-row md:items-baseline">
-                    <h3 className="m-0 font-archivo text-[20px] font-bold">
+                    <h3 className="m-0 text-[20px] font-extrabold">
                       {exp.title}
                     </h3>
-                    <span className="font-mono text-xs tracking-[0.08em] text-accent">
+                    <span className="text-xs tracking-[0.08em] text-peach">
                       {exp.period}
                     </span>
                   </div>
-                  <div className="mb-3 mt-1 text-[15px] text-paper-dim">
+                  <div className="mb-3 mt-1 text-[15px] text-mist/70">
                     {exp.companyLink ? (
                       <Link
                         href={exp.companyLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-paper-muted no-underline hover:text-accent"
+                        className="text-mist no-underline hover:text-sky"
                       >
                         {exp.company}
                       </Link>
                     ) : (
-                      <span className="text-paper-muted">{exp.company}</span>
+                      <span className="text-mist">{exp.company}</span>
                     )}{' '}
                     · {exp.location}
                   </div>
@@ -247,9 +247,9 @@ const CVPage = () => {
                     {exp.points.map((point, i) => (
                       <li
                         key={i}
-                        className="flex gap-2 text-[15px] text-paper-muted"
+                        className="flex gap-2 text-[15px] text-mist"
                       >
-                        <span className="mt-[2px] text-accent" aria-hidden>
+                        <span className="mt-[2px] text-peach" aria-hidden>
                           ·
                         </span>
                         {point}
@@ -269,22 +269,22 @@ const CVPage = () => {
                 <motion.div
                   key={edu.degree}
                   variants={itemVariants}
-                  className="relative border-l border-white/10 pl-6"
+                  className="relative border-l border-mist/10 pl-6"
                 >
-                  <span className="absolute -left-[7px] top-1 h-3.5 w-3.5 rounded-full bg-accent" />
+                  <span className="absolute -left-[7px] top-1 h-3.5 w-3.5 rounded-full bg-peach" />
                   <div className="flex flex-col justify-between gap-1 md:flex-row md:items-baseline">
-                    <h3 className="m-0 font-archivo text-[20px] font-bold">
+                    <h3 className="m-0 text-[20px] font-extrabold">
                       {edu.degree}
                     </h3>
-                    <span className="font-mono text-xs tracking-[0.08em] text-accent">
+                    <span className="text-xs tracking-[0.08em] text-peach">
                       {edu.period}
                     </span>
                   </div>
-                  <p className="mb-1 mt-1 text-[15px] text-paper-muted">
+                  <p className="mb-1 mt-1 text-[15px] text-mist">
                     {edu.school}
                   </p>
                   {edu.description && (
-                    <p className="m-0 text-[14px] text-paper-dim">
+                    <p className="m-0 text-[14px] text-mist/70">
                       {edu.description}
                     </p>
                   )}
@@ -298,7 +298,7 @@ const CVPage = () => {
             <SectionHeading index="04" title="Skills" />
             <div className="flex flex-col gap-6">
               <div>
-                <div className="mb-3 font-mono text-[11px] tracking-[0.12em] text-paper-dim">
+                <div className="mb-3 text-[11px] tracking-[0.12em] text-mist/70">
                   WEB TECHNOLOGIES
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -310,7 +310,7 @@ const CVPage = () => {
                 </div>
               </div>
               <div>
-                <div className="mb-3 font-mono text-[11px] tracking-[0.12em] text-paper-dim">
+                <div className="mb-3 text-[11px] tracking-[0.12em] text-mist/70">
                   TECHNICAL TOOLS
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -320,7 +320,7 @@ const CVPage = () => {
                 </div>
               </div>
               <div>
-                <div className="mb-3 font-mono text-[11px] tracking-[0.12em] text-paper-dim">
+                <div className="mb-3 text-[11px] tracking-[0.12em] text-mist/70">
                   PROGRAMMING LANGUAGES
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -340,17 +340,17 @@ const CVPage = () => {
                 <motion.div
                   key={project.title}
                   variants={itemVariants}
-                  className="rounded-[14px] border border-white/[0.08] bg-ink p-5"
+                  className="rounded-[14px] border border-mist/[0.08] bg-petrol p-5"
                 >
                   <div className="mb-2 flex items-center gap-3">
-                    <h3 className="m-0 font-archivo text-[18px] font-bold">
+                    <h3 className="m-0 text-[18px] font-extrabold">
                       {project.title}
                     </h3>
-                    <span className="rounded-full bg-accent/[0.12] px-3 py-1 font-mono text-[11px] tracking-[0.08em] text-accent-soft">
+                    <span className="rounded-full bg-peach/[0.12] px-3 py-1 text-[11px] tracking-[0.08em] text-peach">
                       {project.tech}
                     </span>
                   </div>
-                  <p className="m-0 text-[15px] text-paper-muted">
+                  <p className="m-0 text-[15px] text-mist">
                     {project.description}
                   </p>
                 </motion.div>

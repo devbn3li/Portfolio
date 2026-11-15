@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-ink font-grotesk text-[17px] leading-[1.6] text-paper">
+    <div className="relative min-h-screen overflow-x-hidden bg-petrol text-[17px] leading-[1.6] text-mist">
       <GlobalChrome />
       <Nav />
       <main>
