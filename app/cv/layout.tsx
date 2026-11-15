@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'CV',
   description:
-    'CV of Mohamed Ali (devbn3li), frontend engineer in Cairo. 2+ years building fast, accessible web apps with React, Next.js and TypeScript.',
+    'CV of Mohamed Ali (devbn3li), frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.',
   alternates: { canonical: '/cv' },
 };
 

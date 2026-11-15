@@ -5,43 +5,7 @@ import Link from 'next/link';
 import GlobalChrome from '@/components/redesign/GlobalChrome';
 import Nav from '@/components/redesign/Nav';
 import Footer from '@/components/redesign/Footer';
-
-const experiences = [
-  {
-    title: 'Frontend Developer',
-    company: 'SustainGRC',
-    companyLink: 'https://www.sustaingrc.com',
-    location: 'Remote | London',
-    period: '03/2025 – Present',
-    points: [
-      'Led a full refactor of a large, multi-system React portal (25+ systems) that previously suffered from slow load times, outdated architecture, and inconsistent UI.',
-      'Rebuilt the frontend architecture using modern Next.js patterns, optimized state management, and cleaned up legacy code, reducing initial load time from 60+ seconds to a few seconds.',
-      'Designed and implemented a consistent, modern UI/UX across all systems, replacing outdated and unmaintainable components.',
-      'Took ownership of major product decisions and cross-team coordination, acting as the primary point of responsibility for the portal\'s frontend quality and performance which contributed to bringing new clients to the platform.',
-    ],
-  },
-  {
-    title: 'Frontend Engineer',
-    company: 'Actus Go',
-    companyLink: 'https://actusgo.com',
-    location: 'Remote | Jordan',
-    period: '08/2024 – 03/2025',
-    points: [
-      'Developed the Super Application using React Native and Expo Go, and Next.js for the website.',
-      'Collaborated with cross-functional teams to ensure seamless integration and functionality.',
-    ],
-  },
-  {
-    title: 'Intern Frontend Developer',
-    company: 'SustainGRC',
-    companyLink: 'https://www.sustaingrc.com',
-    location: 'Remote | London',
-    period: '01/2024 – 06/2024',
-    points: [
-      'Designed and developed the company\'s official website from scratch, creating a faster, more modern, and fully responsive online presence.',
-    ],
-  },
-];
+import { EXPERIENCE as experiences } from '@/components/redesign/data';
 
 const education = [
   {

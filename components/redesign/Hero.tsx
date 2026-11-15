@@ -84,10 +84,10 @@ export default function Hero() {
               {cta.label}
             </a>
             <a
-              href="#proof"
+              href="#contact"
               className="w-full rounded-full border border-peach px-[30px] py-[15px] text-center font-extrabold text-peach no-underline transition-[transform,background-color] duration-200 hover:-translate-y-[3px] hover:bg-peach/10 sm:w-auto"
             >
-              Try the live demos <span aria-hidden>↓</span>
+              Get in touch
             </a>
           </div>
         </div>

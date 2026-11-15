@@ -16,7 +16,7 @@ const alexandria = Alexandria({
 const SITE_URL = 'https://devbn3li.app';
 const TITLE = 'Mohamed Ali (devbn3li) | Frontend Engineer';
 const DESCRIPTION =
-  'Mohamed Ali, known online as devbn3li, is a frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript. 2+ years shipping production UI.';
+  'Mohamed Ali, known online as devbn3li, is a frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript. Led the refactor of a 25+ system portal.';
 const SHORT_DESCRIPTION =
   'Mohamed Ali (devbn3li) is a frontend engineer in Cairo building fast, accessible web apps with React, Next.js and TypeScript.';
 
@@ -86,7 +86,7 @@ export default function RootLayout({
     ],
     worksFor: {
       '@type': 'Organization',
-      name: 'Sustaingrc',
+      name: 'SustainGRC',
     },
     alumniOf: {
       '@type': 'CollegeOrUniversity',

@@ -2,10 +2,9 @@ import type { Metadata } from 'next';
 import GlobalChrome from '../components/redesign/GlobalChrome';
 import Nav from '../components/redesign/Nav';
 import Hero from '../components/redesign/Hero';
+import Experience from '../components/redesign/Experience';
+import Expertise from '../components/redesign/Expertise';
 import About from '../components/redesign/About';
-import Services from '../components/redesign/Services';
-import Proof from '../components/redesign/Proof';
-import Work from '../components/redesign/Work';
 import Contact from '../components/redesign/Contact';
 import Footer from '../components/redesign/Footer';
 
@@ -20,10 +19,9 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <Experience />
+        <Expertise />
         <About />
-        <Services />
-        <Proof />
-        <Work />
         <Contact />
       </main>
       <Footer />
