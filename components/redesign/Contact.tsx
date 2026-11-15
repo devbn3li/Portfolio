@@ -1,4 +1,5 @@
 import Reveal from './Reveal';
+import { CopyEmail } from '@/components/showcase';
 import { SITE } from './data';
 
 // Email and social links only. The old form was a simulation that showed
@@ -9,38 +10,44 @@ export default function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative z-[2] mx-auto w-full max-w-[1240px] px-6 pb-24 pt-24 text-center md:px-10 md:pt-[160px]"
+      className="relative z-[2] mx-auto w-full max-w-[1320px] px-6 pb-24 pt-24 text-center md:px-10 md:pt-[160px]"
     >
-      <Reveal className="text-[13px] tracking-[0.14em] text-brand">
+      <Reveal className="text-[13px] tracking-[0.14em] text-muted">
         04 / CONTACT
       </Reveal>
       <Reveal
         as="h2"
         id="contact-heading"
         delay={80}
-        className="mb-3 mt-7 text-[clamp(40px,6.5vw,88px)] uppercase"
+        className="mx-auto mb-3 mt-7 max-w-[820px] text-[clamp(34px,4.8vw,64px)] [text-wrap:balance]"
       >
-        Let&apos;s build
-        <br />
-        something <span className="text-accent">alive.</span>
+        Hiring for frontend or full-stack? Let&apos;s talk.
       </Reveal>
       <Reveal as="p" delay={140} className="mx-auto max-w-[440px] text-body">
-        Have a project, a role, or just an idea? My inbox is open and I usually
-        reply within 24 hours.
+        Have a project, a role, or just an idea? My inbox is open.
       </Reveal>
 
       <Reveal delay={200} className="mt-10">
         <a
           href={`mailto:${SITE.email}`}
-          className="inline-block max-w-full break-words rounded-full border border-brand px-5 py-4 text-[clamp(13px,2.2vw,22px)] text-brand no-underline transition-[transform,background-color] duration-[250ms] hover:-translate-y-[3px] hover:bg-brand/10 sm:px-9 sm:py-[18px]"
+          className="inline-block max-w-full break-words text-[clamp(20px,3vw,36px)] font-extrabold tracking-[-0.02em] text-heading underline decoration-body/40 decoration-2 underline-offset-[6px] transition-colors duration-200 hover:decoration-brand"
         >
-          {SITE.email} <span aria-hidden>↗</span>
+          {SITE.email}
         </a>
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={`mailto:${SITE.email}`}
+            className="inline-flex h-12 items-center rounded-full bg-brand px-7 font-extrabold text-onbrand no-underline transition-[filter] duration-200 hover:brightness-110"
+          >
+            Email me
+          </a>
+          <CopyEmail />
+        </div>
       </Reveal>
 
       <Reveal
         delay={260}
-        className="mt-10 flex justify-center gap-7 text-[13px] tracking-[0.1em]"
+        className="mt-10 flex flex-wrap justify-center gap-x-7 gap-y-2 text-[13px] tracking-[0.1em]"
       >
         {[
           { label: 'GITHUB', href: SITE.social.github },
@@ -52,7 +59,7 @@ export default function Contact() {
             href={s.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-body no-underline hover:text-accent"
+            className="inline-flex min-h-10 items-center text-body no-underline hover:text-heading"
           >
             {s.label} <span aria-hidden>↗</span>
           </a>

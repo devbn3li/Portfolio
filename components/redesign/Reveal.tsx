@@ -55,6 +55,17 @@ export default function Reveal({
             el.style.opacity = '1';
             el.style.transform = 'none';
             io.unobserve(entry.target);
+            // Hand the element back to its own styles once revealed, so the
+            // inline transition does not override its hover transitions.
+            el.addEventListener(
+              'transitionend',
+              () => {
+                el.style.removeProperty('transition');
+                el.style.removeProperty('opacity');
+                el.style.removeProperty('transform');
+              },
+              { once: true }
+            );
           }
         });
       },

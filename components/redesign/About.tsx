@@ -11,9 +11,9 @@ export default function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="relative z-[2] mx-auto w-full max-w-[1240px] px-6 pt-20 md:px-10 md:pt-[140px]"
+      className="relative z-[2] mx-auto w-full max-w-[1320px] px-6 pt-20 md:px-10 md:pt-[140px]"
     >
-      <Reveal className="text-[13px] tracking-[0.14em] text-brand">
+      <Reveal className="text-[13px] tracking-[0.14em] text-muted">
         03 / ABOUT
       </Reveal>
 

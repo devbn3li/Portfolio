@@ -53,7 +53,7 @@ export default function ExpertiseVisual({ kind }: { kind: VisualKind }) {
       )}
 
       {kind === 'performance' && (
-        <div className="flex w-full max-w-[320px] flex-col gap-4 text-[10px] tracking-[0.12em] text-muted">
+        <div className="flex w-full max-w-[320px] flex-col gap-4 text-xs tracking-[0.12em] text-muted">
           <div>
             <div className="mb-2">BEFORE</div>
             <div className="h-[6px] overflow-hidden rounded-full bg-body/10">
@@ -98,7 +98,7 @@ export default function ExpertiseVisual({ kind }: { kind: VisualKind }) {
           <div className="absolute inset-x-[14%] top-1/2 h-px bg-body/20">
             <span className="sc-travel absolute -top-[3px] h-[7px] w-[7px] rounded-full bg-accent" />
           </div>
-          <div className="relative grid w-full grid-cols-3 gap-3 text-center text-[10px] font-extrabold tracking-[0.1em] text-brand">
+          <div className="relative grid w-full grid-cols-3 gap-3 text-center text-xs font-extrabold tracking-[0.1em] text-brand">
             {['UI', 'API', 'DB'].map((label, i) => (
               <span
                 key={label}
@@ -113,7 +113,7 @@ export default function ExpertiseVisual({ kind }: { kind: VisualKind }) {
       )}
 
       {kind === 'pipeline' && (
-        <div className="flex w-full max-w-[300px] flex-col gap-3 text-[10px] tracking-[0.12em] text-muted">
+        <div className="flex w-full max-w-[300px] flex-col gap-3 text-xs tracking-[0.12em] text-muted">
           {['TEST', 'BUILD', 'SHIP'].map((step, i) => (
             <div key={step} className="grid grid-cols-[44px_1fr_14px] items-center gap-3">
               <span>{step}</span>

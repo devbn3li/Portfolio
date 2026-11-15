@@ -6,7 +6,8 @@ import { NAV_LINKS } from './data';
 // only link shown on small screens.
 export default function Nav() {
   return (
-    <nav className="fixed inset-x-0 top-0 z-[70] flex items-center justify-between border-b border-body/[0.06] bg-page/70 px-6 py-[18px] backdrop-blur-[14px] md:px-10">
+    <nav className="fixed inset-x-0 top-0 z-[70] border-b border-body/[0.06] bg-page/80 backdrop-blur-[14px]">
+      <div className="mx-auto flex w-full max-w-[1320px] items-center justify-between px-6 py-[14px] md:px-10">
       <Logo />
 
       <div className="flex items-center gap-6 text-xs tracking-[0.12em] md:gap-8">
@@ -23,10 +24,11 @@ export default function Nav() {
         </div>
         <Link
           href="/#contact"
-          className="rounded-full bg-brand px-[18px] py-2 font-extrabold text-onbrand no-underline transition-colors duration-200 hover:bg-brand/90"
+          className="rounded-full bg-brand px-[18px] py-2 font-extrabold text-onbrand no-underline transition-colors duration-200 hover:brightness-110"
         >
           CONTACT
         </Link>
+      </div>
       </div>
     </nav>
   );

@@ -9,7 +9,7 @@ export const SITE = {
   audience: 'recruiters' as Audience,
   availableBadge: true,
   email: 'muhammed.ali.hissein@gmail.com',
-  location: 'Cairo, EG (GMT+2)',
+  location: 'Cairo, Egypt',
   social: {
     github: 'https://github.com/devbn3li',
     linkedin: 'https://linkedin.com/in/devbn3li',
@@ -57,8 +57,6 @@ export const NAV_LINKS = [
 
 export const STATS = [
   { value: '25+', label: 'SYSTEMS IN ONE PORTAL, REFACTORED' },
-  { value: '60s+', label: 'INITIAL LOAD, CUT TO A FEW SECONDS' },
-  { value: 'Remote', label: 'WITH TEAMS IN LONDON, JORDAN AND THE US' },
 ];
 
 export type Role = {
@@ -111,7 +109,7 @@ export const EXPERIENCE: Role[] = [
 ];
 
 // Each area is backed by something in EXPERIENCE above. `visual` picks the
-// looping illustration in ExpertiseVisual.
+// illustration in ExpertiseVisual (it plays while the card is hovered).
 export const EXPERTISE: {
   n: string;
   title: string;
@@ -121,7 +119,7 @@ export const EXPERTISE: {
   {
     n: '01',
     title: 'Large React codebases',
-    desc: 'Untangling multi-system portals into a clear, modern Next.js architecture.',
+    desc: 'Untangling a multi-system portal into a clear, modern Next.js architecture.',
     visual: 'codebase',
   },
   {
@@ -133,7 +131,7 @@ export const EXPERTISE: {
   {
     n: '03',
     title: 'Consistent UI at scale',
-    desc: 'One coherent interface across many systems, built from shared components.',
+    desc: 'One consistent UI across all systems, replacing outdated and unmaintainable components.',
     visual: 'ui',
   },
   {
@@ -145,7 +143,7 @@ export const EXPERTISE: {
   {
     n: '05',
     title: 'Backend and APIs',
-    desc: 'APIs, auth and data models in Node and Express, with Stripe for payments. Includes an ad system.',
+    desc: 'APIs and data models in Node, Express and MongoDB, with Stripe for payments, including an ad system.',
     visual: 'api',
   },
   {

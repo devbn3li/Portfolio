@@ -1,5 +1,6 @@
 import Reveal from './Reveal';
 import RoleAccordion from './RoleAccordion';
+import { ResultPair } from '@/components/showcase';
 import { EXPERIENCE, STATS } from './data';
 
 // Headline numbers, then each role as an expandable row. Content comes from
@@ -9,9 +10,9 @@ export default function Experience() {
     <section
       id="experience"
       aria-labelledby="experience-heading"
-      className="relative z-[2] mx-auto w-full max-w-[1240px] px-6 pt-20 md:px-10 md:pt-[140px]"
+      className="relative z-[2] mx-auto w-full max-w-[1320px] px-6 pt-20 md:px-10 md:pt-[140px]"
     >
-      <Reveal className="text-[13px] tracking-[0.14em] text-brand">
+      <Reveal className="text-[13px] tracking-[0.14em] text-muted">
         01 / EXPERIENCE
       </Reveal>
 
@@ -24,10 +25,13 @@ export default function Experience() {
         Production work, with results I can point to.
       </Reveal>
 
-      <Reveal delay={140} className="mt-10 grid gap-8 sm:grid-cols-3">
+      <Reveal
+        delay={140}
+        className="mt-10 grid items-end gap-8 border-y border-body/[0.09] py-8 md:grid-cols-[auto_minmax(0,1fr)] md:gap-16"
+      >
         {STATS.map((stat) => (
           <div key={stat.label}>
-            <div className="text-[clamp(40px,4.6vw,64px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-brand">
+            <div className="text-[clamp(40px,4.6vw,64px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-heading">
               {stat.value}
             </div>
             <div className="mt-2 text-xs tracking-[0.12em] text-muted">
@@ -35,6 +39,7 @@ export default function Experience() {
             </div>
           </div>
         ))}
+        <ResultPair className="text-[clamp(28px,3.6vw,52px)]" />
       </Reveal>
 
       <Reveal delay={200} className="mt-14">

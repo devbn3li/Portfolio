@@ -7,9 +7,9 @@ export default function Expertise() {
     <section
       id="expertise"
       aria-labelledby="expertise-heading"
-      className="relative z-[2] mx-auto w-full max-w-[1240px] px-6 pt-20 md:px-10 md:pt-[140px]"
+      className="relative z-[2] mx-auto w-full max-w-[1320px] px-6 pt-20 md:px-10 md:pt-[140px]"
     >
-      <Reveal className="text-[13px] tracking-[0.14em] text-brand">
+      <Reveal className="text-[13px] tracking-[0.14em] text-muted">
         02 / EXPERTISE
       </Reveal>
 
@@ -28,10 +28,10 @@ export default function Expertise() {
           <Reveal
             key={item.n}
             delay={i * 60}
-            className="bg-surface p-6 transition-colors duration-300 hover:bg-page md:p-7"
+            className="ex-card bg-surface p-6 md:p-7"
           >
             <ExpertiseVisual kind={item.visual} />
-            <div className="text-xs text-brand">{item.n}</div>
+            <div className="text-xs tabular-nums text-muted">{item.n}</div>
             <h3 className="mb-[10px] mt-3 text-[21px]">{item.title}</h3>
             <p className="m-0 text-[15px] text-body">{item.desc}</p>
           </Reveal>

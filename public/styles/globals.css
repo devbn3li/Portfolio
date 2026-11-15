@@ -147,15 +147,18 @@
   }
 }
 
-.ex-tidy {
+.ex-card:hover .ex-tidy,
+.ex-card:focus-within .ex-tidy {
   animation: ex-tidy 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
-.ex-slow {
+.ex-card:hover .ex-slow,
+.ex-card:focus-within .ex-slow {
   animation: ex-slow 7s linear infinite;
 }
 
-.ex-fast {
+.ex-card:hover .ex-fast,
+.ex-card:focus-within .ex-fast {
   animation: ex-fast 7s ease-out infinite;
 }
 
@@ -163,26 +166,23 @@
   width: 100%;
   border-radius: 8px;
   background-color: rgb(var(--brand) / 0.25);
+}
+
+.ex-card:hover .ex-uniform,
+.ex-card:focus-within .ex-uniform {
   animation: ex-uniform 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 .ex-device {
   width: 100%;
+}
+
+.ex-card:hover .ex-device,
+.ex-card:focus-within .ex-device {
   animation: ex-device 7s ease-in-out infinite;
 }
 
 /* Showcase stages (hero widget and Expertise cards). */
-@keyframes sc-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @keyframes sc-travel {
   from {
     left: 0;
@@ -229,35 +229,26 @@
   }
 }
 
-@keyframes sc-hand {
-  to {
-    transform: translateX(-50%) rotate(360deg);
-  }
-}
-
-.sc-in {
-  animation: sc-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.sc-travel {
+.ex-card:hover .sc-travel,
+.ex-card:focus-within .sc-travel {
   animation: sc-travel 3.2s linear infinite;
 }
 
-.sc-node {
+.ex-card:hover .sc-node,
+.ex-card:focus-within .sc-node {
   animation: sc-node 3.2s ease-in-out infinite backwards;
 }
 
-.sc-fill {
+.ex-card:hover .sc-fill,
+.ex-card:focus-within .sc-fill {
   animation: sc-fill 5.4s cubic-bezier(0.22, 1, 0.36, 1) infinite backwards;
 }
 
-.sc-check {
+.ex-card:hover .sc-check,
+.ex-card:focus-within .sc-check {
   animation: sc-check 5.4s ease-out infinite backwards;
 }
 
-.sc-hand {
-  animation: sc-hand 4s linear infinite;
-}
 
 /* Honor reduced-motion: kill the decorative loops and smooth scrolling */
 @media (prefers-reduced-motion: reduce) {
@@ -273,12 +264,10 @@
   .ex-fast,
   .ex-uniform,
   .ex-device,
-  .sc-in,
   .sc-travel,
   .sc-node,
   .sc-fill,
-  .sc-check,
-  .sc-hand {
+  .sc-check {
     animation: none !important;
   }
   .rd-hero-up,

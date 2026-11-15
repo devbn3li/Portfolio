@@ -41,9 +41,11 @@ export default function GlobalChrome() {
     const onMove = (e: MouseEvent) => {
       mx = e.clientX;
       my = e.clientY;
+      if (glow) glow.style.opacity = '1';
     };
 
-    if (!reduce) {
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!reduce && finePointer) {
       window.addEventListener('mousemove', onMove);
       loop();
     }
@@ -60,14 +62,14 @@ export default function GlobalChrome() {
       {/* Grain */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-[90] opacity-[0.05]"
+        className="pointer-events-none fixed inset-0 z-[1] opacity-[0.04]"
         style={{ backgroundImage: GRAIN }}
       />
       {/* Cursor glow (pointer devices only) */}
       <div
         ref={glowRef}
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[1] hidden h-[600px] w-[600px] rounded-full md:block"
+        className="pointer-events-none fixed left-0 top-0 z-[1] hidden h-[600px] w-[600px] rounded-full opacity-0 transition-opacity duration-500 md:block"
         style={{
           background:
             'radial-gradient(circle, rgb(var(--brand) / .08), transparent 65%)',
