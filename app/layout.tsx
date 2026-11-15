@@ -1,7 +1,7 @@
 import '../public/styles/globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Alexandria } from 'next/font/google';
-import { color } from '@/lib/brand';
+import { palette, paletteCss } from '@/lib/brand';
 
 // One family for the whole site, Latin and Arabic. Two weights only.
 // `subsets` only controls preloading: the Arabic files are still declared and
@@ -60,8 +60,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: color.petrol,
-  colorScheme: 'dark',
+  themeColor: palette.page,
+  colorScheme: palette.scheme,
 };
 
 export default function RootLayout({
@@ -127,13 +127,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Colour roles from brand/palettes.json. Outside production every
+            palette is exposed too, for the local design lab at /lab. */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: paletteCss(process.env.NODE_ENV !== 'production'),
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify([person, website]) }}
         />
       </head>
       <body
-        className={`${alexandria.variable} min-h-screen bg-petrol font-sans antialiased`}
+        className={`${alexandria.variable} min-h-screen bg-page font-sans antialiased`}
       >
         {children}
       </body>

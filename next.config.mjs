@@ -21,6 +21,15 @@ const nextConfig = {
     optimizePackageImports: ['framer-motion', 'react-icons', '@headlessui/react', '@heroicons/react', '@tabler/icons-react'],
   },
   
+  // The CV page and its PDF were removed; send old links to the homepage.
+  // Temporary (307) on purpose, so a future CV can reuse the path.
+  async redirects() {
+    return [
+      { source: '/cv', destination: '/', permanent: false },
+      { source: '/Mohamed-Ali-Hussein-CV.pdf', destination: '/', permanent: false },
+    ];
+  },
+
   // Headers for caching
   async headers() {
     return [

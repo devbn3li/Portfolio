@@ -1,0 +1,1716 @@
+/* ==========================================================================
+   Showcase scenes: everything Tailwind cannot express.
+
+   - Every class, keyframe and custom property defined here starts with shw-.
+     (The per-item inputs --i, --tx, --ty, --r and --s are set inline by the
+     components.)
+   - Colour comes only from the palette roles: rgb(var(--role) / alpha).
+     Brand is always solid. Neutral strokes and fills are body or muted.
+   - Two stroke weights: 1px for structure, 2px for emphasis.
+   - Nothing loops. A run is one timeline started by [data-run] on the scene
+     root; each step's delay is derived from its --i index.
+   ========================================================================== */
+
+/* One number drives the whole morph: 0 is before the refactor, 1 is after. */
+@property --shw-p {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+/* Carrier for the run clock. Does not inherit, so it costs nothing per frame. */
+@property --shw-t {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+/* --------------------------------------------------------------------------
+   1. Tokens and shell
+   -------------------------------------------------------------------------- */
+
+.shw {
+  --shw-edge: rgb(var(--body) / 0.36); /* node and tile edges */
+  --shw-hair: rgb(var(--body) / 0.14); /* dividers and grid lines */
+  --shw-wire: rgb(var(--muted)); /* connectors and tracks: 3:1 on page and surface */
+  --shw-tint: rgb(var(--body) / 0.07); /* neutral fill; never sits under text */
+}
+
+/* Zero specificity, so a utility passed through className always wins. */
+:where(.shw-scene) {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+}
+
+/* The figure is a two-row grid: the stage grows, the footer keeps its size.
+   Its own template never changes (a container cannot restyle itself); the
+   children move between cells instead. */
+.shw-scene {
+  container: shw-scene / inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr);
+  grid-auto-rows: auto;
+  gap: 12px 16px;
+}
+
+/* The stage is a size container, so a diagram can answer to its height as
+   well as its width. With no height from the parent it falls back to
+   --shw-natural; with one, it fills whatever the footer leaves. */
+.shw-stage {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  position: relative;
+  min-width: 0;
+  min-height: var(--shw-min, 104px);
+  container: shw-stage / size;
+  contain-intrinsic-block-size: var(--shw-natural, 148px);
+}
+
+.shw-controls {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.shw-caption {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgb(var(--muted));
+  text-wrap: pretty;
+}
+
+.shw-run {
+  width: 100%;
+}
+
+/* FULL: caption and control share one footer row. */
+@container shw-scene (min-width: 520px) {
+  .shw-caption {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: center;
+  }
+
+  .shw-controls {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+  }
+
+  .shw-stage + .shw-caption {
+    grid-column: 1 / -1;
+  }
+
+  .shw-run {
+    width: auto;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Shared run pieces
+   -------------------------------------------------------------------------- */
+
+/* The scene root times its own run; useRun() listens for the end of this. */
+.shw-scene[data-run] {
+  animation: shw-clock var(--shw-total) linear both;
+}
+
+/* A 2px brand edge that shows while a node is active. */
+.shw-ring {
+  position: absolute;
+  inset: -1px;
+  border: 2px solid rgb(var(--brand));
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Three states stacked in one cell: waiting, running, done. Rest shows done. */
+.shw-st {
+  display: inline-grid;
+  align-items: center;
+  justify-items: start;
+}
+
+.shw-st > * {
+  grid-area: 1 / 1;
+}
+
+.shw-is-wait {
+  opacity: 0;
+  color: rgb(var(--muted));
+}
+
+.shw-is-run {
+  opacity: 0;
+  color: rgb(var(--heading));
+}
+
+.shw-is-done {
+  color: rgb(var(--success));
+}
+
+.shw-st-glyph .shw-is-run {
+  color: rgb(var(--brand));
+}
+
+.shw-glyph {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.shw-scene[data-run] .shw-is-wait {
+  animation: shw-out 0.16s linear var(--shw-from) both;
+}
+
+.shw-scene[data-run] .shw-is-run {
+  animation: shw-during var(--shw-step) linear var(--shw-from) both;
+}
+
+.shw-scene[data-run] .shw-is-done {
+  animation: shw-in 0.2s linear var(--shw-to) both;
+}
+
+.shw-scene[data-run] .shw-is-run .shw-spin {
+  animation: shw-spin var(--shw-step) linear var(--shw-from) both;
+}
+
+/* A dot of data on a connector. The wrapper is as long as the connector, so
+   moving it by 100% of itself carries the dot from one end to the other. */
+.shw-hop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.shw-dot {
+  position: absolute;
+  left: -3px;
+  top: -2.5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(var(--accent));
+  opacity: 0;
+}
+
+.shw-trail {
+  position: absolute;
+  inset: -0.5px 0;
+  background: rgb(var(--accent));
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.shw-trail-back {
+  transform-origin: right center;
+}
+
+@keyframes shw-clock {
+  from {
+    --shw-t: 0;
+  }
+  to {
+    --shw-t: 1;
+  }
+}
+
+@keyframes shw-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shw-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes shw-during {
+  0% {
+    opacity: 0;
+  }
+  8%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes shw-flash {
+  0% {
+    opacity: 0;
+  }
+  14%,
+  64% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes shw-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shw-hop-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes shw-hop-x-back {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shw-hop-y {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes shw-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes shw-grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Morph: 28 tiles, before and after
+   -------------------------------------------------------------------------- */
+
+.shw-morph {
+  --shw-side: 236px;
+  --shw-gap: 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, var(--shw-side));
+  column-gap: var(--shw-gap);
+  /* Intro: the mess resolves once, with or without JavaScript. A layout may
+     hold it back by setting --shw-intro-play: paused on an ancestor. */
+  animation: shw-intro 1.6s cubic-bezier(0.5, 0, 0.2, 1) 0.45s both;
+  animation-play-state: var(--shw-intro-play, running);
+}
+
+/* A running or filled animation outranks an inline style, so the intro is
+   switched off at the first input, before --shw-p is written inline. */
+.shw-morph[data-touched] {
+  animation: none;
+}
+
+/* Only the Before and After buttons glide; dragging writes the value raw. */
+.shw-morph[data-glide] {
+  transition: --shw-p 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes shw-intro {
+  from {
+    --shw-p: 0;
+  }
+  to {
+    --shw-p: 1;
+  }
+}
+
+.shw-morph .shw-stage {
+  --shw-natural: 268px;
+  --shw-min: 104px;
+}
+
+.shw-morph-body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shw-tiles {
+  --shw-k: 0.5; /* scatter distance, relative to tile size */
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+
+/* Local progress: each tile starts a little after the one before it, and all
+   of them have arrived when --shw-p reaches 1. */
+.shw-tile {
+  --shw-lp: clamp(0, calc(var(--shw-p) * 1.5 - var(--i) * 0.0185), 1);
+  --shw-q: calc(1 - var(--shw-lp));
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  transform: translate(
+      calc(var(--tx) * var(--shw-q) * var(--shw-k)),
+      calc(var(--ty) * var(--shw-q) * var(--shw-k))
+    )
+    rotate(calc(var(--r) * var(--shw-q))) scale(calc(1 + (var(--s) - 1) * var(--shw-q)));
+}
+
+/* Two faces per tile, each a miniature app window: frame, header, two rows. */
+.shw-face {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.shw-bar {
+  flex: 0 0 auto;
+}
+
+.shw-rows {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 0 14%;
+}
+
+.shw-row {
+  flex: 0 0 auto;
+  height: 2px;
+  border-radius: 1px;
+}
+
+/* AFTER: one design, 28 times. The header is the only brand in the scene. */
+.shw-face-new {
+  opacity: var(--shw-lp);
+  border: 1px solid var(--shw-edge);
+  border-radius: 4px;
+  background: var(--shw-tint);
+}
+
+.shw-face-new > .shw-bar {
+  height: clamp(5px, 25%, 14px);
+  background: rgb(var(--brand));
+}
+
+.shw-face-new .shw-row {
+  background: rgb(var(--body) / 0.38);
+}
+
+.shw-face-new .shw-row:first-child {
+  width: 68%;
+}
+
+.shw-face-new .shw-row:last-child {
+  width: 42%;
+}
+
+/* BEFORE: every tile its own radius, header, layout and tone. Neutrals only. */
+.shw-face-old {
+  opacity: calc(1 - var(--shw-lp));
+  border-radius: var(--shw-br);
+}
+
+.shw-face-old > .shw-bar {
+  flex-basis: calc(var(--shw-hh) * 100%);
+}
+
+.shw-face-old .shw-row:first-child {
+  width: var(--shw-w1);
+}
+
+.shw-face-old .shw-row:last-child {
+  width: var(--shw-w2);
+}
+
+.shw-shape-side {
+  flex-direction: row;
+}
+
+.shw-shape-side > .shw-bar {
+  flex-basis: 30%;
+}
+
+.shw-shape-foot {
+  flex-direction: column-reverse;
+}
+
+.shw-shape-mid .shw-rows {
+  align-items: center;
+}
+
+.shw-tone-0 {
+  border: 1px solid rgb(var(--body) / 0.55);
+}
+
+.shw-tone-0 > .shw-bar {
+  background: rgb(var(--body) / 0.44);
+}
+
+.shw-tone-0 .shw-row {
+  background: rgb(var(--body) / 0.34);
+}
+
+.shw-tone-1 {
+  background: rgb(var(--body) / 0.16);
+}
+
+.shw-tone-1 > .shw-bar {
+  background: rgb(var(--body) / 0.4);
+}
+
+.shw-tone-1 .shw-row {
+  background: rgb(var(--body) / 0.32);
+}
+
+.shw-tone-2 {
+  background: rgb(var(--muted) / 0.5);
+}
+
+.shw-tone-2 > .shw-bar {
+  background: rgb(var(--body) / 0.8);
+}
+
+.shw-tone-2 .shw-row {
+  background: rgb(var(--body) / 0.6);
+}
+
+.shw-tone-3 {
+  border: 1px dashed rgb(var(--muted));
+}
+
+.shw-tone-3 > .shw-bar {
+  background: rgb(var(--muted) / 0.6);
+}
+
+.shw-tone-3 .shw-row {
+  background: rgb(var(--muted) / 0.5);
+}
+
+.shw-tone-4 {
+  border: 2px solid rgb(var(--body) / 0.42);
+  background: rgb(var(--body) / 0.06);
+}
+
+.shw-tone-4 > .shw-bar {
+  background: rgb(var(--muted) / 0.9);
+}
+
+.shw-tone-4 .shw-row {
+  background: rgb(var(--body) / 0.28);
+}
+
+/* Readout: 25+ systems and the three before / after pairs. */
+.shw-readout {
+  display: none;
+  flex: 0 0 auto;
+  min-width: 0;
+  row-gap: 6px;
+}
+
+.shw-count {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: rgb(var(--heading));
+}
+
+.shw-pairs {
+  display: grid;
+  row-gap: 4px;
+  margin: 0;
+  min-height: 0;
+}
+
+.shw-pair {
+  min-width: 0;
+}
+
+/* Hidden to the eye, kept for assistive technology, unless there is room. */
+.shw-pair-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.shw-pair-values {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.45em;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* Compact, with height to spare: the readout sits under the tiles. */
+@container shw-stage (min-height: 220px) {
+  .shw-readout {
+    display: grid;
+  }
+}
+
+/* FULL: the readout is a column beside the tiles, row for row. */
+@container shw-stage (min-width: 520px) {
+  .shw-morph-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, var(--shw-side));
+    column-gap: var(--shw-gap);
+  }
+
+  .shw-tiles {
+    --shw-k: 1;
+    gap: 8px;
+  }
+
+  .shw-readout {
+    display: grid;
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    row-gap: 8px;
+  }
+
+  .shw-count {
+    align-self: center;
+    font-size: 22px;
+  }
+
+  .shw-pairs {
+    grid-row: 2 / 5;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    row-gap: 8px;
+  }
+
+  .shw-pair {
+    align-self: center;
+  }
+
+  .shw-pair-values {
+    font-size: 14px;
+  }
+}
+
+@container shw-stage (min-width: 520px) and (min-height: 216px) {
+  .shw-rows {
+    gap: 5px;
+  }
+
+  .shw-row {
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  .shw-count {
+    font-size: 26px;
+  }
+
+  .shw-pair-label {
+    position: static;
+    display: block;
+    width: auto;
+    height: auto;
+    margin-bottom: 3px;
+    overflow: visible;
+    clip-path: none;
+  }
+}
+
+/* Scrubber: a native range input, drawn by three layers that follow --shw-p,
+   so the thumb also moves during the intro and the glide. */
+.shw-scrub {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.shw-range {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 64px;
+  height: 44px; /* touch area */
+}
+
+.shw-range-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+  touch-action: pan-y; /* a horizontal drag moves the thumb, never the page */
+}
+
+/* The native thumb is invisible but keeps the drawn thumb's width, so the
+   pointer maps to the same value the drawing shows. */
+.shw-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 44px;
+}
+
+.shw-range-input::-moz-range-thumb {
+  width: 24px;
+  height: 44px;
+  border: 0;
+}
+
+.shw-range-track,
+.shw-range-fill {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+.shw-range-track {
+  right: 0;
+  background: rgb(var(--muted));
+}
+
+/* Ends under the thumb at every value. */
+.shw-range-fill {
+  right: 12px;
+  background: rgb(var(--brand));
+  transform: scaleX(var(--shw-p));
+  transform-origin: left center;
+}
+
+.shw-range-thumb {
+  position: absolute;
+  inset: 0 12px;
+  transform: translateX(calc(var(--shw-p) * 100%));
+  pointer-events: none;
+}
+
+.shw-range-thumb > span {
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+  border-radius: 50%;
+  background: rgb(var(--brand));
+}
+
+.shw-range-input:focus-visible ~ .shw-range-thumb > span {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 3px;
+}
+
+/* FULL: the scrubber sits under the tiles, the caption under the readout. */
+@container shw-scene (min-width: 520px) {
+  .shw-morph > .shw-controls {
+    grid-column: 1;
+    justify-self: stretch;
+  }
+
+  .shw-morph > .shw-caption {
+    grid-column: 2;
+  }
+
+  .shw-morph > .shw-stage + .shw-caption {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Request: clients, the API, its services
+   -------------------------------------------------------------------------- */
+
+.shw-request {
+  --shw-step: 0.5s;
+  --shw-total: calc(var(--shw-steps) * var(--shw-step) + 0.2s);
+}
+
+.shw-request .shw-stage {
+  --shw-natural: 132px;
+  --shw-min: 112px;
+}
+
+@container shw-scene (min-width: 300px) {
+  .shw-request .shw-stage {
+    --shw-natural: 204px;
+  }
+}
+
+@container shw-scene (min-width: 520px) {
+  .shw-request .shw-stage {
+    --shw-natural: 264px;
+    --shw-min: 124px;
+  }
+}
+
+.shw-req {
+  --shw-c1: 60px;
+  --shw-c2: 40px;
+  --shw-c3: 108px;
+  --shw-node: min(calc(100cqb / 3 - 8px), 40px);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns:
+    var(--shw-c1) minmax(12px, 1fr) var(--shw-c2)
+    minmax(12px, 1fr) var(--shw-c3);
+}
+
+.shw-req-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Equal slots: a node sits in the middle of its slot, and so does its wire. */
+.shw-req-slot {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+}
+
+.shw-node {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--shw-node);
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 7px;
+  border: 1px solid var(--shw-edge);
+  border-radius: 8px;
+}
+
+.shw-node-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.shw-node-name {
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: rgb(var(--heading));
+  white-space: nowrap;
+}
+
+.shw-node-detail {
+  display: none;
+  font-size: 12px;
+  line-height: 1.25;
+  color: rgb(var(--muted));
+}
+
+/* The API is the largest node and carries the brand marker: a solid strip
+   along its top edge, the same mark the refactored tiles wear. */
+.shw-node-api {
+  height: auto;
+  justify-content: center;
+  padding: 4px 4px 0;
+  text-align: center;
+  border-top-color: transparent;
+  background: linear-gradient(rgb(var(--brand)), rgb(var(--brand))) top center / 100% 5px
+    no-repeat border-box;
+}
+
+.shw-node-api .shw-node-text {
+  align-items: center;
+}
+
+.shw-wire {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.shw-wire-line {
+  position: absolute;
+  left: 0;
+  right: 4px;
+  top: 50%;
+  height: 1px;
+  background: var(--shw-wire);
+}
+
+.shw-wire-tip {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 6px;
+  height: 7px;
+  margin-top: -3px;
+  color: var(--shw-wire);
+}
+
+/* The dot and its trail ride on the same 1px line. */
+.shw-wire-path {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+}
+
+.shw-scene[data-run] .shw-hop-go {
+  animation: shw-hop-x var(--shw-step) cubic-bezier(0.45, 0, 0.55, 1)
+    calc(var(--i) * var(--shw-step)) both;
+}
+
+.shw-scene[data-run] .shw-hop-back {
+  animation: shw-hop-x-back var(--shw-step) cubic-bezier(0.45, 0, 0.55, 1)
+    calc(var(--i) * var(--shw-step)) both;
+}
+
+.shw-request[data-run] .shw-dot {
+  animation: shw-during var(--shw-step) linear calc(var(--i) * var(--shw-step)) both;
+}
+
+.shw-request[data-run] .shw-trail {
+  animation:
+    shw-grow var(--shw-step) cubic-bezier(0.45, 0, 0.55, 1) calc(var(--i) * var(--shw-step)) both,
+    shw-flash calc(var(--shw-step) * 1.7) linear calc(var(--i) * var(--shw-step)) both;
+}
+
+/* A node's edge turns brand when the dot reaches it. --shw-hold is how many
+   steps it stays lit: the API stays lit until it has answered. */
+.shw-request[data-run] .shw-ring {
+  animation: shw-flash calc(var(--shw-step) * var(--shw-hold, 1.5)) ease-out
+    calc(var(--i) * var(--shw-step)) both;
+}
+
+.shw-request[data-run] .shw-ring-hold {
+  animation-name: shw-during;
+  animation-timing-function: linear;
+}
+
+/* Compact with room to spare: details fit under the names. */
+@container shw-stage (min-width: 300px) and (min-height: 190px) {
+  .shw-req {
+    --shw-c1: 100px;
+    --shw-c2: 62px;
+    --shw-c3: 112px;
+    --shw-node: min(calc(100cqb / 3 - 8px), 58px);
+  }
+
+  .shw-node-detail {
+    display: block;
+  }
+}
+
+@container shw-stage (min-width: 520px) {
+  .shw-req {
+    --shw-c1: clamp(152px, 25cqi, 204px);
+    --shw-c2: clamp(112px, 20cqi, 160px);
+    --shw-c3: clamp(160px, 27cqi, 216px);
+    --shw-node: min(calc(100cqb / 3 - 10px), 76px);
+  }
+
+  .shw-node {
+    padding: 0 14px;
+  }
+
+  .shw-node-name {
+    font-size: 15px;
+  }
+
+  .shw-node-detail {
+    display: block;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .shw-node-api {
+    padding: 6px 8px 0;
+    background-size: 100% 7px;
+  }
+
+  .shw-node-api .shw-node-name {
+    font-size: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .shw-dot {
+    left: -4px;
+    top: -3.5px;
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* FULL but short: names only, unless one line can hold name and detail. */
+@container shw-stage (min-width: 520px) and (max-height: 189.98px) {
+  .shw-node-detail {
+    display: none;
+  }
+
+  .shw-node-api .shw-node-name {
+    font-size: 17px;
+  }
+}
+
+@container shw-stage (min-width: 740px) and (max-height: 189.98px) {
+  .shw-node-text {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .shw-node-detail {
+    display: block;
+  }
+
+  .shw-node-api .shw-node-text {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Pipeline: four steps, in order
+   -------------------------------------------------------------------------- */
+
+.shw-pipeline {
+  --shw-step: 0.8s;
+  --shw-lead: 0.45s;
+  --shw-total: calc(var(--shw-lead) + var(--shw-steps) * var(--shw-step) + 0.25s);
+}
+
+.shw-pipeline .shw-stage {
+  --shw-natural: 124px;
+  --shw-min: 118px;
+}
+
+@container shw-scene (min-width: 300px) {
+  .shw-pipeline .shw-stage {
+    --shw-natural: 184px;
+  }
+}
+
+@container shw-scene (min-width: 520px) {
+  .shw-pipeline .shw-stage {
+    --shw-natural: 232px;
+    --shw-min: 112px;
+  }
+}
+
+/* Compact: a vertical list, one row per step, joined by a rail. */
+.shw-pipe {
+  --shw-row: 22px;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.shw-step {
+  --shw-from: calc(var(--shw-lead) + var(--i) * var(--shw-step));
+  --shw-to: calc(var(--shw-from) + var(--shw-step));
+  position: relative;
+  flex: 0 0 auto;
+  min-width: 0;
+  min-height: var(--shw-row);
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  grid-template-areas: 'glyph name word';
+  align-items: center;
+  column-gap: 10px;
+}
+
+.shw-step > .shw-ring {
+  display: none;
+}
+
+.shw-step-glyph {
+  grid-area: glyph;
+}
+
+.shw-step-word {
+  grid-area: word;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.shw-step-name {
+  grid-area: name;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 16px;
+  color: rgb(var(--heading));
+}
+
+.shw-step-detail {
+  grid-area: detail;
+  display: none;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgb(var(--muted));
+}
+
+.shw-step-bar {
+  grid-area: bar;
+  display: none;
+  position: relative;
+  height: 2px;
+  overflow: hidden;
+  background: var(--shw-hair);
+}
+
+.shw-step-bar > span {
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--success));
+  transform-origin: left center;
+}
+
+/* The link reaches into the rows above and below, up to the glyphs. */
+.shw-link {
+  position: relative;
+  flex: 1 1 10px;
+  min-height: 8px;
+  max-height: 14px;
+  margin-block: calc((16px - var(--shw-row)) / 2 + 2px);
+}
+
+.shw-link-line {
+  position: absolute;
+  left: 7.5px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--shw-wire);
+}
+
+.shw-link-tip {
+  display: none;
+}
+
+/* The hand-off: a dot leaves a step as it passes and reaches the next one
+   exactly when that one starts. */
+.shw-pipeline[data-run] .shw-hop {
+  animation: shw-hop-y 0.3s cubic-bezier(0.45, 0, 0.55, 1)
+    calc(var(--shw-lead) + (var(--i) + 1) * var(--shw-step) - 0.3s) both;
+}
+
+.shw-pipeline[data-run] .shw-dot {
+  animation: shw-during 0.3s linear
+    calc(var(--shw-lead) + (var(--i) + 1) * var(--shw-step) - 0.3s) both;
+}
+
+.shw-pipeline[data-run] .shw-step > .shw-ring {
+  animation: shw-during var(--shw-step) linear var(--shw-from) both;
+}
+
+/* The bar empties, fills in brand while its step runs, then turns success. */
+.shw-pipeline[data-run] .shw-step-bar > span {
+  animation:
+    shw-grow var(--shw-step) linear var(--shw-from) both,
+    shw-bar-tone 0.2s linear var(--shw-to) both;
+}
+
+@keyframes shw-bar-tone {
+  from {
+    background-color: rgb(var(--brand));
+  }
+  to {
+    background-color: rgb(var(--success));
+  }
+}
+
+/* Compact with room to spare: the detail fits under the name. */
+@container shw-stage (min-width: 300px) and (min-height: 176px) {
+  .shw-pipe {
+    --shw-row: 36px;
+  }
+
+  .shw-step {
+    grid-template-areas:
+      'glyph name word'
+      'glyph detail word';
+    align-content: center;
+  }
+
+  .shw-step-name {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .shw-step-detail {
+    display: block;
+  }
+
+  .shw-link {
+    max-height: 12px;
+  }
+}
+
+/* FULL: four cards in a row, joined by arrows. */
+@container shw-stage (min-width: 520px) {
+  .shw-pipe {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  .shw-step {
+    flex: 1 1 0;
+    min-height: 0;
+    grid-template-columns: 16px minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto auto auto;
+    grid-template-areas:
+      'glyph word'
+      'space space'
+      'name name'
+      'detail detail'
+      'bar bar';
+    align-content: stretch;
+    align-items: center;
+    column-gap: 8px;
+    padding: 14px;
+    border: 1px solid var(--shw-edge);
+    border-radius: 8px;
+  }
+
+  .shw-step > .shw-ring {
+    display: block;
+  }
+
+  .shw-step-word {
+    font-size: 13px;
+  }
+
+  .shw-step-name {
+    font-size: clamp(16px, 8.4cqb, 22px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .shw-step-detail {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+
+  .shw-step-bar {
+    display: block;
+    margin-top: 12px;
+  }
+
+  .shw-link {
+    flex: 0 0 clamp(20px, 5cqi, 44px);
+    min-height: 0;
+    max-height: none;
+    margin-block: 0;
+  }
+
+  .shw-link-line {
+    left: 4px;
+    right: 9px;
+    top: 50%;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+
+  .shw-link-tip {
+    display: block;
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    width: 6px;
+    height: 7px;
+    margin-top: -3px;
+    color: var(--shw-wire);
+  }
+
+  .shw-pipeline[data-run] .shw-hop {
+    animation-name: shw-hop-x;
+  }
+}
+
+@container shw-stage (min-width: 520px) and (max-height: 139.98px) {
+  .shw-step {
+    padding: 10px 12px;
+  }
+
+  .shw-step-bar {
+    margin-top: 8px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Schedule: three jobs on a timeline
+   -------------------------------------------------------------------------- */
+
+.shw-schedule {
+  --shw-sweep: 3.6s;
+  --shw-total: calc(var(--shw-sweep) + 0.9s);
+}
+
+.shw-schedule .shw-stage {
+  --shw-natural: 124px;
+  --shw-min: 112px;
+}
+
+@container shw-scene (min-width: 300px) {
+  .shw-schedule .shw-stage {
+    --shw-natural: 148px;
+  }
+}
+
+@container shw-scene (min-width: 520px) {
+  .shw-schedule .shw-stage {
+    --shw-natural: 232px;
+    --shw-min: 116px;
+  }
+}
+
+.shw-sched {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Compact: name and state on one line, the lane under it. */
+.shw-sched-row {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'label state'
+    'lane lane';
+  align-content: center;
+  align-items: center;
+  column-gap: 10px;
+  row-gap: 3px;
+}
+
+.shw-ruler {
+  flex: 0 0 10px;
+  grid-template-areas: 'lane lane';
+  align-content: stretch;
+}
+
+/* Where the job sits on its lane is also when the playhead reaches it:
+   both come from --shw-at, which comes from the job's index. */
+.shw-job {
+  --shw-at: calc(0.16 + var(--i) * 0.3);
+  --shw-from: calc(var(--shw-at) * var(--shw-sweep));
+  --shw-to: var(--shw-from);
+}
+
+.shw-job > .shw-ring {
+  inset: 0 -5px;
+  border-radius: 4px;
+}
+
+.shw-job-label {
+  grid-area: label;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.shw-job-name {
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 16px;
+  color: rgb(var(--heading));
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shw-job-detail {
+  display: none;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgb(var(--muted));
+}
+
+.shw-job-state {
+  grid-area: state;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.shw-lane {
+  grid-area: lane;
+  position: relative;
+  min-width: 0;
+  height: 12px;
+}
+
+.shw-ruler > .shw-lane {
+  height: auto;
+  align-self: stretch;
+  border-bottom: 1px solid var(--shw-wire);
+}
+
+.shw-lane-band {
+  position: absolute;
+  inset: 2px 0;
+  border-radius: 4px;
+  background: var(--shw-tint);
+}
+
+/* Plain tick marks: no times, no numbers. */
+.shw-ticks {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.shw-ticks > i {
+  flex: 0 0 1px;
+  height: 40%;
+  background: var(--shw-wire);
+}
+
+.shw-ticks > i:nth-child(4n + 1) {
+  height: 100%;
+}
+
+.shw-mark {
+  position: absolute;
+  left: calc(var(--shw-at) * 100%);
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 2px;
+  background: rgb(var(--success));
+  transform: rotate(45deg);
+}
+
+/* The playhead is one segment per lane, all moved by the same animation.
+   Each wrapper is as wide as its lane; the 2px line sits on its right edge. */
+.shw-head {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.shw-head-line {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  width: 2px;
+  background: rgb(var(--brand));
+}
+
+.shw-head-grip {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  width: 10px;
+  height: 10px;
+  color: rgb(var(--brand));
+}
+
+.shw-schedule[data-run] .shw-head {
+  animation: shw-sweep var(--shw-sweep) linear both;
+}
+
+.shw-schedule[data-run] .shw-mark {
+  animation: shw-mark 0.9s ease-out var(--shw-from) both;
+}
+
+.shw-schedule[data-run] .shw-job > .shw-ring {
+  animation: shw-flash 0.9s ease-out var(--shw-from) both;
+}
+
+@keyframes shw-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shw-mark {
+  0% {
+    background-color: rgb(var(--muted));
+    transform: rotate(45deg) scale(1);
+  }
+  12% {
+    background-color: rgb(var(--brand));
+    transform: rotate(45deg) scale(1.7);
+  }
+  60% {
+    background-color: rgb(var(--brand));
+    transform: rotate(45deg) scale(1);
+  }
+  100% {
+    background-color: rgb(var(--success));
+    transform: rotate(45deg) scale(1);
+  }
+}
+
+/* FULL: label, lane and state side by side; rows share hairlines, so the
+   playhead segments join into one line. */
+@container shw-stage (min-width: 520px) {
+  .shw-sched-row {
+    grid-template-columns: clamp(168px, 30cqi, 236px) minmax(0, 1fr) 92px;
+    grid-template-areas: 'label lane state';
+    align-content: stretch;
+    column-gap: 16px;
+    row-gap: 0;
+    border-top: 1px solid var(--shw-hair);
+  }
+
+  .shw-sched-row:last-child {
+    border-bottom: 1px solid var(--shw-hair);
+  }
+
+  .shw-ruler {
+    flex: 0 0 22px;
+    grid-template-areas: '. lane .';
+    border-top: 0;
+  }
+
+  .shw-job > .shw-ring {
+    inset: 4px -8px;
+  }
+
+  .shw-job-name {
+    font-size: 15px;
+    line-height: 1.25;
+    white-space: normal;
+  }
+
+  .shw-job-detail {
+    display: block;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .shw-job-state {
+    font-size: 13px;
+  }
+
+  .shw-job > .shw-lane {
+    height: auto;
+    align-self: stretch;
+  }
+
+  .shw-lane-band {
+    inset: auto 0;
+    top: 50%;
+    height: clamp(10px, 36%, 24px);
+    transform: translateY(-50%);
+  }
+
+  .shw-mark {
+    width: 11px;
+    height: 11px;
+    margin: -5.5px 0 0 -5.5px;
+  }
+
+  .shw-head-grip {
+    top: 2px;
+  }
+}
+
+@container shw-stage (min-width: 520px) and (max-height: 131.98px) {
+  .shw-job-detail {
+    display: none;
+  }
+}
+
+@container shw-stage (min-width: 520px) and (max-width: 699.98px) and (max-height: 179.98px) {
+  .shw-job-detail {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Load race: before and after, in real time
+   -------------------------------------------------------------------------- */
+
+.shw-race {
+  container: shw-race / inline-size;
+}
+
+.shw-race-lanes {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  column-gap: 10px;
+  row-gap: 12px;
+}
+
+.shw-race-lane {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  grid-template-areas:
+    'name value state'
+    'track track track';
+  align-items: center;
+  row-gap: 6px;
+}
+
+.shw-race-name {
+  grid-area: name;
+}
+
+.shw-race-value {
+  grid-area: value;
+  justify-self: end;
+}
+
+.shw-race-state {
+  grid-area: state;
+}
+
+.shw-race-track {
+  grid-area: track;
+  position: relative;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgb(var(--body) / 0.12);
+}
+
+.shw-race-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 4px;
+  transform-origin: left center;
+}
+
+.shw-race-fill[data-lane='before'] {
+  width: 100%;
+  background: rgb(var(--muted));
+}
+
+/* Both lanes share one time scale: the After bar is as long as its share of
+   the Before duration. */
+.shw-race-fill[data-lane='after'] {
+  width: max(6px, calc(var(--shw-after-share) * 100%));
+  background: rgb(var(--brand));
+}
+
+.shw-race[data-run] .shw-race-fill[data-lane='before'] {
+  animation: shw-grow var(--shw-before) linear both;
+}
+
+.shw-race[data-run] .shw-race-fill[data-lane='after'] {
+  animation: shw-grow var(--shw-after) linear both;
+}
+
+.shw-race[data-run] .shw-race-state[data-lane='before'] {
+  animation: shw-in 0.2s linear var(--shw-before) both;
+}
+
+.shw-race[data-run] .shw-race-state[data-lane='after'] {
+  animation: shw-in 0.2s linear var(--shw-after) both;
+}
+
+@container shw-race (min-width: 440px) {
+  .shw-race-lanes {
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    column-gap: 14px;
+  }
+
+  .shw-race-lane {
+    grid-template-areas: 'name track value state';
+  }
+
+  .shw-race-value {
+    justify-self: start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Reduced motion: nothing animates. Every scene rests in its finished
+      state already, and the scrubber keeps working because it writes the
+      value directly.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .shw,
+  .shw *,
+  .shw *::before,
+  .shw *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

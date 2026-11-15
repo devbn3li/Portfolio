@@ -1,8 +1,9 @@
 import { ImageResponse } from 'next/og';
-import { color } from '@/lib/brand';
+import { palette } from '@/lib/brand';
 
-// OG image in the brand identity: petrol field, the mark, then the name with
-// the handle and the role in peach. Generated at build time.
+// OG image in the brand identity: a page-colour field, the mark, the name with
+// the handle in the heading colour and the role in the brand colour.
+// Generated at build time.
 export const alt = 'Mohamed Ali (devbn3li), Frontend engineer';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -42,8 +43,8 @@ export default async function Image() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           padding: '72px 80px',
-          background: color.petrol,
-          color: color.peach,
+          background: palette.page,
+          color: palette.heading,
           fontFamily: 'Alexandria',
         }}
       >
@@ -51,14 +52,14 @@ export default async function Image() {
         <svg width="168" height="168" viewBox="0 0 160 160" fill="none">
           <path
             d="M34 114 V50 L64 94 L94 50 L124 114"
-            stroke={color.peach}
+            stroke={palette.brand}
             strokeWidth="15"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
             d="M84 92 H106"
-            stroke={color.sky}
+            stroke={palette.accent}
             strokeWidth="13"
             strokeLinecap="round"
           />
@@ -75,7 +76,14 @@ export default async function Image() {
           >
             {NAME}
           </div>
-          <div style={{ marginTop: 20, fontSize: 40, fontWeight: 400 }}>
+          <div
+            style={{
+              marginTop: 20,
+              fontSize: 40,
+              fontWeight: 400,
+              color: palette.brand,
+            }}
+          >
             {ROLE}
           </div>
         </div>

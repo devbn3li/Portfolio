@@ -1,6 +1,6 @@
 // Config + content for the portfolio (devbn3li.app).
-// Kept as data so copy and links live in one place. Every claim here comes
-// from the CV; do not add numbers or roles that are not in it.
+// Kept as data so copy and links live in one place. Every claim here was
+// supplied or confirmed by the owner; do not add numbers or roles to it.
 
 export type Audience = 'recruiters' | 'clients';
 
@@ -9,8 +9,6 @@ export const SITE = {
   audience: 'recruiters' as Audience,
   availableBadge: true,
   email: 'muhammed.ali.hissein@gmail.com',
-  cvUrl: '/cv',
-  cvPdf: '/Mohamed-Ali-Hussein-CV.pdf',
   location: 'Cairo, EG (GMT+2)',
   social: {
     github: 'https://github.com/devbn3li',
@@ -22,7 +20,7 @@ export const SITE = {
 export const HERO_COPY: Record<Audience, { paragraph: string; cta: { label: string; href: string } }> = {
   recruiters: {
     paragraph:
-      'Frontend engineer who rebuilds large React and Next.js products so they load fast and stay maintainable. I led the refactor of a 25+ system portal, cutting its initial load from over a minute to a few seconds.',
+      'I led the refactor of a 25+ system React portal, cutting load time from over a minute to a few seconds. I also build backends, an ad system, Stripe payments and automation.',
     cta: { label: 'See my experience', href: '#experience' },
   },
   clients: {
@@ -40,17 +38,21 @@ export const MARQUEE = [
   'TAILWIND CSS',
   'REDUX',
   'NODE.JS',
+  'EXPRESS',
+  'MONGODB',
+  'STRIPE',
   'WEBSOCKETS',
+  'DOCKER',
   'AZURE',
   'CI/CD',
 ];
 
 // Absolute (`/#…`) so the nav works from any route, not just the homepage.
+// Contact is not listed here: it is the filled button at the end of the nav.
 export const NAV_LINKS = [
   { href: '/#experience', label: 'EXPERIENCE' },
   { href: '/#expertise', label: 'EXPERTISE' },
   { href: '/#about', label: 'ABOUT' },
-  { href: '/#contact', label: 'CONTACT' },
 ];
 
 export const STATS = [
@@ -69,7 +71,7 @@ export type Role = {
   points: string[];
 };
 
-// Shared by the homepage Experience section and the /cv page.
+// Roles, newest first.
 export const EXPERIENCE: Role[] = [
   {
     title: 'Frontend Developer',
@@ -108,30 +110,48 @@ export const EXPERIENCE: Role[] = [
   },
 ];
 
-// Each area is backed by something in EXPERIENCE above.
-export const EXPERTISE = [
+// Each area is backed by something in EXPERIENCE above. `visual` picks the
+// looping illustration in ExpertiseVisual.
+export const EXPERTISE: {
+  n: string;
+  title: string;
+  desc: string;
+  visual: 'codebase' | 'performance' | 'ui' | 'devices' | 'api' | 'pipeline';
+}[] = [
   {
     n: '01',
     title: 'Large React codebases',
-    desc: 'Refactoring multi-system portals onto modern Next.js patterns: clearer architecture, leaner state management, legacy code removed.',
-    stack: 'NEXT.JS · REACT · TYPESCRIPT',
+    desc: 'Untangling multi-system portals into a clear, modern Next.js architecture.',
+    visual: 'codebase',
   },
   {
     n: '02',
     title: 'Performance',
-    desc: 'Finding what makes an app slow and fixing it at the architecture level. One portal went from a 60+ second initial load to a few seconds.',
-    stack: 'LOAD TIME · STATE · RENDERING',
+    desc: 'A 60+ second initial load brought down to a few seconds.',
+    visual: 'performance',
   },
   {
     n: '03',
     title: 'Consistent UI at scale',
-    desc: 'One coherent interface across many systems, built from maintainable components instead of one-off screens.',
-    stack: 'COMPONENTS · TAILWIND · ACCESSIBILITY',
+    desc: 'One coherent interface across many systems, built from shared components.',
+    visual: 'ui',
   },
   {
     n: '04',
     title: 'Web and mobile',
-    desc: 'Shipping the same product on both: React Native and Expo for the app, Next.js for the website.',
-    stack: 'REACT NATIVE · EXPO · NEXT.JS',
+    desc: 'The same product on both: React Native and Expo, plus Next.js.',
+    visual: 'devices',
+  },
+  {
+    n: '05',
+    title: 'Backend and APIs',
+    desc: 'APIs, auth and data models in Node and Express, with Stripe for payments. Includes an ad system.',
+    visual: 'api',
+  },
+  {
+    n: '06',
+    title: 'Automation and delivery',
+    desc: 'Tests, Docker and mobile builds, scheduled jobs, and error monitoring in production.',
+    visual: 'pipeline',
   },
 ];

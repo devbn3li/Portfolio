@@ -1,21 +1,25 @@
-const plugin = require('tailwindcss/plugin');
-const tokens = require('./brand/tokens.json');
-
-// brand/tokens.json is the single source of truth for colour. Each token is
-// exposed as an RGB-channel CSS variable (so Tailwind opacity modifiers work)
-// and as a Tailwind colour of the same name: bg-petrol, text-peach, ring-sky…
+// Colours are semantic roles backed by CSS variables. The values live in
+// brand/palettes.json and are written into <head> by app/layout.tsx (see
+// lib/brand.ts), so no hex value appears in a component or in this file.
 //
 // Usage rules:
-// - peach and sky only on petrol or abyss.
-// - On shell: text is petrol, accent is lagoon. Lagoon on shell is 4.2:1, so
-//   use it for large text and non-text accents only. Peach may fill, never text.
-// - Dim text is mist at 70% or more (AA on both petrol and abyss).
-const palette = { ...tokens.color, ...tokens.status };
-
-const channels = (hex) => {
-  const n = parseInt(hex.slice(1), 16);
-  return `${n >> 16} ${(n >> 8) & 255} ${n & 255}`;
-};
+// - bg-page is the page, bg-surface the second background. (The role is
+//   "page", not "base": text-base is already a Tailwind font size.)
+// - text-heading for headings, text-body for copy, text-muted for labels.
+// - brand is for brand moments: primary buttons (with text-onbrand), the logo,
+//   key graphics, small labels. accent is the second, rarer highlight.
+// - Borders and neutral fills use body at low alpha (border-body/10).
+const ROLES = [
+  'page',
+  'surface',
+  'heading',
+  'body',
+  'muted',
+  'brand',
+  'onbrand',
+  'accent',
+  'success',
+];
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -24,20 +28,17 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    // Replaces (not extends) the default palette so only brand tokens exist.
+    // Replaces (not extends) the default palette so only the roles exist.
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
       ...Object.fromEntries(
-        Object.keys(palette).map((name) => [
-          name,
-          `rgb(var(--${name}) / <alpha-value>)`,
-        ])
+        ROLES.map((role) => [role, `rgb(var(--${role}) / <alpha-value>)`])
       ),
     },
     fontFamily: {
       sans: ['var(--font-alexandria)', 'system-ui', 'sans-serif'],
-      // System stack, nothing downloaded. Code output in the demos only.
+      // System stack, nothing downloaded. Literal code only.
       mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
     },
     // Two weights only.
@@ -51,16 +52,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    plugin(({ addBase }) => {
-      addBase({
-        ':root': Object.fromEntries(
-          Object.entries(palette).map(([name, hex]) => [
-            `--${name}`,
-            channels(hex),
-          ])
-        ),
-      });
-    }),
-  ],
+  plugins: [],
 };

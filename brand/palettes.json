@@ -1,0 +1,83 @@
+{
+  "default": "lapis",
+  "palettes": {
+    "petrol": {
+      "label": "Petrol + peach (the previous colours)",
+      "scheme": "dark",
+      "page": "#0B2B3C",
+      "surface": "#061C28",
+      "heading": "#FFC2A1",
+      "body": "#B9CDD6",
+      "muted": "#859CA8",
+      "brand": "#FFC2A1",
+      "onbrand": "#0B2B3C",
+      "accent": "#7DE2FF",
+      "success": "#3DDC97"
+    },
+    "abyss": {
+      "label": "Same brand, fixed: deep petrol, white headings, riper peach",
+      "scheme": "dark",
+      "page": "#061C28",
+      "surface": "#0C3044",
+      "heading": "#F1F6F9",
+      "body": "#B9CDD6",
+      "muted": "#90A7B3",
+      "brand": "#FFA774",
+      "onbrand": "#061C28",
+      "accent": "#7DE2FF",
+      "success": "#3DDC97"
+    },
+    "signal": {
+      "label": "Graphite, white type, one hot orange signal",
+      "scheme": "dark",
+      "page": "#0B0E12",
+      "surface": "#161A20",
+      "heading": "#F3F5F7",
+      "body": "#B4BCC6",
+      "muted": "#8791A0",
+      "brand": "#FF7A2B",
+      "onbrand": "#0B0E12",
+      "accent": "#66C7FF",
+      "success": "#3DDC97"
+    },
+    "lapis": {
+      "label": "Ink, white type, electric lapis blue with gold sparks",
+      "scheme": "dark",
+      "page": "#090C12",
+      "surface": "#141A26",
+      "heading": "#F2F5FA",
+      "body": "#B8BFCC",
+      "muted": "#8B96A9",
+      "brand": "#6C9BFF",
+      "onbrand": "#090C12",
+      "accent": "#F5B94A",
+      "success": "#3DDC97"
+    },
+    "broadsheet": {
+      "label": "Light: warm paper, petrol ink, vermilion spot colour",
+      "scheme": "light",
+      "page": "#F7F2E9",
+      "surface": "#E9E1D3",
+      "heading": "#0B2B3C",
+      "body": "#374B55",
+      "muted": "#53646D",
+      "brand": "#B82E06",
+      "onbrand": "#FFF9F2",
+      "accent": "#00679E",
+      "success": "#0A693C"
+    },
+    "poster": {
+      "label": "Light: ivory, indigo ink, cobalt and vermilion",
+      "scheme": "light",
+      "page": "#FFF0DE",
+      "surface": "#FFFFFF",
+      "heading": "#101336",
+      "body": "#33364F",
+      "muted": "#5F6278",
+      "brand": "#2A3BF0",
+      "onbrand": "#FFF0DE",
+      "accent": "#D1290F",
+      "success": "#0B7A45"
+    }
+  }
+}

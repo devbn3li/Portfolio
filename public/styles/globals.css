@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Colour variables (--petrol, --peach, …) are injected from brand/tokens.json
-   by tailwind.config.js. No colour values live in this file. */
+/* Colour variables (--page, --heading, --brand, …) come from brand/palettes.json
+   and are written into <head> by app/layout.tsx. No colour values live here. */
 
 @layer base {
   html {
@@ -11,31 +11,31 @@
   }
 
   body {
-    background-color: rgb(var(--petrol));
-    color: rgb(var(--mist));
+    background-color: rgb(var(--page));
+    color: rgb(var(--body));
   }
 
   h1,
   h2,
   h3 {
-    color: rgb(var(--peach));
+    color: rgb(var(--heading));
     font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1.1;
   }
 
   ::selection {
-    background-color: rgb(var(--sky));
-    color: rgb(var(--petrol));
+    background-color: rgb(var(--brand));
+    color: rgb(var(--onbrand));
   }
 
   ::placeholder {
-    color: rgb(var(--mist) / 0.7);
+    color: rgb(var(--muted));
   }
 
   /* One visible focus style for every interactive element. */
   :focus-visible {
-    outline: 2px solid rgb(var(--sky));
+    outline: 2px solid rgb(var(--accent));
     outline-offset: 3px;
   }
 }
@@ -84,19 +84,179 @@
   }
 }
 
-@keyframes rd-spin {
-  to {
-    transform: rotate(360deg);
+/* Expertise card illustrations: chaos -> order loops. The resting style of
+   each element is its ordered state. */
+@keyframes ex-tidy {
+  0%,
+  12%,
+  100% {
+    transform: translate(var(--x), var(--y)) rotate(var(--r));
+    opacity: 0.55;
+  }
+  42%,
+  88% {
+    transform: none;
+    opacity: 1;
   }
 }
 
-@keyframes rd-float {
+@keyframes ex-slow {
   from {
-    transform: translateY(6px);
+    transform: scaleX(0);
   }
   to {
-    transform: translateY(-18px);
+    transform: scaleX(1);
   }
+}
+
+@keyframes ex-fast {
+  0% {
+    transform: scaleX(0);
+  }
+  9%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes ex-uniform {
+  0%,
+  12%,
+  100% {
+    width: var(--w);
+    border-radius: var(--br);
+    background-color: var(--bg);
+  }
+  42%,
+  88% {
+    width: 100%;
+    border-radius: 8px;
+    background-color: rgb(var(--brand) / 0.25);
+  }
+}
+
+@keyframes ex-device {
+  0%,
+  15%,
+  100% {
+    width: 34%;
+  }
+  45%,
+  85% {
+    width: 100%;
+  }
+}
+
+.ex-tidy {
+  animation: ex-tidy 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.ex-slow {
+  animation: ex-slow 7s linear infinite;
+}
+
+.ex-fast {
+  animation: ex-fast 7s ease-out infinite;
+}
+
+.ex-uniform {
+  width: 100%;
+  border-radius: 8px;
+  background-color: rgb(var(--brand) / 0.25);
+  animation: ex-uniform 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.ex-device {
+  width: 100%;
+  animation: ex-device 7s ease-in-out infinite;
+}
+
+/* Showcase stages (hero widget and Expertise cards). */
+@keyframes sc-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sc-travel {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes sc-node {
+  0%,
+  22%,
+  100% {
+    border-color: rgb(var(--body) / 0.2);
+    background-color: rgb(var(--page));
+  }
+  6%,
+  14% {
+    border-color: rgb(var(--brand));
+    background-color: rgb(var(--brand) / 0.14);
+  }
+}
+
+@keyframes sc-fill {
+  0% {
+    transform: scaleX(0);
+  }
+  16%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes sc-check {
+  0%,
+  14% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  20%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes sc-hand {
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+.sc-in {
+  animation: sc-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.sc-travel {
+  animation: sc-travel 3.2s linear infinite;
+}
+
+.sc-node {
+  animation: sc-node 3.2s ease-in-out infinite backwards;
+}
+
+.sc-fill {
+  animation: sc-fill 5.4s cubic-bezier(0.22, 1, 0.36, 1) infinite backwards;
+}
+
+.sc-check {
+  animation: sc-check 5.4s ease-out infinite backwards;
+}
+
+.sc-hand {
+  animation: sc-hand 4s linear infinite;
 }
 
 /* Honor reduced-motion: kill the decorative loops and smooth scrolling */
@@ -105,11 +265,20 @@
     scroll-behavior: auto;
   }
   .rd-marquee,
-  .rd-float,
   .rd-pulse,
   .rd-hero-up,
   .rd-fade-up,
-  .rd-spin {
+  .ex-tidy,
+  .ex-slow,
+  .ex-fast,
+  .ex-uniform,
+  .ex-device,
+  .sc-in,
+  .sc-travel,
+  .sc-node,
+  .sc-fill,
+  .sc-check,
+  .sc-hand {
     animation: none !important;
   }
   .rd-hero-up,

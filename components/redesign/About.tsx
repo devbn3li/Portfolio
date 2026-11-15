@@ -1,11 +1,9 @@
-import Link from 'next/link';
 import Reveal from './Reveal';
-import { SITE } from './data';
 
 const DETAILS = [
   { label: 'BASED IN', value: 'Cairo, Egypt (GMT+2)' },
   { label: 'WORKS WITH', value: 'Remote teams in London, Jordan and the US' },
-  { label: 'CORE STACK', value: 'React, Next.js, TypeScript, React Native' },
+  { label: 'CORE STACK', value: 'React, Next.js, TypeScript, React Native, Node.js' },
 ];
 
 export default function About() {
@@ -15,7 +13,7 @@ export default function About() {
       aria-labelledby="about-heading"
       className="relative z-[2] mx-auto w-full max-w-[1240px] px-6 pt-20 md:px-10 md:pt-[140px]"
     >
-      <Reveal className="text-[13px] tracking-[0.14em] text-peach">
+      <Reveal className="text-[13px] tracking-[0.14em] text-brand">
         03 / ABOUT
       </Reveal>
 
@@ -27,16 +25,16 @@ export default function About() {
             delay={80}
             className="m-0 mb-6 text-[clamp(30px,3.6vw,48px)]"
           >
-            I own the frontend, from the architecture down to the last 10%.
+            Strongest on the frontend, responsible for the whole product.
           </Reveal>
-          <Reveal as="p" delay={160} className="m-0 mb-[18px] max-w-[560px] text-mist">
-            I&apos;m Mohamed, known online as devbn3li, a frontend engineer
+          <Reveal as="p" delay={160} className="m-0 mb-[18px] max-w-[560px] text-body">
+            I&apos;m Mohamed, known online as devbn3li, a software engineer
             based in Cairo who has worked remotely with teams in London,
-            Jordan and the US. Currently at <span className="text-peach">SustainGRC</span>,
+            Jordan and the US. Currently at <span className="text-heading">SustainGRC</span>,
             where I am the primary point of responsibility for the
             portal&apos;s frontend quality and performance.
           </Reveal>
-          <Reveal as="p" delay={220} className="m-0 max-w-[560px] text-mist">
+          <Reveal as="p" delay={220} className="m-0 max-w-[560px] text-body">
             I care about the last 10%: the easing curve on a dropdown, the
             skeleton state nobody notices, the tab order everyone benefits
             from. Fast, responsive, accessible. In that order, all three.
@@ -45,24 +43,18 @@ export default function About() {
 
         <Reveal
           delay={200}
-          className="self-start border-mist/10 md:border-l md:pl-10"
+          className="self-start border-body/10 md:border-l md:pl-10"
         >
           <dl className="m-0 flex flex-col gap-7">
             {DETAILS.map((d) => (
               <div key={d.label}>
-                <dt className="text-xs tracking-[0.14em] text-mist/70">
+                <dt className="text-xs tracking-[0.14em] text-muted">
                   {d.label}
                 </dt>
-                <dd className="m-0 mt-1 font-extrabold text-peach">{d.value}</dd>
+                <dd className="m-0 mt-1 font-extrabold text-heading">{d.value}</dd>
               </div>
             ))}
           </dl>
-          <Link
-            href={SITE.cvUrl}
-            className="mt-9 inline-block text-[15px] text-mist no-underline hover:text-sky"
-          >
-            Read the full CV <span aria-hidden>→</span>
-          </Link>
         </Reveal>
       </div>
     </section>
