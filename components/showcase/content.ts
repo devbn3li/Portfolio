@@ -137,7 +137,9 @@ export const OWNERSHIP = [
   { verb: 'Contributed', line: 'to bringing new clients to the platform' },
 ] as const;
 
-export type RoleRow = { verb: string; line: string };
+// A role row: the verb, a short phrase shown at rest, and the full line
+// revealed on demand (when it says more than the short phrase).
+export type RoleRow = { verb: string; short: string; line: string };
 
 export type Role = {
   id: string;
@@ -166,23 +168,28 @@ export const ROLES: readonly Role[] = [
     rows: [
       {
         verb: 'Led',
+        short: 'A full refactor of a 25+ system React portal',
         line: 'A full refactor of a large, multi-system React portal (25+ systems) that suffered from slow load times, outdated architecture and inconsistent UI.',
       },
       {
         verb: 'Rebuilt',
+        short: 'The frontend architecture, on modern Next.js patterns',
         line: 'The frontend architecture on modern Next.js patterns, with leaner state management and the legacy code cleaned up. Initial load went from 60+ seconds to a few seconds.',
       },
       {
         verb: 'Designed',
+        short: 'One consistent UI across all systems',
         line: 'One consistent, modern UI across all systems, replacing outdated and unmaintainable components.',
       },
       {
         verb: 'Owned',
+        short: 'Major product decisions and cross-team coordination',
         line: "Major product decisions and cross-team coordination, as the primary point of responsibility for the portal's frontend quality and performance.",
       },
       {
         verb: 'Result',
-        line: 'Contributed to bringing new clients to the platform.',
+        short: 'Contributed to bringing new clients to the platform',
+        line: 'Contributed to bringing new clients to the platform',
       },
     ],
   },
@@ -198,11 +205,13 @@ export const ROLES: readonly Role[] = [
     rows: [
       {
         verb: 'Built',
-        line: 'The super app in React Native and Expo, and the website in Next.js.',
+        short: 'The super app in React Native and Expo, and the website in Next.js',
+        line: 'The super app in React Native and Expo, and the website in Next.js',
       },
       {
         verb: 'Worked with',
-        line: 'Cross-functional teams, to integrate the app with the rest of the product.',
+        short: 'Cross-functional teams, on integration and functionality',
+        line: 'Cross-functional teams, on integration and functionality',
       },
     ],
   },
@@ -218,6 +227,7 @@ export const ROLES: readonly Role[] = [
     rows: [
       {
         verb: 'Built',
+        short: "The company's official website, from scratch",
         line: "The company's official website from scratch: faster, more modern and fully responsive.",
       },
     ],

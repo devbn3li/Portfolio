@@ -2,7 +2,9 @@
 // currentColor: the Alexandria subset in use has no arrow glyphs.
 //
 // Stroke weights follow the diagram rule: 1px for structure, 2px for emphasis.
-// The text arrow is the exception: it is sized in em, so it scales with type.
+// State glyphs keep those weights at any size (non-scaling strokes), so a
+// 16px tick and a 56px tick are drawn with the same pen. The text arrow is
+// the exception: it is sized in em and scales with the type around it.
 
 type GlyphProps = { className?: string };
 
@@ -13,6 +15,7 @@ const STROKE = {
   strokeLinecap: 'round',
   strokeLinejoin: 'round',
 } as const;
+const PEN = { vectorEffect: 'non-scaling-stroke' } as const;
 
 /** Arrow between a before value and an after value. Size it in em. */
 export function ArrowGlyph({ className }: GlyphProps) {
@@ -36,7 +39,7 @@ export function TipGlyph({ className }: GlyphProps) {
 export function TickGlyph({ className }: GlyphProps) {
   return (
     <svg viewBox="0 0 16 16" className={className} {...HIDDEN} {...STROKE} strokeWidth={2}>
-      <path d="M3.5 8.5 6.5 11.5 12.5 4.5" />
+      <path d="M3.5 8.5 6.5 11.5 12.5 4.5" {...PEN} />
     </svg>
   );
 }
@@ -45,8 +48,8 @@ export function TickGlyph({ className }: GlyphProps) {
 export function DoneGlyph({ className }: GlyphProps) {
   return (
     <svg viewBox="0 0 16 16" className={className} {...HIDDEN} {...STROKE}>
-      <circle cx="8" cy="8" r="7" strokeWidth={1} />
-      <path d="M4.9 8.3 7.1 10.4 11.1 5.9" strokeWidth={2} />
+      <circle cx="8" cy="8" r="7" strokeWidth={1} {...PEN} />
+      <path d="M4.9 8.3 7.1 10.4 11.1 5.9" strokeWidth={2} {...PEN} />
     </svg>
   );
 }
@@ -55,7 +58,7 @@ export function DoneGlyph({ className }: GlyphProps) {
 export function WaitGlyph({ className }: GlyphProps) {
   return (
     <svg viewBox="0 0 16 16" className={className} {...HIDDEN} {...STROKE}>
-      <circle cx="8" cy="8" r="7" strokeWidth={1} strokeDasharray="2.4 2.5" />
+      <circle cx="8" cy="8" r="7" strokeWidth={1} strokeDasharray="2.4 2.5" {...PEN} />
     </svg>
   );
 }
@@ -64,8 +67,8 @@ export function WaitGlyph({ className }: GlyphProps) {
 export function ClockGlyph({ className }: GlyphProps) {
   return (
     <svg viewBox="0 0 16 16" className={className} {...HIDDEN} {...STROKE} strokeWidth={1}>
-      <circle cx="8" cy="8" r="7" />
-      <path d="M8 4.5V8l2.5 1.5" />
+      <circle cx="8" cy="8" r="7" {...PEN} />
+      <path d="M8 4.5V8l2.5 1.5" {...PEN} />
     </svg>
   );
 }
@@ -74,7 +77,7 @@ export function ClockGlyph({ className }: GlyphProps) {
 export function SpinGlyph({ className }: GlyphProps) {
   return (
     <svg viewBox="0 0 16 16" className={className} {...HIDDEN} {...STROKE} strokeWidth={2}>
-      <path d="M8 1.5A6.5 6.5 0 1 1 1.5 8" />
+      <path d="M8 1.5A6.5 6.5 0 1 1 1.5 8" {...PEN} />
     </svg>
   );
 }
@@ -98,8 +101,11 @@ export function StopGlyph({ className }: GlyphProps) {
 export function CopyGlyph({ className }: GlyphProps) {
   return (
     <svg viewBox="0 0 16 16" className={className} {...HIDDEN} {...STROKE} strokeWidth={1}>
-      <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
-      <path d="M10.5 5.5V4A1.5 1.5 0 0 0 9 2.5H4A1.5 1.5 0 0 0 2.5 4v5A1.5 1.5 0 0 0 4 10.5h1.5" />
+      <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" {...PEN} />
+      <path
+        d="M10.5 5.5V4A1.5 1.5 0 0 0 9 2.5H4A1.5 1.5 0 0 0 2.5 4v5A1.5 1.5 0 0 0 4 10.5h1.5"
+        {...PEN}
+      />
     </svg>
   );
 }

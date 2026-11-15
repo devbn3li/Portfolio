@@ -59,9 +59,9 @@ const valueText = (percent: number) =>
 const DIAGRAM_LABEL = `${FACET.title}. ${MORPH.tiles} tiles stand for ${MORPH.countLabel}: mismatched before the refactor, identical after it.`;
 
 /**
- * Frontend facet: the portal refactor. 28 mismatched windows settle into one
- * system. A single registered property, --shw-p (0 before, 1 after), drives
- * every tile, both faces and the drawn slider.
+ * Frontend facet: the portal refactor. MORPH.tiles mismatched windows settle
+ * into one system. A single registered property, --shw-p (0 before, 1 after),
+ * drives every tile, both faces and the drawn slider.
  */
 export function MorphScene({ className, controls = true, caption = true }: SceneProps) {
   const rootRef = useRef<HTMLElement>(null);
@@ -91,7 +91,12 @@ export function MorphScene({ className, controls = true, caption = true }: Scene
     if (!root) return;
     const text = valueText(target * 100);
     const from = Number(getComputedStyle(root).getPropertyValue('--shw-p'));
+    // Two steps. First retire the intro and pin the value where it stands;
+    // Chromium starts no transition in the same style change that removes an
+    // animation. Then, after a flush, turn the transition on and move.
     root.dataset.touched = '';
+    root.style.setProperty('--shw-p', String(from));
+    void root.offsetWidth;
     root.dataset.glide = '';
     root.style.setProperty('--shw-p', String(target));
 
@@ -192,9 +197,7 @@ export function MorphScene({ className, controls = true, caption = true }: Scene
             />
             <span className="shw-range-track" aria-hidden="true" />
             <span className="shw-range-fill" aria-hidden="true" />
-            <span className="shw-range-thumb" aria-hidden="true">
-              <span />
-            </span>
+            <span className="shw-range-thumb" aria-hidden="true" />
           </span>
           <button type="button" className={BUTTON} onClick={() => glide(1)}>
             After

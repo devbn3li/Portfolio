@@ -74,8 +74,13 @@ export function LoadRace({ className }: { className?: string }) {
             >
               {lane.value}
             </span>
+            {/* Both lanes end up loaded, so a finished run is the rest state.
+                Only the After lane is lit: Before stays neutral throughout. */}
             <span
-              className="shw-race-state inline-flex items-center gap-[5px] text-xs leading-[1.3] text-success"
+              className={cx(
+                'shw-race-state inline-flex items-center gap-[5px] text-xs leading-[1.3]',
+                lane.id === 'after' ? 'text-success' : 'text-muted'
+              )}
               data-lane={lane.id}
             >
               <DoneGlyph className="shw-glyph" />

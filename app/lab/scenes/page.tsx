@@ -1,24 +1,22 @@
 import type { Metadata } from 'next';
-import type { ComponentType, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import {
   CairoClock,
   CopyEmail,
   LoadRace,
-  MorphScene,
-  PipelineScene,
-  RequestScene,
   ResultPair,
-  ScheduleScene,
-  type SceneProps,
+  SCENE_BY_FACET,
 } from '@/components/showcase';
+import type { FacetId } from '@/components/showcase/content';
 
 export const metadata: Metadata = { title: 'Showcase scenes' };
 
-const SCENES: { id: string; name: string; Scene: ComponentType<SceneProps> }[] = [
-  { id: 'morph', name: 'MorphScene', Scene: MorphScene },
-  { id: 'request', name: 'RequestScene', Scene: RequestScene },
-  { id: 'pipeline', name: 'PipelineScene', Scene: PipelineScene },
-  { id: 'schedule', name: 'ScheduleScene', Scene: ScheduleScene },
+// `id` names the screenshots; `facet` picks the scene, as a layout would.
+const SCENES: { id: string; name: string; facet: FacetId }[] = [
+  { id: 'morph', name: 'MorphScene', facet: 'frontend' },
+  { id: 'request', name: 'RequestScene', facet: 'fullstack' },
+  { id: 'pipeline', name: 'PipelineScene', facet: 'delivery' },
+  { id: 'schedule', name: 'ScheduleScene', facet: 'automation' },
 ];
 
 // The three placements the layouts will use. Heights apply from tablet width
@@ -68,32 +66,35 @@ export default function ScenesLab() {
           a wide and short stage, and a compact tile.
         </p>
 
-        {SCENES.map(({ id, name, Scene }) => (
-          <section key={id} className="mt-14">
-            <h2 className="m-0 text-[22px]">{name}</h2>
-            <div className="mt-5 grid gap-6 xl:grid-cols-[minmax(0,840px)_280px] xl:items-start">
-              <Shot label="Full stage" shot={`${id}-full`} className={FULL}>
-                <Scene />
-              </Shot>
-              <Shot
-                label="Wide and short stage"
-                shot={`${id}-short`}
-                className={SHORT}
-                place="xl:col-start-1 xl:row-start-2"
-              >
-                <Scene />
-              </Shot>
-              <Shot
-                label="Compact tile, no controls"
-                shot={`${id}-compact`}
-                className={COMPACT}
-                place="xl:col-start-2 xl:row-start-1"
-              >
-                <Scene controls={false} />
-              </Shot>
-            </div>
-          </section>
-        ))}
+        {SCENES.map(({ id, name, facet }) => {
+          const Scene = SCENE_BY_FACET[facet];
+          return (
+            <section key={id} className="mt-14">
+              <h2 className="m-0 text-[22px]">{name}</h2>
+              <div className="mt-5 grid gap-6 xl:grid-cols-[minmax(0,840px)_280px] xl:items-start">
+                <Shot label="Full stage" shot={`${id}-full`} className={FULL}>
+                  <Scene />
+                </Shot>
+                <Shot
+                  label="Wide and short stage"
+                  shot={`${id}-short`}
+                  className={SHORT}
+                  place="xl:col-start-1 xl:row-start-2"
+                >
+                  <Scene />
+                </Shot>
+                <Shot
+                  label="Compact tile, no controls"
+                  shot={`${id}-compact`}
+                  className={COMPACT}
+                  place="xl:col-start-2 xl:row-start-1"
+                >
+                  <Scene controls={false} />
+                </Shot>
+              </div>
+            </section>
+          );
+        })}
 
         <section className="mt-14">
           <h2 className="m-0 text-[22px]">ResultPair</h2>

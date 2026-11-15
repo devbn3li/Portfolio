@@ -23,6 +23,8 @@ const arrival = (hop: number) => hop + 1;
 const API_HOLD = ANSWER - arrival(CALL) + 0.5;
 // Whole run, in steps: every hop, then the client's last flash.
 const STEPS = arrival(ANSWER) + 1.5;
+// The longest column decides the height of every outer node.
+const SLOTS = Math.max(clients.length, services.length);
 
 const DIAGRAM_LABEL = `${FACET.title}. ${listOf(clients.map(named))} call the ${named(
   api
@@ -88,7 +90,12 @@ export function RequestScene({ className, controls = true, caption = true }: Sce
       onAnimationEnd={onAnimationEnd}
     >
       <div className="shw-stage">
-        <div role="img" aria-label={DIAGRAM_LABEL} className="shw-req">
+        <div
+          role="img"
+          aria-label={DIAGRAM_LABEL}
+          className="shw-req"
+          style={vars({ '--shw-slots': SLOTS })}
+        >
           <span className="shw-req-col">
             {clients.map((client, k) => (
               <Node

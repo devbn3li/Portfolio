@@ -61,7 +61,8 @@ export function PipelineScene({ className, controls = true, caption = true }: Sc
                 <span className="shw-step-name">{step.name}</span>
                 <span className="shw-step-detail">{step.detail}</span>
                 <span className="shw-step-bar">
-                  <span />
+                  <span className="shw-is-run shw-bar-run" />
+                  <span className="shw-is-done shw-bar-done" />
                 </span>
                 <span className="shw-ring" />
               </span>

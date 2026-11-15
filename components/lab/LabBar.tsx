@@ -118,17 +118,17 @@ export default function LabBar() {
                   title={p.label}
                   className={`${pill(pinned === name)} inline-flex items-center gap-2`}
                 >
+                  {/* Swatches take their colours from the palette's own
+                      variables (data-palette), not inline styles, which
+                      browser extensions rewrite before hydration. */}
                   <span
                     aria-hidden
-                    className="inline-flex overflow-hidden rounded-full border border-body/30"
+                    data-palette={name}
+                    className="inline-flex overflow-hidden rounded-full border border-muted"
                   >
-                    {[p.page, p.brand, p.accent].map((hex, i) => (
-                      <span
-                        key={i}
-                        className="h-3 w-3"
-                        style={{ backgroundColor: hex }}
-                      />
-                    ))}
+                    <span className="h-3 w-3 bg-page" />
+                    <span className="h-3 w-3 bg-brand" />
+                    <span className="h-3 w-3 bg-accent" />
                   </span>
                   {name}
                 </button>

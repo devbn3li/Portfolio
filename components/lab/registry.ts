@@ -15,4 +15,11 @@ export const CONCEPTS: Concept[] = [
     blurb: 'The homepage as it is today, for comparison.',
     palette: 'lapis',
   },
+  {
+    id: 'bento',
+    name: 'Bento',
+    blurb:
+      'Everything is a tile. The interactive stage is the first screen, with the other three sides of the work beside it.',
+    palette: 'lapis',
+  },
 ];

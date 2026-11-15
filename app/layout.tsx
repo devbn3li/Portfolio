@@ -127,6 +127,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* The site is already dark and its colours are deliberate: ask the
+            Dark Reader extension not to recolour it. */}
+        <meta name="darkreader-lock" />
         {/* Colour roles from brand/palettes.json. Outside production every
             palette is exposed too, for the local design lab at /lab. */}
         <style

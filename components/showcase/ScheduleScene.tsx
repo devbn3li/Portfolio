@@ -8,13 +8,16 @@ import { useRun } from './useRun';
 
 const FACET = facet('automation');
 
-// Plain marks along the ruler: no times, no numbers. Every fourth is longer.
+// Plain marks along the ruler: no times, no numbers. Every fourth is longer,
+// and each long one has a grid line under it.
 const TICKS = Array.from({ length: 25 }, (_, i) => i);
+const GRID = TICKS.filter((i) => i % 4 === 0);
 
 const DIAGRAM_LABEL = `${FACET.title}. A timeline with one mark for each scheduled job: ${listOf(
   JOBS.map(named)
 )}. Every job has run.`;
 
+// One segment of the playhead. Every row carries one; the rows touch.
 function Playhead({ grip = false }: { grip?: boolean }) {
   return (
     <span className="shw-head">
@@ -45,11 +48,11 @@ export function ScheduleScene({ className, controls = true, caption = true }: Sc
             <span className="shw-lane">
               <span className="shw-ticks">
                 {TICKS.map((i) => (
-                  <i key={i} />
+                  <span key={i} />
                 ))}
               </span>
-              <Playhead grip />
             </span>
+            <Playhead grip />
           </span>
 
           {JOBS.map((job, i) => (
@@ -59,9 +62,13 @@ export function ScheduleScene({ className, controls = true, caption = true }: Sc
                 <span className="shw-job-detail">{job.detail}</span>
               </span>
               <span className="shw-lane">
+                <span className="shw-grid">
+                  {GRID.map((g) => (
+                    <span key={g} />
+                  ))}
+                </span>
                 <span className="shw-lane-band" />
                 <span className="shw-mark" />
-                <Playhead />
               </span>
               <span className="shw-job-state">
                 <span className="shw-st shw-st-glyph">
@@ -72,11 +79,12 @@ export function ScheduleScene({ className, controls = true, caption = true }: Sc
                     <DoneGlyph className="shw-glyph" />
                   </span>
                 </span>
-                <span className="shw-st">
+                <span className="shw-st shw-job-word">
                   <span className="shw-is-wait">Scheduled</span>
                   <span className="shw-is-done">Ran</span>
                 </span>
               </span>
+              <Playhead />
               <span className="shw-ring" />
             </span>
           ))}
