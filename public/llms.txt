@@ -1,0 +1,36 @@
+# Mohamed Ali (devbn3li)
+
+> Frontend-first software engineer based in Cairo, Egypt, working remotely with teams in London, Jordan and the US. Known online as devbn3li. Ships the whole product: UI, API and pipeline.
+
+Headline result: at SustainGRC he led the refactor of a 25+ system React portal and cut its initial load from over a minute to a few seconds.
+
+Mohamed is open for opportunities (frontend or full-stack roles and projects). The best way to reach him is email: muhammed.ali.hissein@gmail.com
+
+## Site
+
+- [Homepage](https://devbn3li.app/): experience, expertise, about and contact on one page
+
+## Experience
+
+- Frontend Developer, SustainGRC (Remote, London), 03/2025 to present: led a full refactor of a 25+ system React portal; rebuilt the frontend architecture on modern Next.js patterns, cutting initial load from 60+ seconds to a few seconds; designed one consistent UI across all systems; owned major product decisions and cross-team coordination as the primary point of responsibility for the portal's frontend quality and performance, which contributed to bringing new clients to the platform.
+- Frontend Engineer, Actus Go (Remote, Jordan), 08/2024 to 03/2025: built a super app in React Native and Expo, and its website in Next.js.
+- Intern Frontend Developer, SustainGRC (Remote, London), 01/2024 to 06/2024: designed and developed the company's official website from scratch.
+
+## Expertise
+
+- Large React codebases: untangling a multi-system portal into a clear, modern Next.js architecture
+- Performance: a 60+ second initial load brought down to a few seconds
+- Consistent UI at scale: one consistent UI across all systems
+- Web and mobile: React Native and Expo, plus Next.js
+- Backend and APIs: Node, Express and MongoDB, with Stripe for payments, including an ad system
+- Automation and delivery: unit and integration tests, Docker, EAS builds, scheduled cron jobs, email and push notifications, and Sentry monitoring
+
+## Stack
+
+React, Next.js, TypeScript, Tailwind CSS, Redux, React Native, Expo, Node.js, Express, MongoDB, Stripe, WebSockets, Docker, Azure, CI/CD
+
+## Profiles
+
+- [GitHub](https://github.com/devbn3li)
+- [LinkedIn](https://linkedin.com/in/devbn3li)
+- [Twitter](https://twitter.com/devbn3lii)
